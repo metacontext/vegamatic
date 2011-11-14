@@ -54,6 +54,8 @@ $TCA['tx_vegamatic_domain_model_amounts'] = array(
 	'ctrl' => array(
 		'title'	=> 'LLL:EXT:vegamatic/Resources/Private/Language/locallang_db.xml:tx_vegamatic_domain_model_amounts',
 		'label' => 'quantity',
+		'label_alt' => 'unit,goods',
+		'label_alt_force' => 1,
 		'tstamp' => 'tstamp',
 		'crdate' => 'crdate',
 		'cruser_id' => 'cruser_id',
@@ -156,4 +158,5 @@ $TCA['tx_vegamatic_domain_model_shops'] = array(
 	),
 );
 
+## EXTENSION BUILDER DEFAULTS END TOKEN - Everything BEFORE this line is overwritten with the defaults of the extension builder
 ?>

@@ -37,7 +37,7 @@ class Tx_Vegamatic_Domain_Model_Amounts extends Tx_Extbase_DomainObject_Abstract
 	/**
 	 * The quantity of this amount
 	 *
-	 * @var string
+	 * @var integer
 	 * @validate NotEmpty
 	 */
 	protected $quantity;
@@ -63,25 +63,6 @@ class Tx_Vegamatic_Domain_Model_Amounts extends Tx_Extbase_DomainObject_Abstract
 	 */
 	public function __construct() {
 
-	}
-
-	/**
-	 * Returns the quantity
-	 *
-	 * @return string $quantity
-	 */
-	public function getQuantity() {
-		return $this->quantity;
-	}
-
-	/**
-	 * Sets the quantity
-	 *
-	 * @param string $quantity
-	 * @return void
-	 */
-	public function setQuantity($quantity) {
-		$this->quantity = $quantity;
 	}
 
 	/**
@@ -120,6 +101,25 @@ class Tx_Vegamatic_Domain_Model_Amounts extends Tx_Extbase_DomainObject_Abstract
 	 */
 	public function setGoods(Tx_Vegamatic_Domain_Model_Goods $goods) {
 		$this->goods = $goods;
+	}
+
+	/**
+	 * Returns the quantity
+	 *
+	 * @return integer quantity
+	 */
+	public function getQuantity() {
+		return $this->quantity;
+	}
+
+	/**
+	 * Sets the quantity
+	 *
+	 * @param integer $quantity
+	 * @return integer quantity
+	 */
+	public function setQuantity($quantity) {
+		$this->quantity = $quantity;
 	}
 
 }

@@ -43,6 +43,13 @@ class Tx_Vegamatic_Domain_Model_Weeks extends Tx_Extbase_DomainObject_AbstractEn
 	protected $weekstamp;
 
 	/**
+	 * Further goods or amounts to buy for the week (or override of amounts for dishes)
+	 *
+	 * @var Tx_Extbase_Persistence_ObjectStorage<Tx_Vegamatic_Domain_Model_Amounts>
+	 */
+	protected $amounts;
+
+	/**
 	 * The seven main dishes for the week
 	 *
 	 * @var Tx_Extbase_Persistence_ObjectStorage<Tx_Vegamatic_Domain_Model_Dishes>
@@ -55,13 +62,6 @@ class Tx_Vegamatic_Domain_Model_Weeks extends Tx_Extbase_DomainObject_AbstractEn
 	 * @var Tx_Extbase_Persistence_ObjectStorage<Tx_Vegamatic_Domain_Model_Dishes>
 	 */
 	protected $sidedish;
-
-	/**
-	 * Further goods or amounts to buy for the week (or override of amounts for dishes)
-	 *
-	 * @var Tx_Extbase_Persistence_ObjectStorage<Tx_Vegamatic_Domain_Model_Amounts>
-	 */
-	protected $amounts;
 
 	/**
 	 * __construct
@@ -111,10 +111,49 @@ class Tx_Vegamatic_Domain_Model_Weeks extends Tx_Extbase_DomainObject_AbstractEn
 	}
 
 	/**
+	 * Adds a Amounts
+	 *
+	 * @param Tx_Vegamatic_Domain_Model_Amounts $amount
+	 * @return void
+	 */
+	public function addAmount(Tx_Vegamatic_Domain_Model_Amounts $amount) {
+		$this->amounts->attach($amount);
+	}
+
+	/**
+	 * Removes a Amounts
+	 *
+	 * @param Tx_Vegamatic_Domain_Model_Amounts $amountToRemove The Amounts to be removed
+	 * @return void
+	 */
+	public function removeAmount(Tx_Vegamatic_Domain_Model_Amounts $amountToRemove) {
+		$this->amounts->detach($amountToRemove);
+	}
+
+	/**
+	 * Returns the amounts
+	 *
+	 * @return Tx_Extbase_Persistence_ObjectStorage<Tx_Vegamatic_Domain_Model_Amounts> $amounts
+	 */
+	public function getAmounts() {
+		return $this->amounts;
+	}
+
+	/**
+	 * Sets the amounts
+	 *
+	 * @param Tx_Extbase_Persistence_ObjectStorage<Tx_Vegamatic_Domain_Model_Amounts> $amounts
+	 * @return void
+	 */
+	public function setAmounts(Tx_Extbase_Persistence_ObjectStorage $amounts) {
+		$this->amounts = $amounts;
+	}
+
+	/**
 	 * Adds a Dishes
 	 *
 	 * @param Tx_Vegamatic_Domain_Model_Dishes $maindish
-	 * @return Tx_Extbase_Persistence_ObjectStorage<Tx_Vegamatic_Domain_Model_Dishes> maindish
+	 * @return void
 	 */
 	public function addMaindish(Tx_Vegamatic_Domain_Model_Dishes $maindish) {
 		$this->maindish->attach($maindish);
@@ -124,7 +163,7 @@ class Tx_Vegamatic_Domain_Model_Weeks extends Tx_Extbase_DomainObject_AbstractEn
 	 * Removes a Dishes
 	 *
 	 * @param Tx_Vegamatic_Domain_Model_Dishes $maindishToRemove The Dishes to be removed
-	 * @return Tx_Extbase_Persistence_ObjectStorage<Tx_Vegamatic_Domain_Model_Dishes> maindish
+	 * @return void
 	 */
 	public function removeMaindish(Tx_Vegamatic_Domain_Model_Dishes $maindishToRemove) {
 		$this->maindish->detach($maindishToRemove);
@@ -133,7 +172,7 @@ class Tx_Vegamatic_Domain_Model_Weeks extends Tx_Extbase_DomainObject_AbstractEn
 	/**
 	 * Returns the maindish
 	 *
-	 * @return Tx_Extbase_Persistence_ObjectStorage<Tx_Vegamatic_Domain_Model_Dishes> maindish
+	 * @return Tx_Extbase_Persistence_ObjectStorage<Tx_Vegamatic_Domain_Model_Dishes> $maindish
 	 */
 	public function getMaindish() {
 		return $this->maindish;
@@ -143,7 +182,7 @@ class Tx_Vegamatic_Domain_Model_Weeks extends Tx_Extbase_DomainObject_AbstractEn
 	 * Sets the maindish
 	 *
 	 * @param Tx_Extbase_Persistence_ObjectStorage<Tx_Vegamatic_Domain_Model_Dishes> $maindish
-	 * @return Tx_Extbase_Persistence_ObjectStorage<Tx_Vegamatic_Domain_Model_Dishes> maindish
+	 * @return void
 	 */
 	public function setMaindish(Tx_Extbase_Persistence_ObjectStorage $maindish) {
 		$this->maindish = $maindish;
@@ -186,45 +225,6 @@ class Tx_Vegamatic_Domain_Model_Weeks extends Tx_Extbase_DomainObject_AbstractEn
 	 */
 	public function setSidedish(Tx_Extbase_Persistence_ObjectStorage $sidedish) {
 		$this->sidedish = $sidedish;
-	}
-
-	/**
-	 * Adds a Amounts
-	 *
-	 * @param Tx_Vegamatic_Domain_Model_Amounts $amount
-	 * @return void
-	 */
-	public function addAmount(Tx_Vegamatic_Domain_Model_Amounts $amount) {
-		$this->amounts->attach($amount);
-	}
-
-	/**
-	 * Removes a Amounts
-	 *
-	 * @param Tx_Vegamatic_Domain_Model_Amounts $amountToRemove The Amounts to be removed
-	 * @return void
-	 */
-	public function removeAmount(Tx_Vegamatic_Domain_Model_Amounts $amountToRemove) {
-		$this->amounts->detach($amountToRemove);
-	}
-
-	/**
-	 * Returns the amounts
-	 *
-	 * @return Tx_Extbase_Persistence_ObjectStorage<Tx_Vegamatic_Domain_Model_Amounts> $amounts
-	 */
-	public function getAmounts() {
-		return $this->amounts;
-	}
-
-	/**
-	 * Sets the amounts
-	 *
-	 * @param Tx_Extbase_Persistence_ObjectStorage<Tx_Vegamatic_Domain_Model_Amounts> $amounts
-	 * @return void
-	 */
-	public function setAmounts(Tx_Extbase_Persistence_ObjectStorage $amounts) {
-		$this->amounts = $amounts;
 	}
 
 }

@@ -109,6 +109,7 @@ $TCA['tx_vegamatic_domain_model_dishes'] = array(
 				'type' => 'inline',
 				'foreign_table' => 'tx_vegamatic_domain_model_amounts',
 				'foreign_field' => 'dishes',
+				'minitems'      => 0,		
 				'maxitems'      => 9999,
 				'appearance' => array(
 					'collapse' => 0,
@@ -119,16 +120,7 @@ $TCA['tx_vegamatic_domain_model_dishes'] = array(
 				),
 			),
 		),
-		'weeks' => array(
-			'config' => array(
-				'type' => 'passthrough',
-			),
-		),
-		'weeks' => array(
-			'config' => array(
-				'type' => 'passthrough',
-			),
-		),
 	),
 );
+## EXTENSION BUILDER DEFAULTS END TOKEN - Everything BEFORE this line is overwritten with the defaults of the extension builder
 ?>

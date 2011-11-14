@@ -109,34 +109,24 @@ $TCA['tx_vegamatic_domain_model_weeks'] = array(
 			'exclude' => 0,
 			'label' => 'LLL:EXT:vegamatic/Resources/Private/Language/locallang_db.xml:tx_vegamatic_domain_model_weeks.maindish',
 			'config' => array(
-				'type' => 'inline',
+				'type' => 'select',
 				'foreign_table' => 'tx_vegamatic_domain_model_dishes',
-				'foreign_field' => 'weeks',
-				'maxitems'      => 9999,
-				'appearance' => array(
-					'collapse' => 0,
-					'levelLinksPosition' => 'top',
-					'showSynchronizationLink' => 1,
-					'showPossibleLocalizationRecords' => 1,
-					'showAllLocalizationLink' => 1
-				),
+				'MM' => 'tx_vegamatic_weeks_dishes_mm',
+				'size' => 7,
+				'minitems' => 0,
+				'maxitems' => 7,
 			),
 		),
 		'sidedish' => array(
 			'exclude' => 0,
 			'label' => 'LLL:EXT:vegamatic/Resources/Private/Language/locallang_db.xml:tx_vegamatic_domain_model_weeks.sidedish',
 			'config' => array(
-				'type' => 'inline',
+				'type' => 'select',
 				'foreign_table' => 'tx_vegamatic_domain_model_dishes',
-				'foreign_field' => 'weeks',
-				'maxitems'      => 9999,
-				'appearance' => array(
-					'collapse' => 0,
-					'levelLinksPosition' => 'top',
-					'showSynchronizationLink' => 1,
-					'showPossibleLocalizationRecords' => 1,
-					'showAllLocalizationLink' => 1
-				),
+				'MM' => 'tx_vegamatic_weeks_sidedishes_mm',	
+				'size' => 7,	
+				'minitems' => 0,
+				'maxitems' => 7,
 			),
 		),
 		'amounts' => array(
@@ -146,7 +136,8 @@ $TCA['tx_vegamatic_domain_model_weeks'] = array(
 				'type' => 'inline',
 				'foreign_table' => 'tx_vegamatic_domain_model_amounts',
 				'foreign_field' => 'weeks',
-				'maxitems'      => 9999,
+				'minitems' => 0,
+				'maxitems' => 9999,
 				'appearance' => array(
 					'collapse' => 0,
 					'levelLinksPosition' => 'top',
@@ -158,4 +149,5 @@ $TCA['tx_vegamatic_domain_model_weeks'] = array(
 		),
 	),
 );
+## EXTENSION BUILDER DEFAULTS END TOKEN - Everything BEFORE this line is overwritten with the defaults of the extension builder
 ?>

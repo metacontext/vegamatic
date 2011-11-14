@@ -54,16 +54,21 @@ class Tx_Vegamatic_Domain_Model_AmountsTest extends Tx_Extbase_Tests_Unit_BaseTe
 	/**
 	 * @test
 	 */
-	public function getQuantityReturnsInitialValueForString() { }
+	public function getQuantityReturnsInitialValueForInteger() { 
+		$this->assertSame(
+			0,
+			$this->fixture->getQuantity()
+		);
+	}
 
 	/**
 	 * @test
 	 */
-	public function setQuantityForStringSetsQuantity() { 
-		$this->fixture->setQuantity('Conceived at T3CON10');
+	public function setQuantityForIntegerSetsQuantity() { 
+		$this->fixture->setQuantity(12);
 
 		$this->assertSame(
-			'Conceived at T3CON10',
+			12,
 			$this->fixture->getQuantity()
 		);
 	}

@@ -106,19 +106,37 @@ $TCA['tx_vegamatic_domain_model_goods'] = array(
 			'exclude' => 0,
 			'label' => 'LLL:EXT:vegamatic/Resources/Private/Language/locallang_db.xml:tx_vegamatic_domain_model_goods.shop',
 			'config' => array(
-				'type' => 'inline',
+				'type' => 'select',
 				'foreign_table' => 'tx_vegamatic_domain_model_shops',
 				'minitems' => 0,
 				'maxitems' => 1,
-				'appearance' => array(
-					'collapse' => 0,
-					'levelLinksPosition' => 'top',
-					'showSynchronizationLink' => 1,
-					'showPossibleLocalizationRecords' => 1,
-					'showAllLocalizationLink' => 1
-				),
+				'wizards' => Array(
+					'_PADDING' => 2,
+					'_VERTICAL' => 1,
+					'add' => Array(
+						'type' => 'popup',
+						'JSopenParams' => 'height=550,width=900,status=0,menubar=0,scrollbars=1',				
+						'title' => 'Create new',
+						'icon' => 'add.gif',
+						'params' => Array(
+							'table'=>'tx_vegamatic_domain_model_shops',
+							'pid' => '###CURRENT_PID###',
+							'setValue' => 'prepend'
+						),
+						'script' => 'wizard_add.php',
+					),
+					'edit' => Array(
+						'type' => 'popup',
+						'title' => 'LLL:EXT:hisodat/Resources/Private/Language/locallang_db.xml:tx_hisodat_tca_wizards.edit',
+						'icon' => 'edit2.gif',
+						'JSopenParams' => 'height=550,width=900,status=0,menubar=0,scrollbars=1',
+						'popup_onlyOpenIfSelected' => 1,
+						'script' => 'wizard_edit.php',
+					),					
+				),		
 			),
 		),
 	),
 );
+## EXTENSION BUILDER DEFAULTS END TOKEN - Everything BEFORE this line is overwritten with the defaults of the extension builder
 ?>

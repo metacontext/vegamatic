@@ -8,15 +8,14 @@ Tx_Extbase_Utility_Extension::configurePlugin(
 	'Weeks',
 	array(
 		'Weeks' => 'list, show, new, create, edit, update, delete',
-		'Shops' => 'list, show, new, create, edit, update, delete',
 		
 	),
 	// non-cacheable actions
 	array(
 		'Weeks' => 'create, update, delete',
-		'Shops' => 'create, update, delete',
 		
 	)
 );
 
+## EXTENSION BUILDER DEFAULTS END TOKEN - Everything BEFORE this line is overwritten with the defaults of the extension builder
 ?>

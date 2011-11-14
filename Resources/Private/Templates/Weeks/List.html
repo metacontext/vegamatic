@@ -24,11 +24,11 @@ Otherwise your changes will be overwritten the next time you save the extension 
 		<th> </th>
 	</tr>
 
-	<f:for each="{weeks}" as="weeks">
+	<f:for each="{weeks}" as="week">
 		<tr>
-			<td><f:link.action action="show" arguments="{weeks : weeks}"> {weeks.weekstamp -> f:format.date()}</f:link.action></td>
-			<td><f:link.action action="edit" arguments="{weeks : weeks}">Edit</f:link.action></td>
-			<td><f:link.action action="delete" arguments="{weeks : weeks}">Delete</f:link.action></td>
+			<td><f:link.action action="show" arguments="{weeks : week}">{week.weekstamp -> f:format.date()}</f:link.action></td>
+			<td><f:link.action action="edit" arguments="{weeks : week}">Edit</f:link.action></td>
+			<td><f:link.action action="delete" arguments="{weeks : week}">Delete</f:link.action></td>
 		</tr>
 	</f:for>
 </table>
