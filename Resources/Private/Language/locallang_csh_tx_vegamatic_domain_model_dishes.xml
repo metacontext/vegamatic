@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<T3locallang>
+	<meta type="array">
+		<description>Context Sensitive Help (CSH) for table tx_vegamatic_domain_model_dishes</description>
+		<type>CSH</type>
+		<csh_table>tx_vegamatic_domain_model_dishes</csh_table>
+	</meta>
+	<data type="array">
+	<languageKey index="default" type="array">
+			<label index="name.description">Name of the dish</label>
+			<label index="amounts.description">The amounts of ingredients that are needed for this dish</label>
+		</languageKey>
+	</data>
+</T3locallang>

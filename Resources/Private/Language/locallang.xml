@@ -6,6 +6,23 @@
 	</meta>
 	<data type="array">
 		<languageKey index="default" type="array">
+			<label index="tx_vegamatic_domain_model_dishes">The dishes for each day of the week</label>
+			<label index="tx_vegamatic_domain_model_dishes.name">Name of the dish</label>
+			<label index="tx_vegamatic_domain_model_dishes.amounts">The amounts of ingredients that are needed for this dish</label>
+			<label index="tx_vegamatic_domain_model_amounts">The amount of ingredients for a dish</label>
+			<label index="tx_vegamatic_domain_model_amounts.quantity">The quantity of this amount</label>
+			<label index="tx_vegamatic_domain_model_amounts.unit">The kind of quantity (number, weight ec.)</label>
+			<label index="tx_vegamatic_domain_model_amounts.goods">The ingredient connected to this amount</label>
+			<label index="tx_vegamatic_domain_model_goods">The products to buy</label>
+			<label index="tx_vegamatic_domain_model_goods.name">Name of the product</label>
+			<label index="tx_vegamatic_domain_model_goods.shop">The shop where to buy the product</label>
+			<label index="tx_vegamatic_domain_model_weeks">The weeks of a year</label>
+			<label index="tx_vegamatic_domain_model_weeks.weekstamp">Timestamp for the week to plan starting monday</label>
+			<label index="tx_vegamatic_domain_model_weeks.maindish">The seven main dishes for the week</label>
+			<label index="tx_vegamatic_domain_model_weeks.sidedish">The seven side dishes for the week</label>
+			<label index="tx_vegamatic_domain_model_weeks.amounts">Further goods or amounts to buy for the week (or override of amounts for dishes)</label>
+			<label index="tx_vegamatic_domain_model_shops">The shops where to buy the ingrediens</label>
+			<label index="tx_vegamatic_domain_model_shops.name">Name of the shop</label>
 		</languageKey>
 	</data>
 </T3locallang>

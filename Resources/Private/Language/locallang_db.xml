@@ -6,6 +6,23 @@
 	</meta>
 	<data type="array">
 		<languageKey index="default" type="array">
+			<label index="tx_vegamatic_domain_model_dishes">Dishes</label>
+			<label index="tx_vegamatic_domain_model_dishes.name">Name</label>
+			<label index="tx_vegamatic_domain_model_dishes.amounts">Amounts</label>
+			<label index="tx_vegamatic_domain_model_amounts">Amounts</label>
+			<label index="tx_vegamatic_domain_model_amounts.quantity">Quantity</label>
+			<label index="tx_vegamatic_domain_model_amounts.unit">Unit</label>
+			<label index="tx_vegamatic_domain_model_amounts.goods">Goods</label>
+			<label index="tx_vegamatic_domain_model_goods">Goods</label>
+			<label index="tx_vegamatic_domain_model_goods.name">Name</label>
+			<label index="tx_vegamatic_domain_model_goods.shop">Shop</label>
+			<label index="tx_vegamatic_domain_model_weeks">Weeks</label>
+			<label index="tx_vegamatic_domain_model_weeks.weekstamp">Weekstamp</label>
+			<label index="tx_vegamatic_domain_model_weeks.maindish">Maindish</label>
+			<label index="tx_vegamatic_domain_model_weeks.sidedish">Sidedish</label>
+			<label index="tx_vegamatic_domain_model_weeks.amounts">Amounts</label>
+			<label index="tx_vegamatic_domain_model_shops">Shops</label>
+			<label index="tx_vegamatic_domain_model_shops.name">Name</label>
 		</languageKey>
 	</data>
 </T3locallang>
