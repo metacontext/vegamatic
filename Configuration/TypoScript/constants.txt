@@ -12,3 +12,14 @@ plugin.tx_vegamatic {
 		storagePid = 
 	}
 }
+
+lib.config.doctype = html5
+lib.config.xmlprologue =
+lib.config.doctypeswitch = 0
+lib.config.nocache = 1
+lib.config.inttarget =
+lib.config.exttarget =
+lib.config.locale = de_DE.utf8
+lib.page.renderingengine = pureTS
+lib.page.csssignature = vegamatic_
+lib.config.prefixcomments = 1

@@ -62,6 +62,21 @@ class Tx_Vegamatic_Domain_Model_Weeks extends Tx_Extbase_DomainObject_AbstractEn
 	 * @var Tx_Extbase_Persistence_ObjectStorage<Tx_Vegamatic_Domain_Model_Dishes>
 	 */
 	protected $sidedish;
+	
+	/** 
+	 * Shopping list generated from main and sidedishes, ordered by shops
+	 * 
+	 * @var array
+	 */
+	protected $generatedShoppingList;
+	
+	/**
+	 * Persisted shopping list
+	 * 
+	 * @var string
+	 */
+	// VEGAMATIC TODO: Insert new Domain Object "Lists" that consist of amounts and goods drawn from $generatedShoppingList
+	protected $shoppingList;
 
 	/**
 	 * __construct
@@ -227,5 +242,86 @@ class Tx_Vegamatic_Domain_Model_Weeks extends Tx_Extbase_DomainObject_AbstractEn
 		$this->sidedish = $sidedish;
 	}
 
+	/**
+	 * Returns the shopping list
+	 *
+	 * @return string $shoppingList
+	 */
+#	public function getShoppingList() {
+#		return $this->shoppingList;
+#	}
+
+	/**
+	 * Sets the shopping list
+	 *
+	 * @param Tx_Extbase_Persistence_ObjectStorage<Tx_Vegamatic_Domain_Model_Lists> $shoppingList
+	 * @return void
+	 */
+#	public function setSidedish(Tx_Extbase_Persistence_ObjectStorage $shoppingList) {
+#		$this->shoppingList = $shoppingList;
+#	}	
+
+	/**
+	 * @return array shopping list ordered by shop
+	 */
+	public function getGeneratedShoppingList() {
+		
+		// collect all ingredients for the maindishes
+		if (is_object($this->getMaindish())) {
+			
+			foreach ($this->getMaindish() as $maindish) {
+				
+				// if the dish has ingredients that need to be bought
+				if (is_object($maindish->getAmounts())) {
+					
+					foreach ($maindish->getAmounts() as $amounts) {
+						
+						$ingredients[] = array(
+							'uid' => $amounts->getUid(),						
+							'quantity' => $amounts->getQuantity(),
+							'unit' => $amounts->getUnit(),
+							'goods' => $amounts->getGoods()->getName(),
+							'shop' => $amounts->getGoods()->getShop()->getName(),
+						);
+
+					}
+				}
+			}
+		}
+		
+		// collect all ingredients for the sidedishes
+		if (is_object($this->getSidedish())) {
+			
+			foreach ($this->getSidedish() as $sidedish) {
+				
+				// if the dish has ingredients that need to be bought
+				if (is_object($sidedish->getAmounts())) {
+					
+					foreach ($sidedish->getAmounts() as $amounts) {
+						
+						$ingredients[] = array(
+							'uid' => $amounts->getUid(),						
+							'quantity' => $amounts->getQuantity(),
+							'unit' => $amounts->getUnit(),
+							'goods' => $amounts->getGoods()->getName(),
+							'shop' => $amounts->getGoods()->getShop()->getName(),
+						);
+
+					}
+				}
+			}			
+		}
+		
+		// fuse ingredients
+		
+		// is it possible to persist the generated list right here if no list exits yet? this property might have to be always loaded so that this can be done (greedy)
+		
+		debug($ingredients, '$ingredients');
+		die();
+		
+		return $this->shoppingList;
+		
+	}
+	
 }
 ?>

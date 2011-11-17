@@ -9,22 +9,7 @@ plugin.tx_vegamatic {
 	}
 }
 
-plugin.tx_vegamatic._CSS_DEFAULT_STYLE (
-	input.f3-form-error {
-		background-color:#FF9F9F;
-		border: 1px #FF0000 solid;
-	}
-
-	.tx-vegamatic table {
-		border-collapse:separate;
-		border-spacing:10px;
-	}
-
-	.tx-vegamatic table th {
-		font-weight:bold;
-	}
-
-	.tx-vegamatic table td {
-		vertical-align:top;
-	}
-)
+config.disableAllHeaderCode = 1
+tt_content.stdWrap.innerWrap.cObject >
+tt_content.stdWrap.innerWrap2 >
+page.10 < styles.content.get

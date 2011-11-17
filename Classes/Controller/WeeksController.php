@@ -64,11 +64,11 @@ class Tx_Vegamatic_Controller_WeeksController extends Tx_Extbase_MVC_Controller_
 	/**
 	 * action show
 	 *
-	 * @param $weeks
+	 * @param $week
 	 * @return void
 	 */
-	public function showAction(Tx_Vegamatic_Domain_Model_Weeks $weeks) {
-		$this->view->assign('weeks', $weeks);
+	public function showAction(Tx_Vegamatic_Domain_Model_Weeks $week) {
+		$this->view->assign('week', $week);
 	}
 
 	/**

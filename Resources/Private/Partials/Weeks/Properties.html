@@ -1,10 +1,56 @@
-<table class="tx-vegamatic" >
-	<tr>
-		<td>
-			<f:translate key="tx_vegamatic_domain_model_weeks.weekstamp" />
-		</td>
-		<td>
-			{weeks.weekstamp -> f:format.date()}
-		</td>
-	</tr>
-</table>
+<h2>Woche {week.weekstamp -> f:format.date()}</h2>
+<p><f:link.action action="list">Back to list</f:link.action></p>
+
+<dl class="tabs contained">
+	<dd><a href="#simpleContained1" class="active">Wochenübersicht</a></dd>
+	<dd><a href="#simpleContained2">Einkaufszettel</a></dd>
+</dl>
+		
+<ul class="tabs-content contained">
+	<li class="active" id="simpleContained1Tab">
+	
+		{week.generatedShoppingList}
+	
+		<p>
+			<a class="nice medium radius white button" href="#">Zettel ergänzen/überschreiben</a>
+			<br/> Speichert die generierte Liste in einem verbundenen Domänenobjekt "List" (inkl. weekstamp). Von dort können dann Veränderungen
+			vorgenommen werden. Ab diesem Punkt hat diese Liste Vorrang vor der generierten Ansicht (week.shoppingList vs. week.savedShoppingList).
+		</p>
+		<p><a class="nice medium radius white button" href="#">Zettel herunterladenschicken oder verschicken</a></p>
+		
+	</li>
+	<li id="simpleContained2Tab">
+	
+		<div class="row">
+			<div class="six columns">
+			
+			<h4>Hauptgerichte</h4>
+		
+			<ul>
+			<f:for each="{week.maindish}" as="maindish">
+				<li>{maindish.name}</li>
+			</f:for>
+			</ul>
+			
+			</div>
+			
+			<div class="six columns">
+			
+			<h4>Beilagen</h4>
+		
+			<ul>
+			<f:for each="{week.sidedish}" as="sidedish">
+				<li>{sidedish.name}</li>
+			</f:for>
+			</ul>
+			
+			</div>	
+		</div>
+		
+		<div class="row">
+			<p><a class="nice medium radius white button" href="#">Gerichte zuordnen</a></p>
+			<p><a class="nice medium radius white button" href="#">Neue Gerichte anlegen...</a></p>	
+		</div>	
+	
+	</li>
+</ul>

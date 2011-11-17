@@ -1,0 +1,23 @@
+input.f3-form-error {
+	background-color:#FF9F9F;
+	border: 1px #FF0000 solid;
+}
+
+table {
+	margin: 1em;
+	border: 1px solid #333;
+	border-collapse: collapse;
+	border-spacing: 10px;
+}
+
+table th {
+	font-weight: bold;
+	border: 1px solid #333;
+	padding: 1em;
+}
+
+table td {
+	vertical-align: top;
+	border: 1px solid #333;
+	padding: 1em;
+}
