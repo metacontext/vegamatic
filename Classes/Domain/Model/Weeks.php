@@ -62,21 +62,6 @@ class Tx_Vegamatic_Domain_Model_Weeks extends Tx_Extbase_DomainObject_AbstractEn
 	 * @var Tx_Extbase_Persistence_ObjectStorage<Tx_Vegamatic_Domain_Model_Dishes>
 	 */
 	protected $sidedish;
-	
-	/** 
-	 * Shopping list generated from main and sidedishes, ordered by shops
-	 * 
-	 * @var array
-	 */
-	protected $generatedShoppingList;
-	
-	/**
-	 * Persisted shopping list
-	 * 
-	 * @var array
-	 */
-	// VEGAMATIC TODO: Insert new Domain Object "Lists" that consist of amounts and goods drawn from $generatedShoppingList
-	protected $shoppingList;
 
 	/**
 	 * __construct
@@ -148,11 +133,8 @@ class Tx_Vegamatic_Domain_Model_Weeks extends Tx_Extbase_DomainObject_AbstractEn
 	 *
 	 * @return Tx_Extbase_Persistence_ObjectStorage<Tx_Vegamatic_Domain_Model_Amounts> $amounts
 	 */
-	public function getAmounts() {
-		
-		
-		
-		return $this->amounts;
+	public function getAmounts() {	
+		return clone $this->amounts;
 	}
 
 	/**
@@ -244,94 +226,41 @@ class Tx_Vegamatic_Domain_Model_Weeks extends Tx_Extbase_DomainObject_AbstractEn
 	}
 
 	/**
-	 * Returns the shopping list
-	 *
-	 * @return string $shoppingList
+	 * @return Tx_Extbase_Persistence_ObjectStorage<Tx_Vegamatic_Domain_Model_Amounts> $shoppingList
 	 */
 	public function getShoppingList() {
 		
-		if (is_object($this->getAmounts())) {
-debug($this->getAmounts());
-
-		
-
-		}
-		
-debug($this->shoppingList, '$this->shoppingList');
-die();
-		
-		return $this->shoppingList;
-	}
-	
-
-	/**
-	 * @return Tx_Extbase_Persistence_ObjectStorage<Tx_Vegamatic_Domain_Model_Amounts>
-	 */
-	private function getDishAmounts() {
+		$shoppingList = $this->getAmounts();
 		
 		// collect all ingredients for the maindishes
 		if (is_object($this->getMaindish())) {
-			
 			foreach ($this->getMaindish() as $maindish) {
-				
 				// if the dish has ingredients that need to be bought
 				if (is_object($maindish->getAmounts())) {
-					
-					foreach ($maindish->getAmounts() as $amounts) {
-						
-						$ingredients[] = array(
-							'uid' => $amounts->getGoods()->getUid(),						
-							'quantity' => $amounts->getQuantity(),
-							'unit' => $amounts->getUnit(),
-							'goods' => $amounts->getGoods()->getName(),
-							'shop' => $amounts->getGoods()->getShop()->getName(),
-						);
-
+					foreach ($maindish->getAmounts() as $amount) {
+						$shoppingList->attach($amount);
 					}
 				}
 			}
 		}
 		
 		// collect all ingredients for the sidedishes
-		if (is_object($this->getSidedish())) {
-			
-			foreach ($this->getSidedish() as $sidedish) {
-				
-				// if the dish has ingredients that need to be bought
-				if (is_object($sidedish->getAmounts())) {
-					
-					foreach ($sidedish->getAmounts() as $amounts) {
-						
-						$ingredients[] = array(
-							'uid' => $amounts->getGoods()->getUid(),						
-							'quantity' => $amounts->getQuantity(),
-							'unit' => $amounts->getUnit(),
-							'goods' => $amounts->getGoods()->getName(),
-							'shop' => $amounts->getGoods()->getShop()->getName(),
-						);
-
+		if (is_object($this->getSidedish())) {	
+			foreach ($this->getSidedish() as $sidedish) {				
+				// if the sidedish has ingredients that need to be bought
+				if (is_object($sidedish->getAmounts())) {					
+					foreach ($sidedish->getAmounts() as $amount) {
+						$shoppingList->attach($amount);
 					}
 				}
 			}			
 		}
 		
-		// fuse ingredients
-		$generatedList = array();
-		foreach ($ingredients as $key => $ingredient) {
-			
-			$uid = $ingredient['uid'];
-			
-			if ($uid == $generatedList[$uid]['uid']) {
-				$generatedList[$uid]['quantity'] = $generatedList[$uid]['quantity'] + $ingredient['quantity'];
-			} else {
-				$generatedList[$uid] = $ingredients[$key];
-			}
-			
-		}
-		
-		$this->generatedShoppingList = array_values($generatedList);
+		debug($shoppingList->count());
+		debug($shoppingList->toArray());
+		die();
 	
-		return $this->generatedShoppingList;
+		return $shoppingList;
 		
 	}
 	
