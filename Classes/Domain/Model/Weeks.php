@@ -73,7 +73,7 @@ class Tx_Vegamatic_Domain_Model_Weeks extends Tx_Extbase_DomainObject_AbstractEn
 	/**
 	 * Persisted shopping list
 	 * 
-	 * @var string
+	 * @var array
 	 */
 	// VEGAMATIC TODO: Insert new Domain Object "Lists" that consist of amounts and goods drawn from $generatedShoppingList
 	protected $shoppingList;
@@ -119,9 +119,7 @@ class Tx_Vegamatic_Domain_Model_Weeks extends Tx_Extbase_DomainObject_AbstractEn
 		 * You may modify the constructor of this class instead
 		 */
 		$this->maindish = new Tx_Extbase_Persistence_ObjectStorage();
-		
-		$this->sidedish = new Tx_Extbase_Persistence_ObjectStorage();
-		
+		$this->sidedish = new Tx_Extbase_Persistence_ObjectStorage();		
 		$this->amounts = new Tx_Extbase_Persistence_ObjectStorage();
 	}
 
@@ -151,6 +149,9 @@ class Tx_Vegamatic_Domain_Model_Weeks extends Tx_Extbase_DomainObject_AbstractEn
 	 * @return Tx_Extbase_Persistence_ObjectStorage<Tx_Vegamatic_Domain_Model_Amounts> $amounts
 	 */
 	public function getAmounts() {
+		
+		
+		
 		return $this->amounts;
 	}
 
@@ -247,24 +248,26 @@ class Tx_Vegamatic_Domain_Model_Weeks extends Tx_Extbase_DomainObject_AbstractEn
 	 *
 	 * @return string $shoppingList
 	 */
-#	public function getShoppingList() {
-#		return $this->shoppingList;
-#	}
+	public function getShoppingList() {
+		
+		if (is_object($this->getAmounts())) {
+debug($this->getAmounts());
+
+		
+
+		}
+		
+debug($this->shoppingList, '$this->shoppingList');
+die();
+		
+		return $this->shoppingList;
+	}
+	
 
 	/**
-	 * Sets the shopping list
-	 *
-	 * @param Tx_Extbase_Persistence_ObjectStorage<Tx_Vegamatic_Domain_Model_Lists> $shoppingList
-	 * @return void
+	 * @return Tx_Extbase_Persistence_ObjectStorage<Tx_Vegamatic_Domain_Model_Amounts>
 	 */
-#	public function setSidedish(Tx_Extbase_Persistence_ObjectStorage $shoppingList) {
-#		$this->shoppingList = $shoppingList;
-#	}	
-
-	/**
-	 * @return array shopping list ordered by shop
-	 */
-	public function getGeneratedShoppingList() {
+	private function getDishAmounts() {
 		
 		// collect all ingredients for the maindishes
 		if (is_object($this->getMaindish())) {
@@ -277,7 +280,7 @@ class Tx_Vegamatic_Domain_Model_Weeks extends Tx_Extbase_DomainObject_AbstractEn
 					foreach ($maindish->getAmounts() as $amounts) {
 						
 						$ingredients[] = array(
-							'uid' => $amounts->getUid(),						
+							'uid' => $amounts->getGoods()->getUid(),						
 							'quantity' => $amounts->getQuantity(),
 							'unit' => $amounts->getUnit(),
 							'goods' => $amounts->getGoods()->getName(),
@@ -300,7 +303,7 @@ class Tx_Vegamatic_Domain_Model_Weeks extends Tx_Extbase_DomainObject_AbstractEn
 					foreach ($sidedish->getAmounts() as $amounts) {
 						
 						$ingredients[] = array(
-							'uid' => $amounts->getUid(),						
+							'uid' => $amounts->getGoods()->getUid(),						
 							'quantity' => $amounts->getQuantity(),
 							'unit' => $amounts->getUnit(),
 							'goods' => $amounts->getGoods()->getName(),
@@ -313,13 +316,22 @@ class Tx_Vegamatic_Domain_Model_Weeks extends Tx_Extbase_DomainObject_AbstractEn
 		}
 		
 		// fuse ingredients
+		$generatedList = array();
+		foreach ($ingredients as $key => $ingredient) {
+			
+			$uid = $ingredient['uid'];
+			
+			if ($uid == $generatedList[$uid]['uid']) {
+				$generatedList[$uid]['quantity'] = $generatedList[$uid]['quantity'] + $ingredient['quantity'];
+			} else {
+				$generatedList[$uid] = $ingredients[$key];
+			}
+			
+		}
 		
-		// is it possible to persist the generated list right here if no list exits yet? this property might have to be always loaded so that this can be done (greedy)
-		
-		debug($ingredients, '$ingredients');
-		die();
-		
-		return $this->shoppingList;
+		$this->generatedShoppingList = array_values($generatedList);
+	
+		return $this->generatedShoppingList;
 		
 	}
 	
