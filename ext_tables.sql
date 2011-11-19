@@ -46,6 +46,7 @@ CREATE TABLE tx_vegamatic_domain_model_amounts (
 
 	quantity int(11) DEFAULT '0' NOT NULL,
 	unit int(11) DEFAULT '0' NOT NULL,
+	exclude tinyint(4) DEFAULT '0' NOT NULL,
 	
 	goods int(11) unsigned DEFAULT '0',
 	dishes int(11) unsigned DEFAULT '0' NOT NULL,

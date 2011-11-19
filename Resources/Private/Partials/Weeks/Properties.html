@@ -9,8 +9,16 @@
 <ul class="tabs-content contained">
 	<li class="active" id="simpleContained1Tab">
 	
-		<f:debug>{week.shoppingList}</f:debug>
-	
+		<dl>
+			<f:groupedFor each="{week.shoppingList}" as="groupedShoppingList" groupBy="shop" groupKey="shop">
+			<dt><strong>{shop}</strong></dt>
+			<f:for each="{groupedShoppingList}" as="item">
+				<f:if condition="{item.exclude} != 1">
+					<dl>{item.name}</dl>
+				</f:if>
+			</f:for>
+			</f:groupedFor>
+		</dl>
 		<p>
 			<a class="nice medium radius white button" href="#">Zettel bearbeiten</a>
 			<br/> Speichert die generierte Liste in einem verbundenen Domänenobjekt "List" (inkl. weekstamp). Von dort können dann Veränderungen

@@ -226,42 +226,82 @@ class Tx_Vegamatic_Domain_Model_Weeks extends Tx_Extbase_DomainObject_AbstractEn
 	}
 
 	/**
-	 * @return Tx_Extbase_Persistence_ObjectStorage<Tx_Vegamatic_Domain_Model_Amounts> $shoppingList
+	 * @return array $shoppingList
 	 */
 	public function getShoppingList() {
-		
-		$shoppingList = $this->getAmounts();
 		
 		// collect all ingredients for the maindishes
 		if (is_object($this->getMaindish())) {
 			foreach ($this->getMaindish() as $maindish) {
-				// if the dish has ingredients that need to be bought
+				// if the dish has ingredients
 				if (is_object($maindish->getAmounts())) {
-					foreach ($maindish->getAmounts() as $amount) {
-						$shoppingList->attach($amount);
+					// iterate through all items
+					foreach ($maindish->getAmounts() as $amount) {										
+						$items[] = array(
+							'amount' => $amount->getUid(),                        
+							'quantity' => $amount->getQuantity(),			
+							'unit' => $amount->getUnit(),
+							'goods' => $amount->getGoods()->getUid(),						
+							'name' => $amount->getGoods()->getName(),
+							'shop' => $amount->getGoods()->getShop()->getName(),
+							'parent' => 'Tx_Vegamatic_Domain_Model_Dishes',
+							'exclude' => 0,		
+						);
 					}
 				}
 			}
 		}
-		
-		// collect all ingredients for the sidedishes
-		if (is_object($this->getSidedish())) {	
-			foreach ($this->getSidedish() as $sidedish) {				
-				// if the sidedish has ingredients that need to be bought
-				if (is_object($sidedish->getAmounts())) {					
-					foreach ($sidedish->getAmounts() as $amount) {
-						$shoppingList->attach($amount);
-					}
-				}
-			}			
+
+		// merge together all items from all dishes to one list - use the goods uids as keys for later comparison with the special items set for the week
+		$shoppingList = array();
+		foreach ($items as $key => $item) {
+			$uid = $item['goods'];
+			// same item: quantity addition
+			if ($uid == $shoppingList[$uid]['goods']) {
+				$shoppingList[$uid]['quantity'] = $shoppingList[$uid]['quantity'] + $item['quantity'];
+			// different item, add to list
+			} else {
+				$shoppingList[$uid] = $items[$key];
+			}
 		}
 		
-		debug($shoppingList->count());
-		debug($shoppingList->toArray());
-		die();
+		// get the items that were especially set for the week
+		if (is_object($this->getAmounts())) {
+			foreach ($this->getAmounts() as $amount) {				
+				// if the item already exists...
+				$uid = $amount->getGoods()->getUid();			
+				if ($shoppingList[$uid]['goods']) {					
+					// check if the existing item should be excluded					
+					if ($amount->getExclude() == 1) {
+						// include the exclude item instead ;)
+						$shoppingList[$uid]['amount'] = $amount->getUid();
+						$shoppingList[$uid]['parent'] = 'Tx_Vegamatic_Domain_Model_Weeks';
+						$shoppingList[$uid]['exclude'] = 1;						
+					// otherwise override the existing item					
+					} else {
+						$shoppingList[$uid]['amount'] = $amount->getUid();
+						$shoppingList[$uid]['quantity']	= $amount->getQuantity();
+						$shoppingList[$uid]['unit']	= $amount->getUnit();
+						$shoppingList[$uid]['shop']	= $amount->getGoods()->getShop()->getName();
+						$shoppingList[$uid]['parent'] = 'Tx_Vegamatic_Domain_Model_Weeks';						
+					}
+				// new item, just include
+				} else {
+					$shoppingList[$uid] = array(
+						'amount' => $amount->getUid(),
+						'quantity' => $amount->getQuantity(),
+						'unit' => $amount->getUnit(),
+						'goods' => $uid,					
+						'name' => $amount->getGoods()->getName(),					
+						'shop' => $amount->getGoods()->getShop()->getName(),
+						'parent' => 'Tx_Vegamatic_Domain_Model_Weeks',
+						'exclude' => $amount->getExclude(),				
+					);					
+				}
+			}
+		}
 	
-		return $shoppingList;
-		
+		return array_values($shoppingList);
 	}
 	
 }

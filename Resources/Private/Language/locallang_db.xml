@@ -13,6 +13,7 @@
 			<label index="tx_vegamatic_domain_model_amounts.quantity">Quantity</label>
 			<label index="tx_vegamatic_domain_model_amounts.unit">Unit</label>
 			<label index="tx_vegamatic_domain_model_amounts.goods">Goods</label>
+			<label index="tx_vegamatic_domain_model_amounts.exclude">Exclude</label>			
 			<label index="tx_vegamatic_domain_model_goods">Goods</label>
 			<label index="tx_vegamatic_domain_model_goods.name">Name</label>
 			<label index="tx_vegamatic_domain_model_goods.shop">Shop</label>

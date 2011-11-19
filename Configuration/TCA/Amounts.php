@@ -6,10 +6,10 @@ if (!defined ('TYPO3_MODE')) {
 $TCA['tx_vegamatic_domain_model_amounts'] = array(
 	'ctrl' => $TCA['tx_vegamatic_domain_model_amounts']['ctrl'],
 	'interface' => array(
-		'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, quantity, unit, goods',
+		'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, quantity, unit, goods, exclude',
 	),
 	'types' => array(
-		'1' => array('showitem' => 'sys_language_uid;;;;1-1-1, l10n_parent, l10n_diffsource, hidden;;1, quantity, unit, goods,--div--;LLL:EXT:cms/locallang_ttc.xml:tabs.access,starttime, endtime'),
+		'1' => array('showitem' => 'sys_language_uid;;;;1-1-1, l10n_parent, l10n_diffsource, hidden;;1, quantity, unit, goods, exclude,--div--;LLL:EXT:cms/locallang_ttc.xml:tabs.access,starttime, endtime'),
 	),
 	'palettes' => array(
 		'1' => array('showitem' => ''),
@@ -153,6 +153,13 @@ $TCA['tx_vegamatic_domain_model_amounts'] = array(
 				),		
 			),
 		),
+		'exclude' => array(
+			'exclude' => 1,
+			'label' => 'LLL:EXT:vegamatic/Resources/Private/Language/locallang_db.xml:tx_vegamatic_domain_model_amounts.exclude',
+			'config' => array(
+				'type' => 'check',
+			),
+		),		
 		'dishes' => array(
 			'config' => array(
 				'type' => 'passthrough',

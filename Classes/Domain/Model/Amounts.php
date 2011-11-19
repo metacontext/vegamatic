@@ -55,6 +55,13 @@ class Tx_Vegamatic_Domain_Model_Amounts extends Tx_Extbase_DomainObject_Abstract
 	 * @var Tx_Vegamatic_Domain_Model_Goods
 	 */
 	protected $goods;
+	
+	/**
+	 * Should this item be excluded for the week
+	 *
+	 * @var integer
+	 */
+	protected $exclude;	
 
 	/**
 	 * __construct
@@ -122,5 +129,23 @@ class Tx_Vegamatic_Domain_Model_Amounts extends Tx_Extbase_DomainObject_Abstract
 		$this->quantity = $quantity;
 	}
 
+	/**
+	 * Returns the exclude
+	 *
+	 * @return integer $exclude
+	 */
+	public function getExclude() {
+		return $this->exclude;
+	}
+
+	/**
+	 * Sets the exclude
+	 *
+	 * @param integer $exclude
+	 * @return void
+	 */
+	public function setExclude($exclude) {
+		$this->unit = $exclude;
+	}
 }
 ?>
