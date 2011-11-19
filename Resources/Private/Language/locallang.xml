@@ -12,6 +12,12 @@
 			<label index="tx_vegamatic_domain_model_amounts">The amount of ingredients for a dish</label>
 			<label index="tx_vegamatic_domain_model_amounts.quantity">The quantity of this amount</label>
 			<label index="tx_vegamatic_domain_model_amounts.unit">The kind of quantity (number, weight ec.)</label>
+			<label index="tx_vegamatic_domain_model_amounts.unit.I.10">g</label>
+			<label index="tx_vegamatic_domain_model_amounts.unit.I.20">kg</label>
+			<label index="tx_vegamatic_domain_model_amounts.unit.I.30">ml</label>
+			<label index="tx_vegamatic_domain_model_amounts.unit.I.40">l</label>
+			<label index="tx_vegamatic_domain_model_amounts.unit.I.50">TL</label>
+			<label index="tx_vegamatic_domain_model_amounts.unit.I.60">EL</label>
 			<label index="tx_vegamatic_domain_model_amounts.goods">The ingredient connected to this amount</label>
 			<label index="tx_vegamatic_domain_model_goods">The products to buy</label>
 			<label index="tx_vegamatic_domain_model_goods.name">Name of the product</label>

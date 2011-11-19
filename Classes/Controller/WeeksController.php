@@ -107,15 +107,15 @@ class Tx_Vegamatic_Controller_WeeksController extends Tx_Extbase_MVC_Controller_
 	/**
 	 * action update
 	 *
-	 * @param $weeks
+	 * @param $week
 	 * @return void
 	 */
-	public function updateAction(Tx_Vegamatic_Domain_Model_Weeks $weeks) {
-		$this->weeksRepository->update($weeks);
-		$this->flashMessageContainer->add('Your Weeks was updated.');
+	public function updateAction(Tx_Vegamatic_Domain_Model_Weeks $week) {
+		$this->weeksRepository->update($week);
+		$this->flashMessageContainer->add('Your Week was updated.');
 		$this->redirect('list');
 	}
-
+	
 	/**
 	 * action delete
 	 *
@@ -126,7 +126,88 @@ class Tx_Vegamatic_Controller_WeeksController extends Tx_Extbase_MVC_Controller_
 		$this->weeksRepository->remove($weeks);
 		$this->flashMessageContainer->add('Your Weeks was removed.');
 		$this->redirect('list');
+	}	
+	
+	/**
+	 * exclude amount action: excludes an amount by creating a new amount with exclude flag set to 1 (overrides the other amounts with same goods)
+	 * 
+	 * @param Tx_Vegamatic_Domain_Model_Weeks $week
+	 * @param Tx_Vegamatic_Domain_Model_Goods $goods
+	 * 
+	 * @return void
+	 * 
+	 */
+	public function excludeAmountAction(Tx_Vegamatic_Domain_Model_Weeks $week, Tx_Vegamatic_Domain_Model_Goods $goods) {
+		
+		$amount = new Tx_Vegamatic_Domain_Model_Amounts();
+		$amount->setQuantity('0');
+		$amount->setUnit('0');
+		$amount->setGoods($goods);
+		$amount->setExclude('1');
+		
+		$this->forward('createAmount', 'Weeks', NULL, array('week' => $week, 'amount' => $amount));
 	}
 
+	/**
+	 * modifies the quantity and/or unit of an (accumulated) amount (by creating a new one or updating an existing one from the week object)
+	 * 
+	 * @param Tx_Vegamatic_Domain_Model_Weeks $week
+	 * @param Tx_Vegamatic_Domain_Model_Amounts $amount
+	 * 
+	 * @return string Template/Partial for this action
+	 * 
+	 * @dontvalidate $amount
+	 * 
+	 */
+	public function modifyAmountAction(Tx_Vegamatic_Domain_Model_Weeks $week, Tx_Vegamatic_Domain_Model_Amounts $amount = NULL) {
+		// check by parent what is handed in: week or dish amount
+		// has own template
+	}
+
+	/**
+	 * adds an amount to the weeks shopping list (will override existing amounts if the related goods are the same)
+	 * 
+	 * @param Tx_Vegamatic_Domain_Model_Weeks $week
+	 * 
+	 * @return string Template/Partial
+	 */
+	public function addAmountAction(Tx_Vegamatic_Domain_Model_Weeks $week) {
+		// has own template
+	}
+	
+	/**
+	 * create amount action: needed for record creation after add and modify actions
+	 * 
+	 * @param Tx_Vegamatic_Domain_Model_Weeks $week
+	 * @param Tx_Vegamatic_Domain_Model_Amounts $amount
+	 * 
+	 * @return void
+	 */
+	public function createAmountAction(Tx_Vegamatic_Domain_Model_Weeks $week, Tx_Vegamatic_Domain_Model_Amounts $amount) {
+		
+		// add amount to the current week
+		$week->addAmount($amount);
+
+		// redirect to show again - persist new amount
+		$this->redirect('show', 'Weeks', NULL, array('week' => $week));		
+	}
+	
+	/**
+	 * include amount action: destroys the amount that has it's exclude flag set to 1 (other amounts with same goods will be included again)
+	 * 
+	 * @param Tx_Vegamatic_Domain_Model_Weeks $week
+	 * @param Tx_Vegamatic_Domain_Model_Amounts $amount
+	 * 
+	 * @return void
+	 * 
+	 */
+	public function removeAmountAction(Tx_Vegamatic_Domain_Model_Weeks $week, Tx_Vegamatic_Domain_Model_Amounts $amount) {
+		
+		// remove amount the current week
+		$week->removeAmount($amount);
+
+		// show again
+		$this->redirect('show', 'Weeks', NULL, array('week' => $week));
+	}	
 }
 ?>

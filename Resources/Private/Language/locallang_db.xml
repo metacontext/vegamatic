@@ -12,6 +12,12 @@
 			<label index="tx_vegamatic_domain_model_amounts">Amounts</label>
 			<label index="tx_vegamatic_domain_model_amounts.quantity">Quantity</label>
 			<label index="tx_vegamatic_domain_model_amounts.unit">Unit</label>
+			<label index="tx_vegamatic_domain_model_amounts.unit.I.10">g</label>
+			<label index="tx_vegamatic_domain_model_amounts.unit.I.20">kg</label>
+			<label index="tx_vegamatic_domain_model_amounts.unit.I.30">ml</label>
+			<label index="tx_vegamatic_domain_model_amounts.unit.I.40">l</label>
+			<label index="tx_vegamatic_domain_model_amounts.unit.I.50">TL</label>
+			<label index="tx_vegamatic_domain_model_amounts.unit.I.60">EL</label>														
 			<label index="tx_vegamatic_domain_model_amounts.goods">Goods</label>
 			<label index="tx_vegamatic_domain_model_amounts.exclude">Exclude</label>			
 			<label index="tx_vegamatic_domain_model_goods">Goods</label>

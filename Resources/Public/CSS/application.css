@@ -21,3 +21,20 @@ table td {
 	border: 1px solid #333;
 	padding: 1em;
 }
+
+#shoppingList {
+	margin: 1em 0;
+}
+
+#shoppingList dt {
+	margin: 1em 0 0.5em 0;
+	font-weight: bold;
+}
+
+#shoppingList dd {
+	line-height: 1.8em;
+}
+
+.excluded {
+	text-decoration: line-through;
+}

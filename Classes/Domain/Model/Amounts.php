@@ -145,7 +145,7 @@ class Tx_Vegamatic_Domain_Model_Amounts extends Tx_Extbase_DomainObject_Abstract
 	 * @return void
 	 */
 	public function setExclude($exclude) {
-		$this->unit = $exclude;
+		$this->exclude = $exclude;
 	}
 }
 ?>

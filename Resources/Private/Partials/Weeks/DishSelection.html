@@ -1,0 +1,29 @@
+<div class="row">
+	<div class="six columns">
+	
+	<h4>Hauptgerichte</h4>
+
+	<ul>
+	<f:for each="{week.maindish}" as="maindish">
+		<li>{maindish.name}</li>
+	</f:for>
+	</ul>
+	
+	</div>
+	
+	<div class="six columns">
+	
+	<h4>Beilagen</h4>
+
+	<ul>
+	<f:for each="{week.sidedish}" as="sidedish">
+		<li>{sidedish.name}</li>
+	</f:for>
+	</ul>
+	
+	</div>	
+</div>
+
+<div class="row">
+	<p><a class="nice medium radius white button" href="#">Neue Gerichte anlegen...</a></p>	
+</div>	
