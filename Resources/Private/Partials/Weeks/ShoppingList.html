@@ -1,27 +1,58 @@
-<dl id="shoppingList">
-	<f:groupedFor each="{week.shoppingList}" as="groupedShoppingList" groupBy="shop" groupKey="shop">
-	<dt>{shop}</dt>
-	<f:for each="{groupedShoppingList}" as="item">
-		<f:if condition="{item.exclude} != 1">
+<div class="row">
+	<div class="eight columns">	
+		<h4>Shopping List</h4>
+		<dl id="shoppingList">
+			<f:groupedFor each="{week.shoppingList}" as="groupedShoppingList" groupBy="shop" groupKey="shop">
+			<dt>{shop}</dt>
+			<f:for each="{groupedShoppingList}" as="item">
+				<f:if condition="{item.exclude} != 1">
+					<f:then>
+						<dd>
+							<f:if condition="{item.quantity}">{item.quantity}</f:if><f:if condition="{item.unit}"><f:translate key="tx_vegamatic_domain_model_amounts.unit.I.{item.unit}" /></f:if>							
+							{item.name} -
+							<f:link.action action="excludeAmount" arguments="{week : week, goods : item.goods}">Exclude</f:link.action> / <a href="#">Modify</a>
+						</dd>
+					</f:then>
+					<f:else>
+						<dd><span class="excluded">
+							<f:if condition="{item.quantity}">{item.quantity}</f:if><f:if condition="{item.unit}"><f:translate key="tx_vegamatic_domain_model_amounts.unit.I.{item.unit}" /></f:if>						
+							{item.name}</span> -
+							<f:link.action action="removeAmount" arguments="{week : week, amount : item.amount}">Include</f:link.action>					
+						</dd>
+					</f:else>
+				</f:if>
+			</f:for>
+			</f:groupedFor>
+		</dl>
+		<p><a class="nice medium radius white button" href="#">Print</a></p>
+	</div>
+	<div class="four columns">
+		<h4>Modify your list</h4>
+		<f:if condition="{0:currentAction} == {0:'addAmount'}">
 			<f:then>
-				<dd>
-					<f:if condition="{item.quantity}">{item.quantity}</f:if><f:if condition="{item.unit}"><f:translate key="tx_vegamatic_domain_model_amounts.unit.I.{item.unit}" /></f:if>							
-					{item.name} -
-					<f:link.action action="excludeAmount" arguments="{week : week, goods : item.goods}">Exclude</f:link.action> / <a href="#">Modify</a>
-				</dd>
+				<h5>Add a new item</h5>
+				<f:form action="createAmount" id="createAmount" object="amount">
+				
+					<label for="quantity">Quantity</label>
+					<input type="text" id="quantity" name="quantity" value="" size="3" />
+					
+					<label for="unit">Unit</label>
+					<f:form.select id="unit" name="unit" options="{0: '', 10: 'g'}" />
+					
+					<label for="goods">Items</label>
+					<f:form.select id="goods" name="goods" options="{goods}" />
+							
+					<f:form.hidden name="exclude" value="1" />
+					<f:form.hidden name="week" value="{week}" />
+					
+					<f:form.submit class="nice medium radius white button" value="Add it" />
+				</f:form>
+				<f:link.action action="show" arguments="{week : week}">...or Cancel</f:link.action>
 			</f:then>
 			<f:else>
-				<dd><span class="excluded">
-					<f:if condition="{item.quantity}">{item.quantity}</f:if><f:if condition="{item.unit}"><f:translate key="tx_vegamatic_domain_model_amounts.unit.I.{item.unit}" /></f:if>						
-					{item.name}</span> -
-					<f:link.action action="removeAmount" arguments="{week : week, amount : item.amount}">Include</f:link.action>					
-				</dd>
+				<p><f:link.action class="nice medium radius white button" action="addAmount" arguments="{week : week}">Add new item</f:link.action></p>	
 			</f:else>
 		</f:if>
-	</f:for>
-	</f:groupedFor>
-</dl>
-<p>
-	<a href="#">Add...</a>
-</p>
-<p><a class="nice medium radius white button" href="#">Zettel drucken</a></p>
+		<p><a href="#" class="nice medium radius white button">Create new item</a></p>
+	</div>
+</div>

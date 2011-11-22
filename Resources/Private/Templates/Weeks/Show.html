@@ -1,29 +1,6 @@
 <f:layout name="Default" />
+
 <f:section name="main">
-<f:flashMessages />
-
-<div class="row">
-
-	<div class="twelve columns">
-
-		<h2>Woche {week.weekstamp -> f:format.date()}</h2>
-		<p><f:link.action action="list">Back to list</f:link.action></p>
-		
-		<dl class="tabs contained">
-			<dd><a href="#simpleContained1" class="active">Wochenübersicht</a></dd>
-			<dd><a href="#simpleContained2">Einkaufszettel</a></dd>
-		</dl>
-		
-		<ul class="tabs-content contained">
-			<li class="active" id="simpleContained1Tab">
-				<f:render partial="Weeks/ShoppingList" arguments="{week : week}" />
-			</li>
-			<li id="simpleContained2Tab">
-				<f:render partial="Weeks/DishSelection" arguments="{week : week}" />		
-			</li>
-		</ul>					
-	</div>
-
-</div>
-
+	<f:flashMessages />
+	<f:render partial="Weeks/Show" arguments="{week : week, days : days}" />
 </f:section>

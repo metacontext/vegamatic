@@ -27,6 +27,13 @@
 			<label index="tx_vegamatic_domain_model_weeks.maindish">The seven main dishes for the week</label>
 			<label index="tx_vegamatic_domain_model_weeks.sidedish">The seven side dishes for the week</label>
 			<label index="tx_vegamatic_domain_model_weeks.amounts">Further goods or amounts to buy for the week (or override of amounts for dishes)</label>
+			<label index="tx_vegamatic_domain_model_weeks.days.1">Mon</label>
+			<label index="tx_vegamatic_domain_model_weeks.days.2">Tue</label>
+			<label index="tx_vegamatic_domain_model_weeks.days.3">Wed</label>
+			<label index="tx_vegamatic_domain_model_weeks.days.4">Thu</label>
+			<label index="tx_vegamatic_domain_model_weeks.days.5">Fri</label>
+			<label index="tx_vegamatic_domain_model_weeks.days.6">Sat</label>
+			<label index="tx_vegamatic_domain_model_weeks.days.7">Sun</label>																				
 			<label index="tx_vegamatic_domain_model_shops">The shops where to buy the ingrediens</label>
 			<label index="tx_vegamatic_domain_model_shops.name">Name of the shop</label>
 		</languageKey>

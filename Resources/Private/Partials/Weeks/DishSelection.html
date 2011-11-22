@@ -1,29 +1,40 @@
 <div class="row">
-	<div class="six columns">
+	<div class="eight columns">
 	
-	<h4>Hauptgerichte</h4>
-
-	<ul>
-	<f:for each="{week.maindish}" as="maindish">
-		<li>{maindish.name}</li>
-	</f:for>
-	</ul>
+	<f:debug>{days}</f:debug>
+	
+	<h4>Dishes of the Week</h4>
+	
+		<table>
+			<thead>
+				<tr>
+					<th>Day</th>
+					<th>Maindish</th>
+					<th>Sidedish</th>
+				</tr>				
+			</thead>
+			<tbody>
+			<f:for each="{week.maindish}" as="dish" iteration="dishCounter">
+				<tr>
+					<td>
+						{days -> dishCounter.index}
+					</td>
+					<td>{dish.name}</td>
+					<td></td>
+				</tr>
+			</f:for>
+			</tbody>
+		</table>
 	
 	</div>
 	
-	<div class="six columns">
+	<div class="four columns">
 	
-	<h4>Beilagen</h4>
-
-	<ul>
-	<f:for each="{week.sidedish}" as="sidedish">
-		<li>{sidedish.name}</li>
-	</f:for>
-	</ul>
+		<h4>Dish Selection</h4>
 	
 	</div>	
 </div>
 
 <div class="row">
-	<p><a class="nice medium radius white button" href="#">Neue Gerichte anlegen...</a></p>	
+	<p><a class="nice medium radius white button" href="#">Create new dishes...</a></p>	
 </div>	

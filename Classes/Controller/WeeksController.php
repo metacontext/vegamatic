@@ -50,6 +50,23 @@ class Tx_Vegamatic_Controller_WeeksController extends Tx_Extbase_MVC_Controller_
 	public function injectWeeksRepository(Tx_Vegamatic_Domain_Repository_WeeksRepository $weeksRepository) {
 		$this->weeksRepository = $weeksRepository;
 	}
+	
+	/**
+	 * goodsRepository
+	 *
+	 * @var Tx_Vegamatic_Domain_Repository_GoodsRepository
+	 */
+	protected $goodsRepository;
+
+	/**
+	 * injectGoodsRepository
+	 *
+	 * @param Tx_Vegamatic_Domain_Repository_GoodsRepository $goodsRepository
+	 * @return void
+	 */
+	public function injectGoodsRepository(Tx_Vegamatic_Domain_Repository_GoodsRepository $goodsRepository) {
+		$this->goodsRepository = $goodsRepository;
+	}	
 
 	/**
 	 * action list
@@ -65,9 +82,10 @@ class Tx_Vegamatic_Controller_WeeksController extends Tx_Extbase_MVC_Controller_
 	 * action show
 	 *
 	 * @param $week
-	 * @return void
+	 * @return string The HTML for the show action
 	 */
 	public function showAction(Tx_Vegamatic_Domain_Model_Weeks $week) {
+		$this->view->assign('days', Tx_Vegamatic_Utility_Datetime::getNextSevenDays($week->getWeekstamp()));
 		$this->view->assign('week', $week);
 	}
 
@@ -160,7 +178,7 @@ class Tx_Vegamatic_Controller_WeeksController extends Tx_Extbase_MVC_Controller_
 	 * 
 	 */
 	public function modifyAmountAction(Tx_Vegamatic_Domain_Model_Weeks $week, Tx_Vegamatic_Domain_Model_Amounts $amount = NULL) {
-		// check by parent what is handed in: week or dish amount
+		// modify should first find out if an amount for the week (by parent) already exists - if so, this is updated and no new amount is created
 		// has own template
 	}
 
@@ -172,7 +190,15 @@ class Tx_Vegamatic_Controller_WeeksController extends Tx_Extbase_MVC_Controller_
 	 * @return string Template/Partial
 	 */
 	public function addAmountAction(Tx_Vegamatic_Domain_Model_Weeks $week) {
-		// has own template
+		$this->view->assign('currentAction', 'addAmount');
+		
+		$goods = array();
+		foreach ($this->goodsRepository->findAll() as $good) {
+			$goods[$good->getUid()] = $good->getName();
+		}
+		
+		$this->view->assign('goods', $goods);
+		$this->view->assign('week', $week);
 	}
 	
 	/**
