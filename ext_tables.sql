@@ -6,6 +6,7 @@ CREATE TABLE tx_vegamatic_domain_model_dishes (
 	pid int(11) DEFAULT '0' NOT NULL,
 
 	name varchar(255) DEFAULT '' NOT NULL,
+	type int(11) DEFAULT '0' NOT NULL,
 	amounts int(11) unsigned DEFAULT '0' NOT NULL,
 
 	tstamp int(11) unsigned DEFAULT '0' NOT NULL,
@@ -128,8 +129,20 @@ CREATE TABLE tx_vegamatic_domain_model_weeks (
 	pid int(11) DEFAULT '0' NOT NULL,
 
 	weekstamp int(11) DEFAULT '0' NOT NULL,
-	maindish int(11) unsigned DEFAULT '0' NOT NULL,
-	sidedish int(11) unsigned DEFAULT '0' NOT NULL,
+	maindish1 int(11) unsigned DEFAULT '0' NOT NULL,
+	maindish2 int(11) unsigned DEFAULT '0' NOT NULL,
+	maindish3 int(11) unsigned DEFAULT '0' NOT NULL,
+	maindish4 int(11) unsigned DEFAULT '0' NOT NULL,
+	maindish5 int(11) unsigned DEFAULT '0' NOT NULL,
+	maindish6 int(11) unsigned DEFAULT '0' NOT NULL,
+	maindish7 int(11) unsigned DEFAULT '0' NOT NULL,
+	sidedish1 int(11) unsigned DEFAULT '0' NOT NULL,
+	sidedish2 int(11) unsigned DEFAULT '0' NOT NULL,
+	sidedish3 int(11) unsigned DEFAULT '0' NOT NULL,
+	sidedish4 int(11) unsigned DEFAULT '0' NOT NULL,
+	sidedish5 int(11) unsigned DEFAULT '0' NOT NULL,
+	sidedish6 int(11) unsigned DEFAULT '0' NOT NULL,
+	sidedish7 int(11) unsigned DEFAULT '0' NOT NULL,
 	amounts int(11) unsigned DEFAULT '0' NOT NULL,
 
 	tstamp int(11) unsigned DEFAULT '0' NOT NULL,
@@ -168,7 +181,6 @@ CREATE TABLE tx_vegamatic_domain_model_shops (
 	uid int(11) NOT NULL auto_increment,
 	pid int(11) DEFAULT '0' NOT NULL,
 
-
 	name varchar(255) DEFAULT '' NOT NULL,
 
 	tstamp int(11) unsigned DEFAULT '0' NOT NULL,
@@ -198,32 +210,6 @@ CREATE TABLE tx_vegamatic_domain_model_shops (
 	KEY parent (pid),
 	KEY t3ver_oid (t3ver_oid,t3ver_wsid),
 	KEY language (l10n_parent,sys_language_uid)
-);
-
-#
-# Table structure for table 'tx_vegamatic_weeks_dishes_mm'
-#
-CREATE TABLE tx_vegamatic_weeks_dishes_mm (
-	uid_local int(11) unsigned DEFAULT '0' NOT NULL,
-	uid_foreign int(11) unsigned DEFAULT '0' NOT NULL,
-	sorting int(11) unsigned DEFAULT '0' NOT NULL,
-	sorting_foreign int(11) unsigned DEFAULT '0' NOT NULL,
-
-	KEY uid_local (uid_local),
-	KEY uid_foreign (uid_foreign)
-);
-
-#
-# Table structure for table 'tx_vegamatic_weeks_sidedishes_mm'
-#
-CREATE TABLE tx_vegamatic_weeks_sidedishes_mm (
-	uid_local int(11) unsigned DEFAULT '0' NOT NULL,
-	uid_foreign int(11) unsigned DEFAULT '0' NOT NULL,
-	sorting int(11) unsigned DEFAULT '0' NOT NULL,
-	sorting_foreign int(11) unsigned DEFAULT '0' NOT NULL,
-
-	KEY uid_local (uid_local),
-	KEY uid_foreign (uid_foreign)
 );
 
 #

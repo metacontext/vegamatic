@@ -41,6 +41,13 @@ class Tx_Vegamatic_Domain_Model_Dishes extends Tx_Extbase_DomainObject_AbstractE
 	 * @validate NotEmpty
 	 */
 	protected $name;
+	
+	/**
+	 * The type (maindish/sidedish)
+	 *
+	 * @var integer
+	 */
+	protected $type;	
 
 	/**
 	 * The amounts of ingredients that are needed for this dish
@@ -77,6 +84,25 @@ class Tx_Vegamatic_Domain_Model_Dishes extends Tx_Extbase_DomainObject_AbstractE
 	public function setName($name) {
 		$this->name = $name;
 	}
+	
+	/**
+	 * Returns the type
+	 *
+	 * @return integer $type
+	 */
+	public function getType() {
+		return $this->type;
+	}
+
+	/**
+	 * Sets the type
+	 *
+	 * @param integer $type
+	 * @return void
+	 */
+	public function setType($type) {
+		$this->type = $type;
+	}	
 
 	/**
 	 * Initializes all Tx_Extbase_Persistence_ObjectStorage properties.

@@ -1,7 +1,7 @@
+{namespace v=Tx_Vegamatic_ViewHelpers}
+
 <div class="row">
 	<div class="eight columns">
-	
-	<f:debug>{days}</f:debug>
 	
 	<h4>Dishes of the Week</h4>
 	
@@ -14,15 +14,41 @@
 				</tr>				
 			</thead>
 			<tbody>
-			<f:for each="{week.maindish}" as="dish" iteration="dishCounter">
 				<tr>
-					<td>
-						{days -> dishCounter.index}
-					</td>
-					<td>{dish.name}</td>
-					<td></td>
+					<td><f:format.date format="D">@{days.day1}</f:format.date></td>
+					<td>{week.maindish1.name}</td>
+					<td>{week.sidedish1.name}</td>
 				</tr>
-			</f:for>
+				<tr>
+					<td><f:format.date format="D">@{days.day2}</f:format.date></td>
+					<td>{week.maindish2.name}</td>
+					<td>{week.sidedish2.name}</td>
+				</tr>
+				<tr>
+					<td><f:format.date format="D">@{days.day3}</f:format.date></td>
+					<td>{week.maindish3.name}</td>
+					<td>{week.sidedish3.name}</td>
+				</tr>
+				<tr>
+					<td><f:format.date format="D">@{days.day4}</f:format.date></td>
+					<td>{week.maindish4.name}</td>
+					<td>{week.sidedish4.name}</td>
+				</tr>
+				<tr>
+					<td><f:format.date format="D">@{days.day5}</f:format.date></td>
+					<td>{week.maindish5.name}</td>
+					<td>{week.sidedish5.name}</td>
+				</tr>
+				<tr>
+					<td><f:format.date format="D">@{days.day6}</f:format.date></td>
+					<td>{week.maindish6.name}</td>
+					<td>{week.sidedish6.name}</td>
+				</tr>
+				<tr>
+					<td><f:format.date format="D">@{days.day7}</f:format.date></td>
+					<td>{week.maindish7.name}</td>
+					<td>{week.sidedish7.name}</td>
+				</tr>				
 			</tbody>
 		</table>
 	

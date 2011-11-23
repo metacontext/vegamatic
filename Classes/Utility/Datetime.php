@@ -42,10 +42,8 @@ class Tx_Vegamatic_Utility_Datetime {
 		$secondsInADay = 86400;
 		$nextSevenDays = array();
 		
-		for ($iterator = 0; $iterator < 7; $iterator++) {
-//			$nextSevenDays[$iterator]['weekday'] = date('N', $startDate->getTimestamp() + ($iterator * $secondsInADay));
-//			$nextSevenDays[$iterator]['timestamp'] = $startDate->getTimestamp() + ($iterator * $secondsInADay);
-			$nextSevenDays[$iterator] = $startDate->getTimestamp() + ($iterator * $secondsInADay);
+		for ($iterator = 1; $iterator < 8; $iterator++) {
+			$nextSevenDays['day'.$iterator] = $startDate->getTimestamp() + ($iterator * $secondsInADay);
 		}
 		
 		return $nextSevenDays;

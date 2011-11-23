@@ -8,6 +8,9 @@
 		<languageKey index="default" type="array">
 			<label index="tx_vegamatic_domain_model_dishes">Dishes</label>
 			<label index="tx_vegamatic_domain_model_dishes.name">Name</label>
+			<label index="tx_vegamatic_domain_model_dishes.type">Type</label>
+			<label index="tx_vegamatic_domain_model_dishes.type.I.1">Maindish</label>
+			<label index="tx_vegamatic_domain_model_dishes.type.I.2">Sidedish</label>								
 			<label index="tx_vegamatic_domain_model_dishes.amounts">Amounts</label>
 			<label index="tx_vegamatic_domain_model_amounts">Amounts</label>
 			<label index="tx_vegamatic_domain_model_amounts.quantity">Quantity</label>
@@ -25,8 +28,20 @@
 			<label index="tx_vegamatic_domain_model_goods.shop">Shop</label>
 			<label index="tx_vegamatic_domain_model_weeks">Weeks</label>
 			<label index="tx_vegamatic_domain_model_weeks.weekstamp">Weekstamp</label>
-			<label index="tx_vegamatic_domain_model_weeks.maindish">Maindish</label>
-			<label index="tx_vegamatic_domain_model_weeks.sidedish">Sidedish</label>
+			<label index="tx_vegamatic_domain_model_weeks.maindish1">Maindish 1</label>
+			<label index="tx_vegamatic_domain_model_weeks.sidedish1">Sidedish 1</label>
+			<label index="tx_vegamatic_domain_model_weeks.maindish2">Maindish 2</label>
+			<label index="tx_vegamatic_domain_model_weeks.sidedish2">Sidedish 2</label>
+			<label index="tx_vegamatic_domain_model_weeks.maindish3">Maindish 3</label>
+			<label index="tx_vegamatic_domain_model_weeks.sidedish3">Sidedish 3</label>
+			<label index="tx_vegamatic_domain_model_weeks.maindish4">Maindish 4</label>
+			<label index="tx_vegamatic_domain_model_weeks.sidedish4">Sidedish 4</label>
+			<label index="tx_vegamatic_domain_model_weeks.maindish5">Maindish 5</label>
+			<label index="tx_vegamatic_domain_model_weeks.sidedish5">Sidedish 5</label>
+			<label index="tx_vegamatic_domain_model_weeks.maindish6">Maindish 6</label>
+			<label index="tx_vegamatic_domain_model_weeks.sidedish6">Sidedish 6</label>
+			<label index="tx_vegamatic_domain_model_weeks.maindish7">Maindish 7</label>
+			<label index="tx_vegamatic_domain_model_weeks.sidedish7">Sidedish 7</label>																		
 			<label index="tx_vegamatic_domain_model_weeks.amounts">Amounts</label>
 			<label index="tx_vegamatic_domain_model_shops">Shops</label>
 			<label index="tx_vegamatic_domain_model_shops.name">Name</label>
