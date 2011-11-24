@@ -7,7 +7,7 @@ Tx_Extbase_Utility_Extension::configurePlugin(
 	$_EXTKEY,
 	'Weeks',
 	array(
-		'Weeks' => 'list, show, new, create, edit, update, delete, excludeAmount, modifyAmount, addAmount, createAmount, removeAmount',
+		'Weeks' => 'list, show, new, create, edit, update, delete, excludeAmount, modifyAmount, addAmount, createAmount, removeAmount, addDish, removeDish',
 		
 	),
 	// non-cacheable actions

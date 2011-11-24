@@ -66,8 +66,25 @@ class Tx_Vegamatic_Controller_WeeksController extends Tx_Extbase_MVC_Controller_
 	 */
 	public function injectGoodsRepository(Tx_Vegamatic_Domain_Repository_GoodsRepository $goodsRepository) {
 		$this->goodsRepository = $goodsRepository;
-	}	
+	}
+	
+	/**
+	 * dishesRepository
+	 *
+	 * @var Tx_Vegamatic_Domain_Repository_DishesRepository
+	 */
+	protected $dishesRepository;
 
+	/**
+	 * injectDishesRepository
+	 *
+	 * @param Tx_Vegamatic_Domain_Repository_DishesRepository $dishesRepository
+	 * @return void
+	 */
+	public function injectDishesRepository(Tx_Vegamatic_Domain_Repository_DishesRepository $dishesRepository) {
+		$this->dishesRepository = $dishesRepository;
+	}
+	
 	/**
 	 * action list
 	 *
@@ -81,7 +98,7 @@ class Tx_Vegamatic_Controller_WeeksController extends Tx_Extbase_MVC_Controller_
 	/**
 	 * action show
 	 *
-	 * @param $week
+	 * @param Tx_Vegamatic_Domain_Model_Weeks $week
 	 * @return string The HTML for the show action
 	 */
 	public function showAction(Tx_Vegamatic_Domain_Model_Weeks $week) {
@@ -125,13 +142,14 @@ class Tx_Vegamatic_Controller_WeeksController extends Tx_Extbase_MVC_Controller_
 	/**
 	 * action update
 	 *
-	 * @param $week
+	 * @param Tx_Vegamatic_Domain_Model_Weeks $week
+	 * 
 	 * @return void
 	 */
 	public function updateAction(Tx_Vegamatic_Domain_Model_Weeks $week) {
 		$this->weeksRepository->update($week);
 		$this->flashMessageContainer->add('Your Week was updated.');
-		$this->redirect('list');
+		$this->redirect('show', 'Weeks', NULL, array('week' => $week));
 	}
 	
 	/**
@@ -144,7 +162,45 @@ class Tx_Vegamatic_Controller_WeeksController extends Tx_Extbase_MVC_Controller_
 		$this->weeksRepository->remove($weeks);
 		$this->flashMessageContainer->add('Your Weeks was removed.');
 		$this->redirect('list');
-	}	
+	}
+	
+	
+	
+	/**
+	 * action addDish
+	 *
+	 * @param Tx_Vegamatic_Domain_Model_Weeks $weeks
+	 * @param integer $slot
+	 * 
+	 * @return Template/Partial string
+	 */
+	public function addDishAction(Tx_Vegamatic_Domain_Model_Weeks $week, $slot) {
+		$this->view->assign('days', Tx_Vegamatic_Utility_Datetime::getNextSevenDays($week->getWeekstamp()));
+		$this->view->assign('maindishes', $this->dishesRepository->findByType(1));
+		$this->view->assign('sidedishes', $this->dishesRepository->findByType(2));
+		$this->view->assign('week', $week);		
+		$this->view->assign('slot', $slot);
+	}
+	
+	/**
+	 * remove a dish from a week slot
+	 *
+	 * @param Tx_Vegamatic_Domain_Model_Weeks $weeks
+	 * @param integer $dish
+	 * 
+	 * @return void
+	 */
+	public function removeDishAction(Tx_Vegamatic_Domain_Model_Weeks $week, $dish) {
+		
+#		$setter = 'set'.$property;
+#		$week->$setter($emptyObject);
+		die();
+		
+		$week->maindish1 = 0;
+		
+		// redirect to show again - persist new amount
+		$this->redirect('show', 'Weeks', NULL, array('week' => $week));			
+	}
 	
 	/**
 	 * exclude amount action: excludes an amount by creating a new amount with exclude flag set to 1 (overrides the other amounts with same goods)
@@ -155,14 +211,12 @@ class Tx_Vegamatic_Controller_WeeksController extends Tx_Extbase_MVC_Controller_
 	 * @return void
 	 * 
 	 */
-	public function excludeAmountAction(Tx_Vegamatic_Domain_Model_Weeks $week, Tx_Vegamatic_Domain_Model_Goods $goods) {
-		
+	public function excludeAmountAction(Tx_Vegamatic_Domain_Model_Weeks $week, Tx_Vegamatic_Domain_Model_Goods $goods) {		
 		$amount = new Tx_Vegamatic_Domain_Model_Amounts();
 		$amount->setQuantity('0');
 		$amount->setUnit('0');
 		$amount->setGoods($goods);
-		$amount->setExclude('1');
-		
+		$amount->setExclude('1');		
 		$this->forward('createAmount', 'Weeks', NULL, array('week' => $week, 'amount' => $amount));
 	}
 
@@ -190,7 +244,6 @@ class Tx_Vegamatic_Controller_WeeksController extends Tx_Extbase_MVC_Controller_
 	 * @return string Template/Partial
 	 */
 	public function addAmountAction(Tx_Vegamatic_Domain_Model_Weeks $week) {
-		$this->view->assign('currentAction', 'addAmount');
 		
 		$goods = array();
 		foreach ($this->goodsRepository->findAll() as $good) {
@@ -199,6 +252,7 @@ class Tx_Vegamatic_Controller_WeeksController extends Tx_Extbase_MVC_Controller_
 		
 		$this->view->assign('goods', $goods);
 		$this->view->assign('week', $week);
+		$this->view->assign('currentAction', 'addAmount');		
 	}
 	
 	/**

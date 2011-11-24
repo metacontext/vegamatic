@@ -1,0 +1,13 @@
+<f:form action="update" id="update" name="week" object="{week}">
+	<label for="{dish}">Choose dish:</label>
+	<f:if condition="{sidedishes}">
+		<f:then>
+			<f:form.select id="{dish}" property="{sidedish}" options="{sidedishes}" optionLabelField="name" />
+		</f:then>
+		<f:else>
+			<f:form.select id="{dish}" property="{maindish}" options="{maindishes}" optionLabelField="name" />
+		</f:else>
+	</f:if>
+	<f:form.submit class="nice small radius white button" value="Update" />
+</f:form>
+<f:link.action action="show" arguments="{week : week}">...or Cancel</f:link.action>

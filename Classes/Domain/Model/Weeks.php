@@ -506,7 +506,7 @@ class Tx_Vegamatic_Domain_Model_Weeks extends Tx_Extbase_DomainObject_AbstractEn
 			$maindish = 'getMaindish'.$i;
 			$sidedish = 'getSidedish'.$i;
 			
-			// if the dish has ingredients		
+			// if the maindish has ingredients		
 			if (is_object($this->$sidedish()) && is_object($this->$maindish()->getAmounts())) {
 				// iterate through all items
 				foreach ($this->$maindish()->getAmounts() as $amount) {										
@@ -522,7 +522,8 @@ class Tx_Vegamatic_Domain_Model_Weeks extends Tx_Extbase_DomainObject_AbstractEn
 					);
 				}
 			}
-
+			
+			// if the sidedish has ingredients
 			if (is_object($this->$sidedish()) && is_object($this->$sidedish()->getAmounts())) {
 				// iterate through all items
 				foreach ($this->$sidedish()->getAmounts() as $amount) {										

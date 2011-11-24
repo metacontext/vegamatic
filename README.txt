@@ -26,8 +26,3 @@ addAmount => processAmount => crud
 modifyAmount => processAmount => crud
 excludeAmount => processAmount => crud
 includeAmount => processAmount => crud
-
-
-#####
-
-Make a grid with 14 slots => 2 slots for each day

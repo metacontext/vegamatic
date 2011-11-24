@@ -16,38 +16,164 @@
 			<tbody>
 				<tr>
 					<td><f:format.date format="D">@{days.day1}</f:format.date></td>
-					<td>{week.maindish1.name}</td>
-					<td>{week.sidedish1.name}</td>
+					<td>
+						<f:if condition="{slot} == 1">						
+							<f:then>
+								<f:render partial="Weeks/AddDish" arguments="{week : week, maindishes : maindishes, maindish : 'maindish1'}" />
+							</f:then>
+							<f:else>
+								<f:render partial="Weeks/DisplayDish" arguments="{week : week, dish : week.maindish1, dishName : week.maindish1.name, dishUid : week.maindish1.uid, slot : 1}" />
+							</f:else>
+						</f:if>
+					</td>
+					<td>
+						<f:if condition="{slot} == 2">						
+							<f:then>
+								<f:render partial="Weeks/AddDish" arguments="{week : week, sidedishes : sidedishes, sidedish : 'sidedish1'}" />
+							</f:then>
+							<f:else>
+								<f:render partial="Weeks/DisplayDish" arguments="{week : week, dish : week.sidedish1, dishName : week.sidedish1.name, dishUid : week.sidedish1.uid, slot : 2}" />
+							</f:else>
+						</f:if>
+					</td>
 				</tr>
 				<tr>
 					<td><f:format.date format="D">@{days.day2}</f:format.date></td>
-					<td>{week.maindish2.name}</td>
-					<td>{week.sidedish2.name}</td>
+					<td>
+						<f:if condition="{slot} == 3">						
+							<f:then>
+								<f:render partial="Weeks/AddDish" arguments="{week : week, maindishes : maindishes, maindish : 'maindish2'}" />
+							</f:then>
+							<f:else>
+								<f:render partial="Weeks/DisplayDish" arguments="{week : week, dish : week.maindish2, dishName : week.maindish2.name, dishUid : week.maindish2.uid, slot : 3}" />
+							</f:else>
+						</f:if>
+					</td>
+					<td>
+						<f:if condition="{slot} == 4">						
+							<f:then>
+								<f:render partial="Weeks/AddDish" arguments="{week : week, sidedishes : sidedishes, sidedish : 'sidedish2'}" />
+							</f:then>
+							<f:else>
+								<f:render partial="Weeks/DisplayDish" arguments="{week : week, dish : week.sidedish2, dishName : week.sidedish2.name, dishUid : week.sidedish2.uid, slot : 4}" />
+							</f:else>
+						</f:if>
+					</td>
 				</tr>
 				<tr>
 					<td><f:format.date format="D">@{days.day3}</f:format.date></td>
-					<td>{week.maindish3.name}</td>
-					<td>{week.sidedish3.name}</td>
+					<td>
+						<f:if condition="{slot} == 5">						
+							<f:then>
+								<f:render partial="Weeks/AddDish" arguments="{week : week, maindishes : maindishes, maindish : 'maindish3'}" />
+							</f:then>
+							<f:else>
+								<f:render partial="Weeks/DisplayDish" arguments="{week : week, dish : week.maindish3, dishName : week.maindish3.name, dishUid : week.maindish3.uid, slot : 5}" />
+							</f:else>
+						</f:if>					
+					</td>
+					<td>
+						<f:if condition="{slot} == 6">						
+							<f:then>
+								<f:render partial="Weeks/AddDish" arguments="{week : week, sidedishes : sidedishes, sidedish : 'sidedish3'}" />
+							</f:then>
+							<f:else>
+								<f:render partial="Weeks/DisplayDish" arguments="{week : week, dish : week.sidedish3, dishName : week.sidedish3.name, dishUid : week.sidedish3.uid, slot : 6}" />
+							</f:else>
+						</f:if>					
+					</td>
 				</tr>
 				<tr>
 					<td><f:format.date format="D">@{days.day4}</f:format.date></td>
-					<td>{week.maindish4.name}</td>
-					<td>{week.sidedish4.name}</td>
+					<td>
+						<f:if condition="{slot} == 7">						
+							<f:then>
+								<f:render partial="Weeks/AddDish" arguments="{week : week, maindishes : maindishes, maindish : 'maindish4'}" />
+							</f:then>
+							<f:else>
+								<f:render partial="Weeks/DisplayDish" arguments="{week : week, dish : week.maindish4, dishName : week.maindish4.name, dishUid : week.maindish4.uid, slot : 7}" />
+							</f:else>
+						</f:if>					
+					</td>
+					<td>
+						<f:if condition="{slot} == 8">						
+							<f:then>
+								<f:render partial="Weeks/AddDish" arguments="{week : week, sidedishes : sidedishes, sidedish : 'sidedish4'}" />
+							</f:then>
+							<f:else>
+								<f:render partial="Weeks/DisplayDish" arguments="{week : week, dish : week.sidedish4, dishName : week.sidedish4.name, dishUid : week.sidedish4.uid, slot : 8}" />
+							</f:else>
+						</f:if>					
+					</td>
 				</tr>
 				<tr>
 					<td><f:format.date format="D">@{days.day5}</f:format.date></td>
-					<td>{week.maindish5.name}</td>
-					<td>{week.sidedish5.name}</td>
+					<td>
+						<f:if condition="{slot} == 9">						
+							<f:then>
+								<f:render partial="Weeks/AddDish" arguments="{week : week, maindishes : maindishes, maindish : 'maindish5'}" />
+							</f:then>
+							<f:else>
+								<f:render partial="Weeks/DisplayDish" arguments="{week : week, dish : week.maindish5, dishName : week.maindish5.name, dishUid : week.maindish5.uid, slot : 9}" />
+							</f:else>
+						</f:if>					
+					</td>
+					<td>
+						<f:if condition="{slot} == 10">						
+							<f:then>
+								<f:render partial="Weeks/AddDish" arguments="{week : week, sidedishes : sidedishes, sidedish : 'sidedish5'}" />
+							</f:then>
+							<f:else>
+								<f:render partial="Weeks/DisplayDish" arguments="{week : week, dish : week.sidedish5, dishName : week.sidedish5.name, dishUid : week.sidedish5.uid, slot : 10}" />
+							</f:else>
+						</f:if>					
+					</td>
 				</tr>
 				<tr>
 					<td><f:format.date format="D">@{days.day6}</f:format.date></td>
-					<td>{week.maindish6.name}</td>
-					<td>{week.sidedish6.name}</td>
+					<td>
+						<f:if condition="{slot} == 11">						
+							<f:then>
+								<f:render partial="Weeks/AddDish" arguments="{week : week, maindishes : maindishes, maindish : 'maindish6'}" />
+							</f:then>
+							<f:else>
+								<f:render partial="Weeks/DisplayDish" arguments="{week : week, dish : week.maindish6, dishName : week.maindish6.name, dishUid : week.maindish6.uid, slot : 11}" />
+							</f:else>
+						</f:if>					
+					</td>
+					<td>
+						<f:if condition="{slot} == 12">						
+							<f:then>
+								<f:render partial="Weeks/AddDish" arguments="{week : week, sidedishes : sidedishes, sidedish : 'sidedish6'}" />
+							</f:then>
+							<f:else>
+								<f:render partial="Weeks/DisplayDish" arguments="{week : week, dish : week.sidedish6, dishName : week.sidedish6.name, dishUid : week.sidedish6.uid, slot : 12}" />
+							</f:else>
+						</f:if>					
+					</td>
 				</tr>
 				<tr>
 					<td><f:format.date format="D">@{days.day7}</f:format.date></td>
-					<td>{week.maindish7.name}</td>
-					<td>{week.sidedish7.name}</td>
+					<td>
+						<f:if condition="{slot} == 13">						
+							<f:then>
+								<f:render partial="Weeks/AddDish" arguments="{week : week, maindishes : maindishes, maindish : 'maindish7'}" />
+							</f:then>
+							<f:else>
+								<f:render partial="Weeks/DisplayDish" arguments="{week : week, dish : week.maindish7, dishName : week.maindish7.name, dishUid : week.maindish7.uid, slot : 13}" />
+							</f:else>
+						</f:if>					
+					</td>
+					<td>
+						<f:if condition="{slot} == 14">						
+							<f:then>
+								<f:render partial="Weeks/AddDish" arguments="{week : week, sidedishes : sidedishes, sidedish : 'sidedish7'}" />
+							</f:then>
+							<f:else>
+								<f:render partial="Weeks/DisplayDish" arguments="{week : week, dish : week.sidedish7, dishName : week.sidedish7.name, dishUid : week.sidedish7.uid, slot : 14}" />
+							</f:else>
+						</f:if>					
+					</td>
 				</tr>				
 			</tbody>
 		</table>
@@ -62,5 +188,8 @@
 </div>
 
 <div class="row">
-	<p><a class="nice medium radius white button" href="#">Create new dishes...</a></p>	
+	<p>
+		<a class="nice medium radius white button" href="#">TODO: Create new dishes...</a>
+		<a class="nice medium radius white button" href="#">TODO:Randomize...</a>
+	</p>	
 </div>	
