@@ -43,12 +43,19 @@ class Tx_Vegamatic_Domain_Model_Weeks extends Tx_Extbase_DomainObject_AbstractEn
 	protected $weekstamp;
 
 	/**
-	 * Further goods or amounts to buy for the week (or override of amounts for dishes)
+	 * Further goods to buy that are not bound to dishes
 	 *
 	 * @var Tx_Extbase_Persistence_ObjectStorage<Tx_Vegamatic_Domain_Model_Amounts>
 	 */
-	protected $amounts;
+	protected $additionalAmounts;
 
+	/**
+	 * Amounts that override existing amounts with unit/quantity/exclude
+	 *
+	 * @var Tx_Extbase_Persistence_ObjectStorage<Tx_Vegamatic_Domain_Model_Amounts>
+	 */
+	protected $overlayAmounts;	
+	
 	/**
 	 * Maindish1
 	 *
@@ -181,54 +188,89 @@ class Tx_Vegamatic_Domain_Model_Weeks extends Tx_Extbase_DomainObject_AbstractEn
 	 *
 	 * @return void
 	 */
-	protected function initStorageObjects() {
-		/**
-		 * Do not modify this method!
-		 * It will be rewritten on each save in the extension builder
-		 * You may modify the constructor of this class instead
-		 */		
-		$this->amounts = new Tx_Extbase_Persistence_ObjectStorage();
+	protected function initStorageObjects() {	
+		$this->additionalAmounts = new Tx_Extbase_Persistence_ObjectStorage();
+		$this->overlayAmounts = new Tx_Extbase_Persistence_ObjectStorage();		
 	}
 
 	/**
-	 * Adds a Amounts
+	 * Adds an additionalAmount
 	 *
-	 * @param Tx_Vegamatic_Domain_Model_Amounts $amount
+	 * @param Tx_Vegamatic_Domain_Model_Amounts $additionalAmount
 	 * @return void
 	 */
-	public function addAmount(Tx_Vegamatic_Domain_Model_Amounts $amount) {
-		$this->amounts->attach($amount);
+	public function addAdditionalAmount(Tx_Vegamatic_Domain_Model_Amounts $additionalAmount) {
+		$this->additionalAmounts->attach($additionalAmount);
 	}
 
 	/**
-	 * Removes a Amounts
+	 * Removes an additionalAmount
 	 *
-	 * @param Tx_Vegamatic_Domain_Model_Amounts $amountToRemove The Amounts to be removed
+	 * @param Tx_Vegamatic_Domain_Model_Amounts $additionalAmountToRemove The Amounts to be removed
 	 * @return void
 	 */
-	public function removeAmount(Tx_Vegamatic_Domain_Model_Amounts $amountToRemove) {
-		$this->amounts->detach($amountToRemove);
+	public function removeAdditionalAmount(Tx_Vegamatic_Domain_Model_Amounts $additionalAmountToRemove) {
+		$this->additionalAmounts->detach($additionalAmountToRemove);
 	}
 
 	/**
-	 * Returns the amounts
+	 * Returns the additionalAmounts
 	 *
-	 * @return Tx_Extbase_Persistence_ObjectStorage<Tx_Vegamatic_Domain_Model_Amounts> $amounts
+	 * @return Tx_Extbase_Persistence_ObjectStorage<Tx_Vegamatic_Domain_Model_Amounts> $additionalAmounts
 	 */
-	public function getAmounts() {	
-		return clone $this->amounts;
+	public function getAdditionalAmounts() {	
+		return clone $this->additionalAmounts;
 	}
 
 	/**
-	 * Sets the amounts
+	 * Sets the additionalAmounts
 	 *
-	 * @param Tx_Extbase_Persistence_ObjectStorage<Tx_Vegamatic_Domain_Model_Amounts> $amounts
+	 * @param Tx_Extbase_Persistence_ObjectStorage<Tx_Vegamatic_Domain_Model_Amounts> $additionalAmounts
 	 * @return void
 	 */
-	public function setAmounts(Tx_Extbase_Persistence_ObjectStorage $amounts) {
-		$this->amounts = $amounts;
+	public function setAdditionalAmounts(Tx_Extbase_Persistence_ObjectStorage $additionalAmounts) {
+		$this->AdditionalAmounts = $additionalAmounts;
 	}
 
+	/**
+	 * Adds an overlayAmount
+	 *
+	 * @param Tx_Vegamatic_Domain_Model_Amounts $overlayAmount
+	 * @return void
+	 */
+	public function addOverlayAmount(Tx_Vegamatic_Domain_Model_Amounts $overlayAmount) {
+		$this->overlayAmounts->attach($overlayAmount);
+	}
+
+	/**
+	 * Removes an overlayAmount
+	 *
+	 * @param Tx_Vegamatic_Domain_Model_Amounts $overlayAmountToRemove The Amounts to be removed
+	 * @return void
+	 */
+	public function removeOverlayAmount(Tx_Vegamatic_Domain_Model_Amounts $overlayAmountToRemove) {
+		$this->overlayAmounts->detach($overlayAmountToRemove);
+	}
+
+	/**
+	 * Returns the overlayAmounts
+	 *
+	 * @return Tx_Extbase_Persistence_ObjectStorage<Tx_Vegamatic_Domain_Model_Amounts> $overlayAmounts
+	 */
+	public function getOverlayAmounts() {	
+		return clone $this->overlayAmounts;
+	}
+
+	/**
+	 * Sets the overlayAmounts
+	 *
+	 * @param Tx_Extbase_Persistence_ObjectStorage<Tx_Vegamatic_Domain_Model_Amounts> $overlayAmounts
+	 * @return void
+	 */
+	public function setOverlayAmounts(Tx_Extbase_Persistence_ObjectStorage $overlayAmounts) {
+		$this->overlayAmounts = $overlayAmounts;
+	}
+	
 	/**
 	 * Returns maindish1
 	 *
@@ -507,7 +549,7 @@ class Tx_Vegamatic_Domain_Model_Weeks extends Tx_Extbase_DomainObject_AbstractEn
 			$sidedish = 'getSidedish'.$i;
 			
 			// if the maindish has ingredients		
-			if (is_object($this->$sidedish()) && is_object($this->$maindish()->getAmounts())) {
+			if (is_object($this->$maindish()) && is_object($this->$maindish()->getAmounts())) {
 				// iterate through all items
 				foreach ($this->$maindish()->getAmounts() as $amount) {										
 					$items[] = array(
@@ -538,8 +580,7 @@ class Tx_Vegamatic_Domain_Model_Weeks extends Tx_Extbase_DomainObject_AbstractEn
 						'exclude' => 0,		
 					);
 				}
-			}
-		
+			}	
 		}
 
 		// merge together all items from all dishes to one list - use the goods uids as keys for later comparison with the special items set for the week
@@ -557,38 +598,38 @@ class Tx_Vegamatic_Domain_Model_Weeks extends Tx_Extbase_DomainObject_AbstractEn
 			}
 		}
 		
-		// get the items that were especially set for the week
-		if (is_object($this->getAmounts())) {
-			foreach ($this->getAmounts() as $amount) {				
-				// if the item already exists...
-				$uid = $amount->getGoods()->getUid();			
-				if ($shoppingList[$uid]['goods']) {					
-					// check if the existing item should be excluded					
-					if ($amount->getExclude() == 1) {
-						// include the exclude item instead ;)
-						$shoppingList[$uid]['amount'] = $amount->getUid();
-						$shoppingList[$uid]['parent'] = 'Tx_Vegamatic_Domain_Model_Weeks';
-						$shoppingList[$uid]['exclude'] = 1;						
-					// otherwise override the existing item					
-					} else {
-						$shoppingList[$uid]['amount'] = $amount->getUid();
-						$shoppingList[$uid]['quantity']	= $amount->getQuantity();
-						$shoppingList[$uid]['unit']	= $amount->getUnit();
-						$shoppingList[$uid]['shop']	= $amount->getGoods()->getShop()->getName();
-						$shoppingList[$uid]['parent'] = 'Tx_Vegamatic_Domain_Model_Weeks';						
-					}
-				// new item, just include
+		// fuse in additional amounts
+		if (is_object($this->getAdditionalAmounts())) {
+			foreach ($this->getAdditionalAmounts() as $additionalAmount) {
+				$goodsUid = $additionalAmount->getGoods()->getUid();
+				$shoppingList[$goodsUid] = array(
+					'amount' => $additionalAmount->getUid(),
+					'quantity' => $additionalAmount->getQuantity(),
+					'unit' => $additionalAmount->getUnit(),
+					'goods' => $goodsUid,					
+					'name' => $additionalAmount->getGoods()->getName(),					
+					'shop' => $additionalAmount->getGoods()->getShop()->getName(),
+					'parent' => 'Tx_Vegamatic_Domain_Model_Weeks',
+					'exclude' => $additionalAmount->getExclude(),				
+				);			
+			}
+		}		
+		
+		// now bring on the overlays (= excluded / modified items)
+		if (is_object($this->getOverlayAmounts())) {
+			foreach ($this->getOverlayAmounts() as $overlayAmount) {
+				$goodsUid = $overlayAmount->getGoods()->getUid();
+				// find the item on the list that will get the overlay
+				if ($shoppingList[$goodsUid]['goods']) {
+					$shoppingList[$goodsUid]['amount'] = $overlayAmount->getUid();
+					$shoppingList[$goodsUid]['parent'] = 'Tx_Vegamatic_Domain_Model_Weeks';
+					if ($overlayAmount->getQuantity()) $shoppingList[$goodsUid]['quantity'] = $overlayAmount->getQuantity();
+					if ($overlayAmount->getUnit()) $shoppingList[$goodsUid]['unit']	= $overlayAmount->getUnit();						
+					$shoppingList[$goodsUid]['exclude'] = $overlayAmount->getExclude();
+					$shoppingList[$goodsUid]['overlay'] = 1;
 				} else {
-					$shoppingList[$uid] = array(
-						'amount' => $amount->getUid(),
-						'quantity' => $amount->getQuantity(),
-						'unit' => $amount->getUnit(),
-						'goods' => $uid,					
-						'name' => $amount->getGoods()->getName(),					
-						'shop' => $amount->getGoods()->getShop()->getName(),
-						'parent' => 'Tx_Vegamatic_Domain_Model_Weeks',
-						'exclude' => $amount->getExclude(),				
-					);					
+					// there was no item on the list that matches the specified overlay - remove it
+					$this->removeOverlayAmount($overlayAmount); 
 				}
 			}
 		}

@@ -86,6 +86,23 @@ class Tx_Vegamatic_Controller_WeeksController extends Tx_Extbase_MVC_Controller_
 	}
 	
 	/**
+	 * amountsRepository
+	 *
+	 * @var Tx_Vegamatic_Domain_Repository_AmountsRepository
+	 */
+	protected $amountsRepository;
+
+	/**
+	 * injectAmountsRepository
+	 *
+	 * @param Tx_Vegamatic_Domain_Repository_AmountsRepository $amountsRepository
+	 * @return void
+	 */
+	public function injectAmountsRepository(Tx_Vegamatic_Domain_Repository_AmountsRepository $amountsRepository) {
+		$this->amountsRepository = $amountsRepository;
+	}	
+	
+	/**
 	 * action list
 	 *
 	 * @return void
@@ -186,11 +203,11 @@ class Tx_Vegamatic_Controller_WeeksController extends Tx_Extbase_MVC_Controller_
 	 * remove a dish from a week slot
 	 *
 	 * @param Tx_Vegamatic_Domain_Model_Weeks $weeks
-	 * @param integer $dish
+	 * @param integer $uid
 	 * 
 	 * @return void
 	 */
-	public function removeDishAction(Tx_Vegamatic_Domain_Model_Weeks $week, $dish) {
+	public function removeDishAction(Tx_Vegamatic_Domain_Model_Weeks $week, $uid) {
 		
 #		$setter = 'set'.$property;
 #		$week->$setter($emptyObject);
@@ -203,7 +220,7 @@ class Tx_Vegamatic_Controller_WeeksController extends Tx_Extbase_MVC_Controller_
 	}
 	
 	/**
-	 * exclude amount action: excludes an amount by creating a new amount with exclude flag set to 1 (overrides the other amounts with same goods)
+	 * exclude amount: excludes an amount from the dishes/shopping list by creating/updating an amount set in the week (setExclude)
 	 * 
 	 * @param Tx_Vegamatic_Domain_Model_Weeks $week
 	 * @param Tx_Vegamatic_Domain_Model_Goods $goods
@@ -212,12 +229,37 @@ class Tx_Vegamatic_Controller_WeeksController extends Tx_Extbase_MVC_Controller_
 	 * 
 	 */
 	public function excludeAmountAction(Tx_Vegamatic_Domain_Model_Weeks $week, Tx_Vegamatic_Domain_Model_Goods $goods) {		
-		$amount = new Tx_Vegamatic_Domain_Model_Amounts();
-		$amount->setQuantity('0');
-		$amount->setUnit('0');
-		$amount->setGoods($goods);
-		$amount->setExclude('1');		
-		$this->forward('createAmount', 'Weeks', NULL, array('week' => $week, 'amount' => $amount));
+		// check if overlay amount already exists; if found, update
+		if (is_object($week->getOverlayAmounts())) {
+			foreach ($week->getOverlayAmounts() as $overlayAmount) {				
+				if ($overlayAmount->getGoods()->getUid() == $goods->getUid() && $overlayAmount->getExclude() < 1) {
+					// update & forward
+					$overlayAmount->setExclude(1);
+					$this->amountsRepository->update($overlayAmount);
+					$this->redirect('show', 'Weeks', NULL, array('week' => $week));			
+				}
+			}
+		}
+
+		// no overlay amount found for this week and goods, create a new one
+		$overlayAmount = new Tx_Vegamatic_Domain_Model_Amounts();
+		$overlayAmount->setGoods($goods);
+		$overlayAmount->setExclude(1);
+		$week->addOverlayAmount($overlayAmount);
+		$this->redirect('show', 'Weeks', NULL, array('week' => $week));
+	}
+	
+	/**
+	 * @param Tx_Vegamatic_Domain_Model_Weeks $week
+	 * @param Tx_Vegamatic_Domain_Model_Amounts $amount
+	 * 
+	 * @return void
+	 */
+	public function includeAmountAction(Tx_Vegamatic_Domain_Model_Weeks $week, Tx_Vegamatic_Domain_Model_Amounts $amount) {
+		// reset exclude flag - overlay amount will already exist so its safe to just update
+		$amount->setExclude(0);
+		$this->amountsRepository->update($amount);	
+		$this->redirect('show', 'Weeks', NULL, array('week' => $week));
 	}
 
 	/**
@@ -256,10 +298,11 @@ class Tx_Vegamatic_Controller_WeeksController extends Tx_Extbase_MVC_Controller_
 	}
 	
 	/**
-	 * create amount action: needed for record creation after add and modify actions
+	 * create new amount for the week
 	 * 
 	 * @param Tx_Vegamatic_Domain_Model_Weeks $week
 	 * @param Tx_Vegamatic_Domain_Model_Amounts $amount
+	 * @dontvalidate $amount
 	 * 
 	 * @return void
 	 */
@@ -268,7 +311,7 @@ class Tx_Vegamatic_Controller_WeeksController extends Tx_Extbase_MVC_Controller_
 		// add amount to the current week
 		$week->addAmount($amount);
 
-		// redirect to show again - persist new amount
+		// redirect to show again - persist the added, new amount
 		$this->redirect('show', 'Weeks', NULL, array('week' => $week));		
 	}
 	

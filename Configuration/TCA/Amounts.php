@@ -162,16 +162,21 @@ $TCA['tx_vegamatic_domain_model_amounts'] = array(
 				'type' => 'check',
 			),
 		),		
-		'dishes' => array(
+		'dish' => array(
 			'config' => array(
 				'type' => 'passthrough',
 			),
 		),
-		'weeks' => array(
+		'week' => array(
 			'config' => array(
 				'type' => 'passthrough',
 			),
 		),
+		'overlay' => array(
+			'config' => array(
+				'type' => 'passthrough',
+			),
+		),		
 	),
 );
 ## EXTENSION BUILDER DEFAULTS END TOKEN - Everything BEFORE this line is overwritten with the defaults of the extension builder

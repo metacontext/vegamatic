@@ -42,7 +42,8 @@
 			<label index="tx_vegamatic_domain_model_weeks.sidedish6">Sidedish 6</label>
 			<label index="tx_vegamatic_domain_model_weeks.maindish7">Maindish 7</label>
 			<label index="tx_vegamatic_domain_model_weeks.sidedish7">Sidedish 7</label>																		
-			<label index="tx_vegamatic_domain_model_weeks.amounts">Amounts</label>
+			<label index="tx_vegamatic_domain_model_weeks.additional_amounts">Additional Amounts</label>
+			<label index="tx_vegamatic_domain_model_weeks.overlay_amounts">Overlay Amounts</label>			
 			<label index="tx_vegamatic_domain_model_shops">Shops</label>
 			<label index="tx_vegamatic_domain_model_shops.name">Name</label>
 		</languageKey>

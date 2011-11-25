@@ -6,10 +6,10 @@ if (!defined ('TYPO3_MODE')) {
 $TCA['tx_vegamatic_domain_model_weeks'] = array(
 	'ctrl' => $TCA['tx_vegamatic_domain_model_weeks']['ctrl'],
 	'interface' => array(
-		'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, weekstamp, maindish1, maindish2, maindish3, maindish4, maindish5, maindish6, maindish7, sidedish1, sidedish2, sidedish3, sidedish4, sidedish5, sidedish6, sidedish7, amounts',
+		'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, weekstamp, maindish1, maindish2, maindish3, maindish4, maindish5, maindish6, maindish7, sidedish1, sidedish2, sidedish3, sidedish4, sidedish5, sidedish6, sidedish7, overlay_amounts, additional_amounts',
 	),
 	'types' => array(
-		'1' => array('showitem' => 'sys_language_uid;;;;1-1-1, l10n_parent, l10n_diffsource, hidden;;1, weekstamp, maindish1, maindish2, maindish3, maindish4, maindish5, maindish6, maindish7, sidedish1, sidedish2, sidedish3, sidedish4, sidedish5, sidedish6, sidedish7, amounts,--div--;LLL:EXT:cms/locallang_ttc.xml:tabs.access,starttime, endtime'),
+		'1' => array('showitem' => 'sys_language_uid;;;;1-1-1, l10n_parent, l10n_diffsource, hidden;;1, weekstamp, maindish1, maindish2, maindish3, maindish4, maindish5, maindish6, maindish7, sidedish1, sidedish2, sidedish3, sidedish4, sidedish5, sidedish6, sidedish7, overlay_amounts, additional_amounts, --div--;LLL:EXT:cms/locallang_ttc.xml:tabs.access,starttime, endtime'),
 	),
 	'palettes' => array(
 		'1' => array('showitem' => ''),
@@ -286,14 +286,32 @@ $TCA['tx_vegamatic_domain_model_weeks'] = array(
 				'minitems' => 0,
 				'maxitems' => 1,
 			),
-		),					
-		'amounts' => array(
+		),
+		'overlay_amounts' => array(
 			'exclude' => 0,
-			'label' => 'LLL:EXT:vegamatic/Resources/Private/Language/locallang_db.xml:tx_vegamatic_domain_model_weeks.amounts',
+			'label' => 'LLL:EXT:vegamatic/Resources/Private/Language/locallang_db.xml:tx_vegamatic_domain_model_weeks.overlay_amounts',
 			'config' => array(
 				'type' => 'inline',
 				'foreign_table' => 'tx_vegamatic_domain_model_amounts',
-				'foreign_field' => 'weeks',
+				'foreign_field' => 'overlay',
+				'minitems' => 0,
+				'maxitems' => 9999,
+				'appearance' => array(
+					'collapse' => 0,
+					'levelLinksPosition' => 'top',
+					'showSynchronizationLink' => 1,
+					'showPossibleLocalizationRecords' => 1,
+					'showAllLocalizationLink' => 1
+				),
+			),
+		),						
+		'additional_amounts' => array(
+			'exclude' => 0,
+			'label' => 'LLL:EXT:vegamatic/Resources/Private/Language/locallang_db.xml:tx_vegamatic_domain_model_weeks.additional_amounts',
+			'config' => array(
+				'type' => 'inline',
+				'foreign_table' => 'tx_vegamatic_domain_model_amounts',
+				'foreign_field' => 'week',
 				'minitems' => 0,
 				'maxitems' => 9999,
 				'appearance' => array(

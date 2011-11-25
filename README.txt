@@ -26,3 +26,7 @@ addAmount => processAmount => crud
 modifyAmount => processAmount => crud
 excludeAmount => processAmount => crud
 includeAmount => processAmount => crud
+
+====
+
+addDish => synchronizeAmounts => getShoppingList => isWeekAmount
