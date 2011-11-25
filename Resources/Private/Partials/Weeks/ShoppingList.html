@@ -8,9 +8,11 @@
 				<f:if condition="{item.exclude} != 1">
 					<f:then>
 						<dd>
+							<f:debug>{item}</f:debug>
 							<f:if condition="{item.quantity}">{item.quantity}</f:if><f:if condition="{item.unit}"><f:translate key="tx_vegamatic_domain_model_amounts.unit.I.{item.unit}" /></f:if>							
 							{item.name} -
-							<f:link.action action="excludeAmount" arguments="{week : week, goods : item.goods}">Exclude</f:link.action> / <a href="#">TODO: Modify</a>
+							<f:link.action action="excludeAmount" arguments="{week : week, goods : item.goods}">Exclude</f:link.action> / 
+							<f:link.action action="modifyAmount" arguments="{week : week, goods : item.goods}">Modify</f:link.action>
 						</dd>
 					</f:then>
 					<f:else>
