@@ -180,9 +180,7 @@ class Tx_Vegamatic_Controller_WeeksController extends Tx_Extbase_MVC_Controller_
 		$this->flashMessageContainer->add('Your Weeks was removed.');
 		$this->redirect('list');
 	}
-	
-	
-	
+
 	/**
 	 * action addDish
 	 *
@@ -211,7 +209,7 @@ class Tx_Vegamatic_Controller_WeeksController extends Tx_Extbase_MVC_Controller_
 		
 #		$setter = 'set'.$property;
 #		$week->$setter($emptyObject);
-		die();
+		die('removeDishAction not yet implemented');
 		
 		$week->maindish1 = 0;
 		
@@ -235,15 +233,12 @@ class Tx_Vegamatic_Controller_WeeksController extends Tx_Extbase_MVC_Controller_
 				if ($overlayAmount->getGoods()->getUid() == $goods->getUid() && $overlayAmount->getExclude() < 1) {
 					// update & forward
 					$overlayAmount->setExclude(1);
-					$this->forward('updateOverlayAmount', 'Weeks', NULL, array('week' => $week, 'overlayAmount' => $overlayAmount));					
+					$this->forward('updateAmount', 'Weeks', NULL, array('week' => $week, 'amount' => $overlayAmount));					
 				}
 			}
 		}
 		// no overlay amount found for this week and goods, create a new one
-		$overlayAmount = new Tx_Vegamatic_Domain_Model_Amounts();
-		$overlayAmount->setGoods($goods);
-		$overlayAmount->setExclude(1);
-		$this->forward('createOverlayAmount', 'Weeks', NULL, array('week' => $week, 'overlayAmount' => $overlayAmount));
+		$this->forward('createAmount', 'Weeks', NULL, array('week' => $week, 'amountTypeToAdd' => 'addOverlayAmount', 'amountProperties' => array('setGoods' => $goods, 'setExclude' => 1)));
 	}
 	
 	/**
@@ -256,7 +251,7 @@ class Tx_Vegamatic_Controller_WeeksController extends Tx_Extbase_MVC_Controller_
 	 */
 	public function includeAmountAction(Tx_Vegamatic_Domain_Model_Weeks $week, Tx_Vegamatic_Domain_Model_Amounts $amount) {
 		$amount->setExclude(0);
-		$this->forward('updateOverlayAmount', 'Weeks', NULL, array('week' => $week, 'overlayAmount' => $amount));					
+		$this->forward('updateAmount', 'Weeks', NULL, array('week' => $week, 'amount' => $amount));					
 	}
 
 	/**
@@ -273,109 +268,36 @@ class Tx_Vegamatic_Controller_WeeksController extends Tx_Extbase_MVC_Controller_
 		// otherwise create a new overlay with the modifications 
 		
 		// has own template
+		die('modifyAmountAction not yet implemented');
 	}
 	
 	/**
 	 * @param Tx_Vegamatic_Domain_Model_Weeks $week
-	 * @param Tx_Vegamatic_Domain_Model_Amounts $overlayAmount
+	 * @param string $amountTypeToAdd
+	 * @param array $amountProperties
 	 * 
 	 * @return void
 	 */
-	public function createOverlayAmount(Tx_Vegamatic_Domain_Model_Weeks $week, Tx_Vegamatic_Domain_Model_Amounts $overlayAmount) {
-		$week->addOverlayAmount($overlayAmount);
+	public function createAmountAction(Tx_Vegamatic_Domain_Model_Weeks $week, $amountTypeToAdd, $amountProperties) {
+		if (($amountTypeToAdd == 'addOverlayAmount' || $amountTypeToAdd == 'addAdditionalAmount') && is_array($amountProperties) && count($amountProperties) > 0) {
+			$amount = new Tx_Vegamatic_Domain_Model_Amounts();
+			foreach ($amountProperties as $setter => $value) {
+				$amount->$setter($value);
+			}
+		} else { die('VEGAMATIC TODO: Throw error'); }
+		$week->$amountTypeToAdd($amount);
 		$this->redirect('show', 'Weeks', NULL, array('week' => $week));		
 	}
 
 	/**
-	 * @param Tx_Vegamatic_Domain_Model_Weeks $week
-	 * @param Tx_Vegamatic_Domain_Model_Amounts $overlayAmount
-	 * 
-	 * @return void
-	 */	
-	public function updateOverlayAmount(Tx_Vegamatic_Domain_Model_Weeks $week, Tx_Vegamatic_Domain_Model_Amounts $overlayAmount) {
-		$this->amountsRepository->update($overlayAmount);
-		$this->redirect('show', 'Weeks', NULL, array('week' => $week));
-	}
-
-	/**
-	 * @param Tx_Vegamatic_Domain_Model_Weeks $week
-	 * @param Tx_Vegamatic_Domain_Model_Amounts $additionalAmount
-	 * 
-	 * @return void 
-	 */
-	public function createAdditionalAmount(Tx_Vegamatic_Domain_Model_Weeks $week, Tx_Vegamatic_Domain_Model_Amounts $additionalAmount) {
-		$week->addAdditionalAmount($additionalAmount);
-		$this->redirect('show', 'Weeks', NULL, array('week' => $week));		
-	}
-
-	/**
-	 * @param Tx_Vegamatic_Domain_Model_Weeks $week
-	 * @param Tx_Vegamatic_Domain_Model_Amounts $additionalAmount
-	 * 
-	 * @return void 
-	 */	
-	public function updateAdditionalAmount(Tx_Vegamatic_Domain_Model_Weeks $week, Tx_Vegamatic_Domain_Model_Amounts $additionalAmount) {
-		$this->amountsRepository->update($additionalAmount);
-		$this->redirect('show', 'Weeks', NULL, array('week' => $week));		
-	}
-
-	/**
-	 * adds an amount to the weeks shopping list (will override existing amounts if the related goods are the same)
-	 * 
-	 * @param Tx_Vegamatic_Domain_Model_Weeks $week
-	 * 
-	 * @return string Template/Partial
-	 */
-/*
-	public function addAmountAction(Tx_Vegamatic_Domain_Model_Weeks $week) {
-		
-		$goods = array();
-		foreach ($this->goodsRepository->findAll() as $good) {
-			$goods[$good->getUid()] = $good->getName();
-		}
-		
-		$this->view->assign('goods', $goods);
-		$this->view->assign('week', $week);
-		$this->view->assign('currentAction', 'addAmount');		
-	}
-*/	
-	/**
-	 * create new amount for the week
-	 * 
-	 * @param Tx_Vegamatic_Domain_Model_Weeks $week
-	 * @param Tx_Vegamatic_Domain_Model_Amounts $amount
-	 * @dontvalidate $amount
-	 * 
-	 * @return void
-	 */
-/*
-	public function createAmountAction(Tx_Vegamatic_Domain_Model_Weeks $week, Tx_Vegamatic_Domain_Model_Amounts $amount) {
-		
-		// add amount to the current week
-		$week->addAmount($amount);
-
-		// redirect to show again - persist the added, new amount
-		$this->redirect('show', 'Weeks', NULL, array('week' => $week));		
-	}
-*/	
-	/**
-	 * include amount action: destroys the amount that has it's exclude flag set to 1 (other amounts with same goods will be included again)
-	 * 
 	 * @param Tx_Vegamatic_Domain_Model_Weeks $week
 	 * @param Tx_Vegamatic_Domain_Model_Amounts $amount
 	 * 
 	 * @return void
-	 * 
-	 */
-/*
-	public function removeAmountAction(Tx_Vegamatic_Domain_Model_Weeks $week, Tx_Vegamatic_Domain_Model_Amounts $amount) {
-		
-		// remove amount the current week
-		$week->removeAmount($amount);
-
-		// show again
+	 */	
+	public function updateAmountAction(Tx_Vegamatic_Domain_Model_Weeks $week, Tx_Vegamatic_Domain_Model_Amounts $amount) {
+		$this->amountsRepository->update($amount);
 		$this->redirect('show', 'Weeks', NULL, array('week' => $week));
 	}
-*/	
 }
 ?>
