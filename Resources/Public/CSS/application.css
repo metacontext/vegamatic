@@ -38,3 +38,7 @@ table td {
 .excluded {
 	text-decoration: line-through;
 }
+
+.modified {
+	color: red;
+}

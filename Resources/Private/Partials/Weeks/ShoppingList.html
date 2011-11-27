@@ -5,37 +5,68 @@
 			<f:groupedFor each="{week.shoppingList}" as="groupedShoppingList" groupBy="shop" groupKey="shop">
 			<dt>{shop}</dt>
 			<f:for each="{groupedShoppingList}" as="item">
-				<f:if condition="{item.exclude} != 1">
+				<f:if condition="{modifyAmount} == {item.goods}">
 					<f:then>
-						<dd>
-
-							<f:if condition="{item.quantity}">{item.quantity}</f:if><f:if condition="{item.unit}"><f:translate key="tx_vegamatic_domain_model_amounts.unit.I.{item.unit}" /></f:if>							
-							{item.name} -
-							<f:link.action action="excludeAmount" arguments="{week : week, goods : item.goods}">Exclude</f:link.action> / 
-							<f:link.action action="modifyAmount" arguments="{week : week, amount : item.amount}">Modify</f:link.action>
-						</dd>
-					</f:then>
+						<f:form action="updateAmount" id="updateAmount" name="amount" object="{item.amount}">					
+							<label for="quantity">Quantity</label>
+							<f:form.textbox id="quantity" property="quantity" value="{item.quantity}" size="3" />
+							<label for="unit">Unit</label>
+							<f:form.select id="unit" property="unit" options="{0: '', 10: 'g'}" />
+							<f:form.hidden name="week" value="{week}" />
+							<label for="submit">{item.name}</label>
+							<f:form.submit id="submit" class="nice medium radius white button" value="Update" />
+						</f:form>
+					</f:then>		
 					<f:else>
-						<dd><span class="excluded">
-							<f:if condition="{item.quantity}">{item.quantity}</f:if><f:if condition="{item.unit}"><f:translate key="tx_vegamatic_domain_model_amounts.unit.I.{item.unit}" /></f:if>						
-							{item.name}</span> -
-							<f:link.action action="includeAmount" arguments="{week : week, amount : item.amount}">Include</f:link.action>					
-						</dd>
-					</f:else>
+						<f:if condition="{item.exclude} != 1">
+							<f:then>
+								<dd>
+									<f:if condition="{item.overlay} == 1">
+										<f:then>
+											<f:if condition="{item.amount.quantity} > 0">
+												<f:then>
+													<span class="modified">{item.quantity}</span>
+												</f:then>
+												<f:else>
+													<f:if condition="{item.quantity} > 0">
+														{item.quantity}
+													</f:if>
+												</f:else>
+											</f:if>
+										</f:then>
+										<f:else>
+											<f:if condition="{item.quantity} > 0">
+												{item.quantity}
+											</f:if>
+										</f:else>
+									</f:if>
+									<f:if condition="{item.unit}">
+										<f:translate key="tx_vegamatic_domain_model_amounts.unit.I.{item.unit}" />
+									</f:if>							
+									{item.name} -
+									<f:link.action action="excludeAmount" arguments="{week : week, goods : item.goods}">Exclude</f:link.action> / 
+									<f:link.action action="modifyAmount" arguments="{week : week, goods : item.goods}">Modify</f:link.action>
+								</dd>
+							</f:then>
+							<f:else>
+								<dd>
+									<span class="excluded">
+										<f:if condition="{item.quantity}">{item.quantity}</f:if>
+										<f:if condition="{item.unit}"><f:translate key="tx_vegamatic_domain_model_amounts.unit.I.{item.unit}" /></f:if>						
+										{item.name}
+									</span> -
+									<f:link.action action="includeAmount" arguments="{week : week, amount : item.amount}">Include</f:link.action>					
+								</dd>
+							</f:else>
+						</f:if>
+					</f:else>					
 				</f:if>
 			</f:for>
 			</f:groupedFor>
 		</dl>
-		<p>
-			<f:if condition="{0:currentAction} != {0:'addAmount'}">
-				<f:link.action class="nice medium radius white button" action="addAmount" arguments="{week : week}">TODO: Add new item</f:link.action>	
-			</f:if>
-			<a href="#" class="nice medium radius white button">TODO: Create new item</a>
-			<a class="nice medium radius white button" href="#">TODO: Print</a>
-		</p>
-		<f:if condition="{0:currentAction} == {0:'addAmount'}">
+		<f:if condition="{addAmount} == 1">
 			<h5>Add a new item</h5>
-			<f:form action="createAmount" id="createAmount" object="amount">
+			<f:form action="addAmount" id="addAmount" name="amount" object="{item.amount}">
 			
 				<label for="quantity">Quantity</label>
 				<input type="text" id="quantity" name="quantity" value="" size="3" />
@@ -53,5 +84,11 @@
 			</f:form>
 			<f:link.action action="show" arguments="{week : week}">...or Cancel</f:link.action>
 		</f:if>
+		<p>
+			<f:if condition="{addAmount} != 1">
+				<f:link.action class="nice medium radius white button" action="addAmount" arguments="{week : week}">TODO: Create/Add item</f:link.action>	
+			</f:if>
+			<a class="nice medium radius white button" href="#">TODO: Print</a>
+		</p>		
 	</div>
 </div>

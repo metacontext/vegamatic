@@ -252,23 +252,31 @@ class Tx_Vegamatic_Controller_WeeksController extends Tx_Extbase_MVC_Controller_
 	public function includeAmountAction(Tx_Vegamatic_Domain_Model_Weeks $week, Tx_Vegamatic_Domain_Model_Amounts $amount) {
 		$amount->setExclude(0);
 		$this->forward('updateAmount', 'Weeks', NULL, array('week' => $week, 'amount' => $amount));					
-	}
-
+	}	
+	
 	/**
-	 * modifies the quantity and/or unit of an (accumulated) amount (by creating a new one or updating an existing one from the week object)
+	 * displays an inline form for modifiying the quantity and/or unit of an amount (by creating or updating an overlay)
 	 * 
 	 * @param Tx_Vegamatic_Domain_Model_Weeks $week
-	 * @param Tx_Vegamatic_Domain_Model_Amounts $amount
+	 * @param Tx_Vegamatic_Domain_Model_Goods $goods
 	 * 
 	 * @return string Template/Partial for this action
 	 * 
 	 */
-	public function modifyAmountAction(Tx_Vegamatic_Domain_Model_Weeks $week, Tx_Vegamatic_Domain_Model_Amounts $amount) {
-		// if an overlay already exists, modify this
-		// otherwise create a new overlay with the modifications 
-		
-		// has own template
-		die('modifyAmountAction not yet implemented');
+	public function modifyAmountAction(Tx_Vegamatic_Domain_Model_Weeks $week, Tx_Vegamatic_Domain_Model_Goods $goods) {
+		// first find out if an overlay for the current goods already exists
+		$shoppingList = $week->getShoppingList();
+		if (!$shoppingList[$goods->getUid()]['overlay']) {
+			// create an empty one, then only update has to be called from view (quantity and unit for this new overlay will be filled in on the shopping list until the user modifies it)
+			$overlayAmount = new Tx_Vegamatic_Domain_Model_Amounts();
+			$overlayAmount->setGoods($goods);
+			$week->addOverlayAmount($overlayAmount);
+			// persist and then display form with now existing overlay
+			$this->redirect('modifyAmount', 'Weeks', NULL, array('week' => $week, 'goods' => $goods));
+		}
+		$this->view->assign('days', Tx_Vegamatic_Utility_Datetime::getNextSevenDays($week->getWeekstamp()));
+		$this->view->assign('week', $week);
+		$this->view->assign('modifyAmount', $goods->getUid());
 	}
 	
 	/**
@@ -292,6 +300,7 @@ class Tx_Vegamatic_Controller_WeeksController extends Tx_Extbase_MVC_Controller_
 	/**
 	 * @param Tx_Vegamatic_Domain_Model_Weeks $week
 	 * @param Tx_Vegamatic_Domain_Model_Amounts $amount
+	 * @dontvalidate $amount
 	 * 
 	 * @return void
 	 */	

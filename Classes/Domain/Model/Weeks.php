@@ -553,7 +553,8 @@ class Tx_Vegamatic_Domain_Model_Weeks extends Tx_Extbase_DomainObject_AbstractEn
 				// iterate through all items
 				foreach ($this->$maindish()->getAmounts() as $amount) {										
 					$items[] = array(
-						'amount' => $amount->getUid(),                        
+//						'amount' => $amount->getUid(),
+						'amount' => $amount,                       
 						'quantity' => $amount->getQuantity(),			
 						'unit' => $amount->getUnit(),
 						'goods' => $amount->getGoods()->getUid(),						
@@ -570,7 +571,8 @@ class Tx_Vegamatic_Domain_Model_Weeks extends Tx_Extbase_DomainObject_AbstractEn
 				// iterate through all items
 				foreach ($this->$sidedish()->getAmounts() as $amount) {										
 					$items[] = array(
-						'amount' => $amount->getUid(),                        
+//						'amount' => $amount->getUid(),
+						'amount' => $amount,                      
 						'quantity' => $amount->getQuantity(),			
 						'unit' => $amount->getUnit(),
 						'goods' => $amount->getGoods()->getUid(),						
@@ -603,7 +605,8 @@ class Tx_Vegamatic_Domain_Model_Weeks extends Tx_Extbase_DomainObject_AbstractEn
 			foreach ($this->getAdditionalAmounts() as $additionalAmount) {
 				$goodsUid = $additionalAmount->getGoods()->getUid();
 				$shoppingList[$goodsUid] = array(
-					'amount' => $additionalAmount->getUid(),
+//					'amount' => $additionalAmount->getUid(),
+					'amount' => $additionalAmount,
 					'quantity' => $additionalAmount->getQuantity(),
 					'unit' => $additionalAmount->getUnit(),
 					'goods' => $goodsUid,					
@@ -616,12 +619,14 @@ class Tx_Vegamatic_Domain_Model_Weeks extends Tx_Extbase_DomainObject_AbstractEn
 		}		
 		
 		// now bring on the overlays (= excluded / modified items)
+// note: if an amount has values for quantity / unit we can assume that it has been modified and mark it like this
 		if (is_object($this->getOverlayAmounts())) {
 			foreach ($this->getOverlayAmounts() as $overlayAmount) {
 				$goodsUid = $overlayAmount->getGoods()->getUid();
 				// find the item on the list that will get the overlay
 				if ($shoppingList[$goodsUid]['goods']) {
-					$shoppingList[$goodsUid]['amount'] = $overlayAmount->getUid();
+//					$shoppingList[$goodsUid]['amount'] = $overlayAmount->getUid();
+					$shoppingList[$goodsUid]['amount'] = $overlayAmount;
 					$shoppingList[$goodsUid]['parent'] = 'Tx_Vegamatic_Domain_Model_Weeks';
 					if ($overlayAmount->getQuantity()) $shoppingList[$goodsUid]['quantity'] = $overlayAmount->getQuantity();
 					if ($overlayAmount->getUnit()) $shoppingList[$goodsUid]['unit']	= $overlayAmount->getUnit();						
@@ -634,7 +639,8 @@ class Tx_Vegamatic_Domain_Model_Weeks extends Tx_Extbase_DomainObject_AbstractEn
 			}
 		}
 	
-		return array_values($shoppingList);
+#		return array_values($shoppingList);
+		return $shoppingList;
 	}
 	
 }
