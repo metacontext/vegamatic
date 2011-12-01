@@ -34,5 +34,33 @@
  */
 class Tx_Vegamatic_Domain_Repository_GoodsRepository extends Tx_Extbase_Persistence_Repository {
 
+	/**
+	 * Finds all goods not listed on the current shopping list
+	 * 
+	 * @return object The unlisted goods
+	 */
+	public function findUnlistedGoods($shoppingList) {
+
+		$goods = array();
+
+		foreach($shoppingList as $item) {
+			$goods[] = $item['goods'];
+		}
+					
+		$query = $this->createQuery();
+		$query->matching($query->logicalNot($query->in('uid', $goods)));
+		$query->setOrderings(array('name' => Tx_Extbase_Persistence_QueryInterface::ORDER_ASCENDING));		
+		$query->getQuerySettings()->setReturnRawQueryResult(TRUE);
+		$result = $query->execute();
+		
+		if (count($result) > 0) {
+			foreach ($result as $unlistedItem) {
+				$unlistedGoods[$unlistedItem['uid']] = $unlistedItem['name'];
+			}
+		}
+		
+		return $unlistedGoods;	
+	}
+	
 }
 ?>

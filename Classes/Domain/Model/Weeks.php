@@ -619,7 +619,7 @@ class Tx_Vegamatic_Domain_Model_Weeks extends Tx_Extbase_DomainObject_AbstractEn
 		}		
 		
 		// now bring on the overlays (= excluded / modified items)
-// note: if an amount has values for quantity / unit we can assume that it has been modified and mark it like this
+		// note: if an amount has values for quantity / unit we can assume that it has been modified and mark it like this
 		if (is_object($this->getOverlayAmounts())) {
 			foreach ($this->getOverlayAmounts() as $overlayAmount) {
 				$goodsUid = $overlayAmount->getGoods()->getUid();

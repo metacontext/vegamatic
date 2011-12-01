@@ -32,75 +32,7 @@
  * @license http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public License, version 3 or later
  *
  */
-class Tx_Vegamatic_Domain_Model_Goods extends Tx_Extbase_DomainObject_AbstractEntity {
-
-	/**
-	 * uid
-	 *
-	 * @var integer
-	 */
-	protected $uid;
-	
-	/**
-	 * Name of the product
-	 *
-	 * @var string
-	 * @validate NotEmpty
-	 */
-	protected $name;
-
-	/**
-	 * The shop where to buy the product
-	 *
-	 * @var Tx_Vegamatic_Domain_Model_Shops
-	 */
-	protected $shop;
-
-	/**
-	 * __construct
-	 *
-	 * @return void
-	 */
-	public function __construct() {
-	}
-	
-	/**
-	 * Returns the name
-	 *
-	 * @return string $name
-	 */
-	public function getName() {
-		return $this->name;
-	}
-
-	/**
-	 * Sets the name
-	 *
-	 * @param string $name
-	 * @return void
-	 */
-	public function setName($name) {
-		$this->name = $name;
-	}
-
-	/**
-	 * Returns the shop
-	 *
-	 * @return Tx_Vegamatic_Domain_Model_Shops $shop
-	 */
-	public function getShop() {
-		return $this->shop;
-	}
-
-	/**
-	 * Sets the shop
-	 *
-	 * @param Tx_Vegamatic_Domain_Model_Shops $shop
-	 * @return void
-	 */
-	public function setShop(Tx_Vegamatic_Domain_Model_Shops $shop) {
-		$this->shop = $shop;
-	}
+class Tx_Vegamatic_Domain_Repository_ShopsRepository extends Tx_Extbase_Persistence_Repository {
 
 }
 ?>

@@ -101,6 +101,23 @@ class Tx_Vegamatic_Controller_WeeksController extends Tx_Extbase_MVC_Controller_
 	public function injectAmountsRepository(Tx_Vegamatic_Domain_Repository_AmountsRepository $amountsRepository) {
 		$this->amountsRepository = $amountsRepository;
 	}	
+
+	/**
+	 * shopsRepository
+	 *
+	 * @var Tx_Vegamatic_Domain_Repository_ShopsRepository
+	 */
+	protected $shopsRepository;
+
+	/**
+	 * injectShopsRepository
+	 *
+	 * @param Tx_Vegamatic_Domain_Repository_ShopsRepository $shopsRepository
+	 * @return void
+	 */
+	public function injectShopsRepository(Tx_Vegamatic_Domain_Repository_ShopsRepository $shopsRepository) {
+		$this->shopsRepository = $shopsRepository;
+	}	
 	
 	/**
 	 * action list
@@ -252,7 +269,7 @@ class Tx_Vegamatic_Controller_WeeksController extends Tx_Extbase_MVC_Controller_
 	public function includeAmountAction(Tx_Vegamatic_Domain_Model_Weeks $week, Tx_Vegamatic_Domain_Model_Amounts $amount) {
 		$amount->setExclude(0);
 		$this->forward('updateAmount', 'Weeks', NULL, array('week' => $week, 'amount' => $amount));					
-	}	
+	}
 	
 	/**
 	 * displays an inline form for modifiying the quantity and/or unit of an amount (by creating or updating an overlay)
@@ -280,19 +297,93 @@ class Tx_Vegamatic_Controller_WeeksController extends Tx_Extbase_MVC_Controller_
 	}
 	
 	/**
+	 * add a new amount to this weeks additional amounts and/or create a completely new amount=>goods
+	 * 
+	 * @param Tx_Vegamatic_Domain_Model_Weeks $week
+	 * 
+	 * @return HTML string / view for this action
+	 */
+	public function addAmountAction(Tx_Vegamatic_Domain_Model_Weeks $week) {
+		$this->view->assign('unlistedGoods', array_merge(array(0 => 'Choose Item'), $this->goodsRepository->findUnlistedGoods($week->getShoppingList())));
+		$this->view->assign('shops', array_merge(array(0 => 'Choose Shop'), $this->shopsRepository->findAll()->toArray()));		
+		$this->view->assign('days', Tx_Vegamatic_Utility_Datetime::getNextSevenDays($week->getWeekstamp()));
+		$this->view->assign('week', $week);
+		$this->view->assign('addAmount', 1);
+	}	
+	
+	/**
 	 * @param Tx_Vegamatic_Domain_Model_Weeks $week
 	 * @param string $amountTypeToAdd
 	 * @param array $amountProperties
 	 * 
+	 * 1: no setGoods, no newGoods => error
+	 * 2: setGoods, no newGoods or newGoods => setGoods takes precedence
+	 * 3: no setGoods, newGoods
+	 * 3.1: no setShop, no newShop => error
+	 * 3.2: setShop, no newShop or newShop => setShop takes precedence
+	 * 3.3: noSetShop, newShop => createShopAction
+	 * 
+	 * 
 	 * @return void
 	 */
-	public function createAmountAction(Tx_Vegamatic_Domain_Model_Weeks $week, $amountTypeToAdd, $amountProperties) {
+	public function createAmountAction(Tx_Vegamatic_Domain_Model_Weeks $week, $amountTypeToAdd, $amountProperties) {	
+		
 		if (($amountTypeToAdd == 'addOverlayAmount' || $amountTypeToAdd == 'addAdditionalAmount') && is_array($amountProperties) && count($amountProperties) > 0) {
+			
+			// case 2 - setGoods, no newGoods or newGoods => setGoods takes precedence
+			if ($amountProperties['setGoods']) {
+				
+				// check if goods its already an object, otherwise fetch it from repository by the given uid
+				if (!is_object($amountProperties['setGoods']) && (int) $amountProperties['setGoods'] > 0) {
+					$amountProperties['setGoods'] = $this->goodsRepository->findByUid((int) $amountProperties['setGoods']);
+				}
+				
+				// check again if we now have a valid object
+				if (!is_object($amountProperties['setGoods'])) {
+					die('VEGAMATIC TODO: Throw error either no valid setGoods integer submitted or object not found for the given integer');
+				}
+				
+			// case 3 - no setGoods, newGoods
+			} elseif ($amountProperties['newGoods']) {
+				
+				// create new goods object
+				$newGoods = new Tx_Vegamatic_Domain_Model_Goods();
+				$newGoods->setName($amountProperties['newGoods']);
+				
+				// case 3.2 - setShop, no newShop or newShop => setShop takes precedence
+				if ($amountProperties['setShop']) {
+					
+					// get it as object from repository - at the same tests if the submitted shop is valid				
+					$amountProperties['setShop'] = $this->shopsRepository->findByUid((int) $amountProperties['setShop']);
+					if (is_object($amountProperties['setShop'])) { $newGoods->setShop($amountProperties['setShop']);
+					} else { die('VEGAMATIC TODO: Throw error no valid integer given for setShop'); }
+					
+				// case 3.3 - noSetShop, newShop => createShopAction
+				} elseif ($amountProperties['newShop']) {
+
+					$newShop = new Tx_Vegamatic_Domain_Model_Shops();
+					$newShop->setName($amountProperties['newShop']);
+					$newGoods->setShop($newShop);
+					
+				// case 3.1 - no setShop, no newShop => error
+				} else { die('VEGAMATIC TODO: Throw error for case 3.1 - no setShop, no newShop'); }
+				
+				unset($amountProperties['newGoods']);
+				unset($amountProperties['setShop']);
+				unset($amountProperties['newShop']);
+				
+				$amountProperties['setGoods'] = $newGoods;
+
+			// case 1 - no setGoods, no newGoods => error
+			} else { die('VEGAMATIC TODO: Throw error for case 1 - no setGoods, no newGoods'); }
+		
 			$amount = new Tx_Vegamatic_Domain_Model_Amounts();
 			foreach ($amountProperties as $setter => $value) {
 				$amount->$setter($value);
 			}
+			
 		} else { die('VEGAMATIC TODO: Throw error'); }
+		
 		$week->$amountTypeToAdd($amount);
 		$this->redirect('show', 'Weeks', NULL, array('week' => $week));		
 	}
