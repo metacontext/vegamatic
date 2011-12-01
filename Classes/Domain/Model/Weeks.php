@@ -291,6 +291,15 @@ class Tx_Vegamatic_Domain_Model_Weeks extends Tx_Extbase_DomainObject_AbstractEn
 	}
 	
 	/**
+	 * Removes maindish1
+	 *
+	 * @return void
+	 */
+	public function removeMaindish1() {
+		return $this->maindish1 = '';
+	}	
+	
+	/**
 	 * Returns maindish2
 	 *
 	 * @return Tx_Vegamatic_Domain_Model_Dishes $maindish2
@@ -310,6 +319,15 @@ class Tx_Vegamatic_Domain_Model_Weeks extends Tx_Extbase_DomainObject_AbstractEn
 	}
 	
 	/**
+	 * Removes maindish2
+	 *
+	 * @return void
+	 */
+	public function removeMaindish2() {
+		return $this->maindish2 = '';
+	}	
+	
+	/**
 	 * Returns maindish3
 	 *
 	 * @return Tx_Vegamatic_Domain_Model_Dishes $maindish3
@@ -326,6 +344,15 @@ class Tx_Vegamatic_Domain_Model_Weeks extends Tx_Extbase_DomainObject_AbstractEn
 	 */
 	public function setMaindish3(Tx_Vegamatic_Domain_Model_Dishes $maindish3) {
 		$this->maindish3 = $maindish3;
+	}
+	
+	/**
+	 * Removes maindish3
+	 *
+	 * @return void
+	 */
+	public function removeMaindish3() {
+		return $this->maindish3 = '';
 	}	
 
 	/**
@@ -346,6 +373,15 @@ class Tx_Vegamatic_Domain_Model_Weeks extends Tx_Extbase_DomainObject_AbstractEn
 	public function setMaindish4(Tx_Vegamatic_Domain_Model_Dishes $maindish4) {
 		$this->maindish4 = $maindish4;
 	}
+	
+	/**
+	 * Removes maindish4
+	 *
+	 * @return void
+	 */
+	public function removeMaindish4() {
+		return $this->maindish4 = '';
+	}	
 
 	/**
 	 * Returns maindish5
@@ -367,6 +403,15 @@ class Tx_Vegamatic_Domain_Model_Weeks extends Tx_Extbase_DomainObject_AbstractEn
 	}
 	
 	/**
+	 * Removes maindish5
+	 *
+	 * @return void
+	 */
+	public function removeMaindish5() {
+		return $this->maindish5 = '';
+	}	
+	
+	/**
 	 * Returns maindish6
 	 *
 	 * @return Tx_Vegamatic_Domain_Model_Dishes $maindish6
@@ -383,6 +428,15 @@ class Tx_Vegamatic_Domain_Model_Weeks extends Tx_Extbase_DomainObject_AbstractEn
 	 */
 	public function setMaindish6(Tx_Vegamatic_Domain_Model_Dishes $maindish6) {
 		$this->maindish6 = $maindish6;
+	}
+	
+	/**
+	 * Removes maindish6
+	 *
+	 * @return void
+	 */
+	public function removeMaindish6() {
+		return $this->maindish6 = '';
 	}	
 
 	/**
@@ -402,6 +456,15 @@ class Tx_Vegamatic_Domain_Model_Weeks extends Tx_Extbase_DomainObject_AbstractEn
 	 */
 	public function setMaindish7(Tx_Vegamatic_Domain_Model_Dishes $maindish7) {
 		$this->maindish7 = $maindish7;
+	}
+
+	/**
+	 * Removes maindish7
+	 *
+	 * @return void
+	 */
+	public function removeMaindish7() {
+		return $this->maindish7 = '';
 	}	
 
 	/**
@@ -424,6 +487,15 @@ class Tx_Vegamatic_Domain_Model_Weeks extends Tx_Extbase_DomainObject_AbstractEn
 	}
 	
 	/**
+	 * Removes sidedish1
+	 *
+	 * @return void
+	 */
+	public function removeSidedish1() {
+		return $this->sidedish1 = '';
+	}	
+	
+	/**
 	 * Returns sidedish2
 	 *
 	 * @return Tx_Vegamatic_Domain_Model_Dishes $sidedish2
@@ -441,6 +513,15 @@ class Tx_Vegamatic_Domain_Model_Weeks extends Tx_Extbase_DomainObject_AbstractEn
 	public function setSidedish2(Tx_Vegamatic_Domain_Model_Dishes $sidedish2) {
 		$this->sidedish2 = $sidedish2;
 	}
+	
+	/**
+	 * Removes sidedish2
+	 *
+	 * @return void
+	 */
+	public function removeSidedish2() {
+		return $this->sidedish2 = '';
+	}	
 	
 	/**
 	 * Returns sidedish3
@@ -462,6 +543,15 @@ class Tx_Vegamatic_Domain_Model_Weeks extends Tx_Extbase_DomainObject_AbstractEn
 	}	
 
 	/**
+	 * Removes sidedish3
+	 *
+	 * @return void
+	 */
+	public function removeSidedish3() {
+		return $this->sidedish3 = '';
+	}	
+	
+	/**
 	 * Returns sidedish4
 	 *
 	 * @return Tx_Vegamatic_Domain_Model_Dishes $sidedish4
@@ -479,6 +569,15 @@ class Tx_Vegamatic_Domain_Model_Weeks extends Tx_Extbase_DomainObject_AbstractEn
 	public function setSidedish4(Tx_Vegamatic_Domain_Model_Dishes $sidedish4) {
 		$this->sidedish4 = $sidedish4;
 	}
+	
+	/**
+	 * Removes sidedish1
+	 *
+	 * @return void
+	 */
+	public function removeSidedish4() {
+		return $this->sidedish4 = '';
+	}	
 
 	/**
 	 * Returns sidedish5
@@ -500,6 +599,15 @@ class Tx_Vegamatic_Domain_Model_Weeks extends Tx_Extbase_DomainObject_AbstractEn
 	}
 	
 	/**
+	 * Removes sidedish1
+	 *
+	 * @return void
+	 */
+	public function removeSidedish5() {
+		return $this->sidedish5 = '';
+	}	
+	
+	/**
 	 * Returns sidedish6
 	 *
 	 * @return Tx_Vegamatic_Domain_Model_Dishes $sidedish6
@@ -519,6 +627,15 @@ class Tx_Vegamatic_Domain_Model_Weeks extends Tx_Extbase_DomainObject_AbstractEn
 	}	
 
 	/**
+	 * Removes sidedish6
+	 *
+	 * @return void
+	 */
+	public function removeSidedish6() {
+		return $this->sidedish6 = '';
+	}	
+	
+	/**
 	 * Returns sidedish7
 	 *
 	 * @return Tx_Vegamatic_Domain_Model_Dishes $sidedish7
@@ -535,6 +652,15 @@ class Tx_Vegamatic_Domain_Model_Weeks extends Tx_Extbase_DomainObject_AbstractEn
 	 */
 	public function setSidedish7(Tx_Vegamatic_Domain_Model_Dishes $sidedish7) {
 		$this->sidedish7 = $sidedish7;
+	}
+
+	/**
+	 * Removes sidedish7
+	 *
+	 * @return void
+	 */
+	public function removeSidedish7() {
+		return $this->sidedish7 = '';
 	}	
 	
 	/**

@@ -5,19 +5,10 @@
 		<h2>Woche {week.weekstamp -> f:format.date()}</h2>
 		<p><f:link.action action="list">Back to list</f:link.action></p>
 		
-		<dl class="tabs contained">
-			<dd><a href="#simpleContained1" class="active">Shopping List</a></dd>
-			<dd><a href="#simpleContained2">Dish Selection</a></dd>
-		</dl>
+		<f:render partial="Weeks/DishSelection" arguments="{_all}" />
 		
-		<ul class="tabs-content contained">
-			<li class="active" id="simpleContained1Tab">
-				<f:render partial="Weeks/ShoppingList" arguments="{_all}" />
-			</li>
-			<li id="simpleContained2Tab">
-				<f:render partial="Weeks/DishSelection" arguments="{_all}" />						
-			</li>
-		</ul>					
+		<f:render partial="Weeks/ShoppingList" arguments="{_all}" />						
+				
 	</div>
 
 </div>

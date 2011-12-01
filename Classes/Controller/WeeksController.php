@@ -218,19 +218,16 @@ class Tx_Vegamatic_Controller_WeeksController extends Tx_Extbase_MVC_Controller_
 	 * remove a dish from a week slot
 	 *
 	 * @param Tx_Vegamatic_Domain_Model_Weeks $weeks
-	 * @param integer $uid
+	 * @param integer $slot
 	 * 
 	 * @return void
 	 */
-	public function removeDishAction(Tx_Vegamatic_Domain_Model_Weeks $week, $uid) {
-		
-#		$setter = 'set'.$property;
-#		$week->$setter($emptyObject);
-		die('removeDishAction not yet implemented');
-		
-		$week->maindish1 = 0;
-		
-		// redirect to show again - persist new amount
+	public function removeDishAction(Tx_Vegamatic_Domain_Model_Weeks $week, $slot) {
+		$maindishes = array(1 => 1, 2 => 3, 3 => 5, 4 => 7, 5 => 9, 6 => 11, 7 => 13);
+		$sidedishes = array(1 => 2, 2 => 4, 3 => 6, 4 => 8, 5 => 10, 6 => 12, 7 => 14);		
+		if (($slot % 2) != 0) { $slot = 'removeMaindish'.array_search($slot, $maindishes);
+		} else { $slot = 'removeSidedish'.array_search($slot, $sidedishes); }
+		$week->$slot();
 		$this->redirect('show', 'Weeks', NULL, array('week' => $week));			
 	}
 	
