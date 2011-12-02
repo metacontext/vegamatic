@@ -1,0 +1,1 @@
+- VEGAMATIC TODO: [Dishes > New] redirect to week if coming from week

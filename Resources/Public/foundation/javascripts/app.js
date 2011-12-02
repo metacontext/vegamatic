@@ -43,4 +43,36 @@ $(document).ready(function() {
 	
 	$('input, textarea').placeholder();
 	
+	/* ADD & REMOVE FORM ELEMENTS */
+	/* charlie.griefer.com/blog/2009/09/17/jquery-dynamically-adding-form-elements/ with some modifications */
+	
+    $('#btnAdd').click(function() {
+    	
+        var num = $('.clone').length;
+        var newNum = new Number(num + 1);
+        var newElem = $('#amount' + num).clone().attr('id', 'amount' + newNum);
+        
+        newElem.children('#quantity' + num).attr('id', 'quantity' + newNum).attr('name', 'tx_vegamatic_weeks[amounts][' + newNum + '][quantity]');
+        newElem.children('#unit' + num).attr('id', 'unit' + newNum).attr('name', 'tx_vegamatic_weeks[amounts][' + newNum + '][unit]');
+        newElem.children('#setGoods' + num).attr('id', 'setGoods' + newNum).attr('name', 'tx_vegamatic_weeks[amounts][' + newNum + '][setGoods]');
+        newElem.children('#newGoods' + num).attr('id', 'newGoods' + newNum).attr('name', 'tx_vegamatic_weeks[amounts][' + newNum + '][newGoods]');        
+        newElem.children('#setShop' + num).attr('id', 'setShop' + newNum).attr('name', 'tx_vegamatic_weeks[amounts][' + newNum + '][setShop]');
+        newElem.children('#newShop' + num).attr('id', 'newShop' + newNum).attr('name', 'tx_vegamatic_weeks[amounts][' + newNum + '][newShop]');
+      
+        $('#amount' + num).after(newElem);
+        
+        $('#btnDel').removeAttr('disabled');
+
+    });
+
+    $('#btnDel').click(function() {
+    	
+        var num = $('.clone').length;
+
+        $('#amount' + num).remove();
+
+        if (num-1 == 1)
+              $('#btnDel').attr('disabled', 'disabled');
+    });
+	
 });

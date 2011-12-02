@@ -1,0 +1,48 @@
+<f:layout name="Default" />
+
+<f:section name="main">
+	<f:flashMessages />
+	
+	<h2>Create a new dish</h2>
+	
+	<f:form action="create" id="createDish" name="newDish" object="{newDish}">
+	
+		<fieldset id="description">
+			<legend>Enter name and type of the dish</legend>
+			<label for="name">Name</label>
+			<f:form.textbox property="name" id="name" size="20" value="" />
+			<label for="type">Type</label>
+			<f:form.select property="type" options="{1: 'Maindish', 2: 'Sidedish'}" />
+		</fieldset>
+		
+		<f:form.submit id="submit" class="nice medium radius white button" value="Create Dish" />
+		
+		<fieldset id="amount1" class="clone">
+			<legend>Add ingredient</legend>
+			<div id="itemSelection">
+				<label for="quantity1">Quantity</label>
+				<f:form.textbox id="quantity1" name="amounts[1][quantity]" value="" size="3" />
+				<label for="unit1">Unit</label>
+				<f:form.select id="unit1" name="amounts[1][unit]" options="{0: '', 10: 'g'}" />
+				<label for="setGoods1">Items</label>
+				<f:form.select id="setGoods1" name="amounts[1][setGoods]" options="{goods}" optionLabelField="name" />
+			</div>
+			<div id="newItem">
+				<label for="newGoods1">New Items</label>
+				<f:form.textbox id="newGoods1" name="amounts[1][newGoods]" value="" size="20" />
+				<label for="setShop1">Shops</label>
+				<f:form.select id="setShop1" name="amounts[1][setShop]" options="{shops}" optionLabelField="name" />
+				<label for="newShop1">New Shop</label>
+				<f:form.textbox id="newShop1" name="amounts[1][newShop]" value="" size="20" />
+			</div>				
+		</fieldset>
+		
+		<f:form.hidden name="referrer" value="{referrer}" />
+		<f:form.hidden name="referrerObject" value="{referrerObject}" />
+		
+		<input type="button" id="btnAdd" class="nice medium radius white button" value="Add ingredients" />
+		<input type="button" id="btnDel" class="nice medium radius white button" value="Remove ingredients" disabled="disabled" />
+	
+	</f:form>
+	
+</f:section>
