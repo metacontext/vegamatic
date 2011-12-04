@@ -44,22 +44,31 @@ $(document).ready(function() {
 	$('input, textarea').placeholder();
 	
 	/* ADD & REMOVE FORM ELEMENTS */
-	/* charlie.griefer.com/blog/2009/09/17/jquery-dynamically-adding-form-elements/ with some modifications */
+	/* charlie.griefer.com/blog/2009/09/17/jquery-dynamically-adding-form-elements/ - with some modifications */
 	
     $('#btnAdd').click(function() {
     	
         var num = $('.clone').length;
         var newNum = new Number(num + 1);
-        var newElem = $('#amount' + num).clone().attr('id', 'amount' + newNum);
+        var newElem = $('#newAmounts' + num).clone().attr('id', 'newAmounts' + newNum);
         
-        newElem.children('#quantity' + num).attr('id', 'quantity' + newNum).attr('name', 'tx_vegamatic_weeks[amounts][' + newNum + '][quantity]');
-        newElem.children('#unit' + num).attr('id', 'unit' + newNum).attr('name', 'tx_vegamatic_weeks[amounts][' + newNum + '][unit]');
-        newElem.children('#setGoods' + num).attr('id', 'setGoods' + newNum).attr('name', 'tx_vegamatic_weeks[amounts][' + newNum + '][setGoods]');
-        newElem.children('#newGoods' + num).attr('id', 'newGoods' + newNum).attr('name', 'tx_vegamatic_weeks[amounts][' + newNum + '][newGoods]');        
-        newElem.children('#setShop' + num).attr('id', 'setShop' + newNum).attr('name', 'tx_vegamatic_weeks[amounts][' + newNum + '][setShop]');
-        newElem.children('#newShop' + num).attr('id', 'newShop' + newNum).attr('name', 'tx_vegamatic_weeks[amounts][' + newNum + '][newShop]');
+        newElem.find('#quantity' + num)
+        	.attr('id', 'quantity' + newNum)
+        	.attr('name', 'tx_vegamatic_weeks[newAmounts][' + newNum + '][setQuantity]')
+        	.attr('value', '');
+        newElem.find('#unit' + num).attr('id', 'unit' + newNum).attr('name', 'tx_vegamatic_weeks[newAmounts][' + newNum + '][setUnit]');
+        newElem.find('#setGoods' + num).attr('id', 'setGoods' + newNum).attr('name', 'tx_vegamatic_weeks[newAmounts][' + newNum + '][setGoods]');
+        newElem.find('#newGoods' + num)
+        	.attr('id', 'newGoods' + newNum)
+        	.attr('name', 'tx_vegamatic_weeks[newAmounts][' + newNum + '][newGoods]')
+        	.attr('value', '');        
+        newElem.find('#setShop' + num).attr('id', 'setShop' + newNum).attr('name', 'tx_vegamatic_weeks[newAmounts][' + newNum + '][setShop]');
+        newElem.find('#newShop' + num)
+        	.attr('id', 'newShop' + newNum)
+        	.attr('name', 'tx_vegamatic_weeks[newAmounts][' + newNum + '][newShop]')
+        	.attr('value', '');
       
-        $('#amount' + num).after(newElem);
+        $('#newAmounts' + num).after(newElem);
         
         $('#btnDel').removeAttr('disabled');
 

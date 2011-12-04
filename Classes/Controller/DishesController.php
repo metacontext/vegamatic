@@ -151,29 +151,26 @@ class Tx_Vegamatic_Controller_DishesController extends Tx_Extbase_MVC_Controller
 	 */
 	public function createAction(Tx_Vegamatic_Domain_Model_Dishes $newDish) {
 		
-		debug($this->request->getArgument('amounts'));
-		die();
+		$arguments = $this->request->getArguments();
 		
-		if (count($this->request->getArgument('amounts')) > 0) {			
-			foreach ($this->request->getArgument('amounts') as $amount) {
-				$newAmount = new Tx_Vegamatic_Domain_Model_Amounts();
-				if ($amount['quantity']) $newAmount->setQuantity($amount['quantity']);
-				if ($amount['unit']) $newAmount->setUnit($amount['unit']);
-				// VEGAMATIC TODO: Is there another way to transform the incoming uid/integer to an object then by asking the appropriate repository?? 
-				$goods = $this->goodsRepository->findByUid($amount['goods']);
-				$newAmount->setGoods($goods);
-				$newDish->addAmount($newAmount);
-			}
+		// if the incoming request has new amounts to create (as array), hand over to amounts controller
+		if (is_array($arguments['newAmounts'])) {	
+			$arguments['callingAction'] = $arguments['action']; unset($arguments['action']);		
+			$arguments['callingController'] = $arguments['controller']; unset($arguments['controller']);			
+			$this->forward('new', 'Amounts', NULL, $arguments);
 		}
+		
+		// if any amounts were given, they should be in form of an object storage by now
+		if (is_object($arguments['newAmounts'])) $newDish->setAmounts($arguments['newAmounts']);
 		
 		$this->dishesRepository->add($newDish);
 		$this->flashMessageContainer->add('Your new dish was created.');
 		
-		$controllerActionReferrer = t3lib_div::trimExplode(':', $this->request->getArgument('referrer'), 1);
+		$controllerActionReferrer = t3lib_div::trimExplode(':', $arguments['referrer'], 1);
 		switch ($controllerActionReferrer[0]) {
 			
 			case 'Weeks':
-				$this->redirect($controllerActionReferrer[1], 'Weeks', NULL, array('week' => $this->request->getArgument('referrerObject')));
+				$this->redirect($controllerActionReferrer[1], 'Weeks', NULL, array('week' => $arguments['referrerObject']));
 			break;
 			
 			case 'Dishes':

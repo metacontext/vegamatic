@@ -17,23 +17,23 @@
 		
 		<f:form.submit id="submit" class="nice medium radius white button" value="Create Dish" />
 		
-		<fieldset id="amount1" class="clone">
+		<fieldset id="newAmounts1" class="clone">
 			<legend>Add ingredient</legend>
 			<div id="itemSelection">
 				<label for="quantity1">Quantity</label>
-				<f:form.textbox id="quantity1" name="amounts[1][quantity]" value="" size="3" />
+				<f:form.textbox id="quantity1" name="newAmounts[1][setQuantity]" value="" size="3" />
 				<label for="unit1">Unit</label>
-				<f:form.select id="unit1" name="amounts[1][unit]" options="{0: '', 10: 'g'}" />
+				<f:form.select id="unit1" name="newAmounts[1][setUnit]" options="{0: '', 10: 'g'}" />
 				<label for="setGoods1">Items</label>
-				<f:form.select id="setGoods1" name="amounts[1][setGoods]" options="{goods}" optionLabelField="name" />
+				<f:form.select id="setGoods1" name="newAmounts[1][setGoods]" options="{goods}" optionLabelField="name" />
 			</div>
 			<div id="newItem">
 				<label for="newGoods1">New Items</label>
-				<f:form.textbox id="newGoods1" name="amounts[1][newGoods]" value="" size="20" />
+				<f:form.textbox id="newGoods1" name="newAmounts[1][newGoods]" value="" size="20" />
 				<label for="setShop1">Shops</label>
-				<f:form.select id="setShop1" name="amounts[1][setShop]" options="{shops}" optionLabelField="name" />
+				<f:form.select id="setShop1" name="newAmounts[1][setShop]" options="{shops}" optionLabelField="name" />
 				<label for="newShop1">New Shop</label>
-				<f:form.textbox id="newShop1" name="amounts[1][newShop]" value="" size="20" />
+				<f:form.textbox id="newShop1" name="newAmounts[1][newShop]" value="" size="20" />
 			</div>				
 		</fieldset>
 		
