@@ -1,47 +1,21 @@
 <f:layout name="Default" />
-
+<f:flashMessages />
+	
 <f:section name="main">
-	<f:flashMessages />
 	
 	<h2>Create a new dish</h2>
 	
+	<f:link.action action="{referrerAction}" controller="{referrerController}" arguments="{week : referrerObject}">...or go back</f:link.action>
+	
 	<f:form action="create" id="createDish" name="newDish" object="{newDish}">
 	
-		<fieldset id="description">
-			<legend>Enter name and type of the dish</legend>
-			<label for="name">Name</label>
-			<f:form.textbox property="name" id="name" size="20" value="" />
-			<label for="type">Type</label>
-			<f:form.select property="type" options="{1: 'Maindish', 2: 'Sidedish'}" />
-		</fieldset>
+		<f:render partial="Dishes/FieldsetDescription" arguments="{dishName : dish.name, dishType : dish.type}" />
 		
 		<f:form.submit id="submit" class="nice medium radius white button" value="Create Dish" />
 		
-		<fieldset id="newAmounts1" class="clone">
-			<legend>Add ingredient</legend>
-			<div id="itemSelection">
-				<label for="quantity1">Quantity</label>
-				<f:form.textbox id="quantity1" name="newAmounts[1][setQuantity]" value="" size="3" />
-				<label for="unit1">Unit</label>
-				<f:form.select id="unit1" name="newAmounts[1][setUnit]" options="{0: '', 10: 'g'}" />
-				<label for="setGoods1">Items</label>
-				<f:form.select id="setGoods1" name="newAmounts[1][setGoods]" options="{goods}" optionLabelField="name" />
-			</div>
-			<div id="newItem">
-				<label for="newGoods1">New Items</label>
-				<f:form.textbox id="newGoods1" name="newAmounts[1][newGoods]" value="" size="20" />
-				<label for="setShop1">Shops</label>
-				<f:form.select id="setShop1" name="newAmounts[1][setShop]" options="{shops}" optionLabelField="name" />
-				<label for="newShop1">New Shop</label>
-				<f:form.textbox id="newShop1" name="newAmounts[1][newShop]" value="" size="20" />
-			</div>				
-		</fieldset>
+		<f:render partial="Amounts/NewAmounts" arguments="{_all}" />
 		
-		<f:form.hidden name="referrer" value="{referrer}" />
-		<f:form.hidden name="referrerObject" value="{referrerObject}" />
-		
-		<input type="button" id="btnAdd" class="nice medium radius white button" value="Add ingredients" />
-		<input type="button" id="btnDel" class="nice medium radius white button" value="Remove ingredients" disabled="disabled" />
+		<f:render partial="Common/ReferrerFields" arguments="{_all}" />
 	
 	</f:form>
 	

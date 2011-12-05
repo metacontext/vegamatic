@@ -46,31 +46,40 @@ $(document).ready(function() {
 	/* ADD & REMOVE FORM ELEMENTS */
 	/* charlie.griefer.com/blog/2009/09/17/jquery-dynamically-adding-form-elements/ - with some modifications */
 	
+	$('#updateDish > #newAmounts1').hide();
+	$('#createDish > #newAmounts1').hide();
+	
     $('#btnAdd').click(function() {
     	
         var num = $('.clone').length;
         var newNum = new Number(num + 1);
-        var newElem = $('#newAmounts' + num).clone().attr('id', 'newAmounts' + newNum);
+        var newElem = $('#newAmounts' + num).clone().attr('id', 'newAmounts' + newNum).hide().fadeIn(1500);
         
-        newElem.find('#quantity' + num)
-        	.attr('id', 'quantity' + newNum)
-        	.attr('name', 'tx_vegamatic_weeks[newAmounts][' + newNum + '][setQuantity]')
-        	.attr('value', '');
-        newElem.find('#unit' + num).attr('id', 'unit' + newNum).attr('name', 'tx_vegamatic_weeks[newAmounts][' + newNum + '][setUnit]');
-        newElem.find('#setGoods' + num).attr('id', 'setGoods' + newNum).attr('name', 'tx_vegamatic_weeks[newAmounts][' + newNum + '][setGoods]');
-        newElem.find('#newGoods' + num)
-        	.attr('id', 'newGoods' + newNum)
-        	.attr('name', 'tx_vegamatic_weeks[newAmounts][' + newNum + '][newGoods]')
-        	.attr('value', '');        
-        newElem.find('#setShop' + num).attr('id', 'setShop' + newNum).attr('name', 'tx_vegamatic_weeks[newAmounts][' + newNum + '][setShop]');
-        newElem.find('#newShop' + num)
-        	.attr('id', 'newShop' + newNum)
-        	.attr('name', 'tx_vegamatic_weeks[newAmounts][' + newNum + '][newShop]')
-        	.attr('value', '');
-      
-        $('#newAmounts' + num).after(newElem);
+        if (newNum > 1) {
         
-        $('#btnDel').removeAttr('disabled');
+	        newElem.find('#quantity' + num)
+	        	.attr('id', 'quantity' + newNum)
+	        	.attr('name', 'tx_vegamatic_weeks[newAmounts][' + newNum + '][setQuantity]')
+	        	.attr('value', '');
+	        newElem.find('#unit' + num).attr('id', 'unit' + newNum).attr('name', 'tx_vegamatic_weeks[newAmounts][' + newNum + '][setUnit]');
+	        newElem.find('#setGoods' + num).attr('id', 'setGoods' + newNum).attr('name', 'tx_vegamatic_weeks[newAmounts][' + newNum + '][setGoods]');
+	        newElem.find('#newGoods' + num)
+	        	.attr('id', 'newGoods' + newNum)
+	        	.attr('name', 'tx_vegamatic_weeks[newAmounts][' + newNum + '][newGoods]')
+	        	.attr('value', '');        
+	        newElem.find('#setShop' + num).attr('id', 'setShop' + newNum).attr('name', 'tx_vegamatic_weeks[newAmounts][' + newNum + '][setShop]');
+	        newElem.find('#newShop' + num)
+	        	.attr('id', 'newShop' + newNum)
+	        	.attr('name', 'tx_vegamatic_weeks[newAmounts][' + newNum + '][newShop]')
+	        	.attr('value', '');
+	      
+	        $('#newAmounts' + num).after(newElem);
+	        
+	        $('#btnDel').removeAttr('disabled');
+        
+        } else {
+        	$('#newAmounts1').fadeIn(1500);
+        }
 
     });
 
@@ -78,10 +87,17 @@ $(document).ready(function() {
     	
         var num = $('.clone').length;
 
-        $('#amount' + num).remove();
+        $('#newAmounts' + num).fadeOut(700, function() { $(this).remove() });
 
         if (num-1 == 1)
               $('#btnDel').attr('disabled', 'disabled');
+    });
+    
+    $('.deleteMe').each(function(index) { 
+    	$(this).click(function() { 
+    		$('#updateAmounts' + index).fadeOut(700);
+    		$('#deleteAmounts' + index).attr('value', '');
+    	}) 
     });
 	
 });

@@ -1,0 +1,16 @@
+<fieldset id="updateAmounts{counter.index}" class="amounts">
+	<legend>Ingredient</legend>
+	<label for="updateQuantity{counter.index}">Quantity</label>
+	<f:if condition="{amount.quantity}">
+		<f:then>
+			<f:form.textbox id="updateQuantity{counter.index}" name="updateAmounts[{amount.uid}][setQuantity]" value="{amount.quantity}" size="3" />
+		</f:then>
+		<f:else>
+			<f:form.textbox id="updateQuantity{counter.index}" name="updateAmounts[{amount.uid}][setQuantity]" value="" size="3" />
+		</f:else>
+	</f:if>
+	<label for="updateUnit{counter.index}">Unit</label>
+	<f:form.select id="updateUnit{counter.index}" name="updateAmounts[{amount.uid}][setUnit]" options="{0: '', 10: 'g'}" />
+	<f:form.hidden value="{amount.goods.uid}" id="deleteAmounts{counter.index}" name="updateAmounts[{amount.uid}][setGoods]" />
+	<span>{amount.goods.name}</span> - <span><a href="#" id="delete{counter.index}" class="deleteMe">Delete</a></span>
+</fieldset>

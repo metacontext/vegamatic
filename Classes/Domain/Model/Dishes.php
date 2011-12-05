@@ -119,17 +119,18 @@ class Tx_Vegamatic_Domain_Model_Dishes extends Tx_Extbase_DomainObject_AbstractE
 	}
 
 	/**
-	 * Adds a Amounts
+	 * Adds an amount
 	 *
-	 * @param Tx_Vegamatic_Domain_Model_Amounts $amount
+	 * @param Tx_Vegamatic_Domain_Model_Amounts $newAmount
+	 * 
 	 * @return void
 	 */
-	public function addAmount(Tx_Vegamatic_Domain_Model_Amounts $amount) {
-		$this->amounts->attach($amount);
+	public function addAmount(Tx_Vegamatic_Domain_Model_Amounts $newAmount) {
+		$this->amounts->attach($newAmount);
 	}
 
 	/**
-	 * Removes a Amounts
+	 * Removes an amount
 	 *
 	 * @param Tx_Vegamatic_Domain_Model_Amounts $amountToRemove The Amounts to be removed
 	 * @return void

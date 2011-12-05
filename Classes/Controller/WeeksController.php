@@ -232,7 +232,7 @@ class Tx_Vegamatic_Controller_WeeksController extends Tx_Extbase_MVC_Controller_
 	}
 	
 	/**
-	 * exclude amount: excludes an amount from the dishes/shopping list by creating/updating an amount set in the week (setExclude)
+	 * exclude amount: excludes an amount from the dishes/shopping list by creating/updating an amount set for the week (setExclude = 1)
 	 * 
 	 * @param Tx_Vegamatic_Domain_Model_Weeks $week
 	 * @param Tx_Vegamatic_Domain_Model_Goods $goods
@@ -241,7 +241,7 @@ class Tx_Vegamatic_Controller_WeeksController extends Tx_Extbase_MVC_Controller_
 	 * 
 	 */
 	public function excludeAmountAction(Tx_Vegamatic_Domain_Model_Weeks $week, Tx_Vegamatic_Domain_Model_Goods $goods) {		
-		// check if overlay amount already exists; if found, update
+		// check if overlay amount already exists; if yes, update this
 		if (is_object($week->getOverlayAmounts())) {
 			foreach ($week->getOverlayAmounts() as $overlayAmount) {				
 				if ($overlayAmount->getGoods()->getUid() == $goods->getUid() && $overlayAmount->getExclude() < 1) {
@@ -251,8 +251,14 @@ class Tx_Vegamatic_Controller_WeeksController extends Tx_Extbase_MVC_Controller_
 				}
 			}
 		}
-		// no overlay amount found for this week and goods, create a new one
-		$this->forward('createAmount', 'Weeks', NULL, array('week' => $week, 'amountTypeToAdd' => 'addOverlayAmount', 'amountProperties' => array('setGoods' => $goods, 'setExclude' => 1)));
+		// no overlay amount for the given week and goods exists, create a new one
+		$this->forward('createAmount', 'Weeks', NULL, array(
+			'week' => $week,
+			'amountTypeToAdd' => 'addOverlayAmount',
+			'newAmounts' => array(0 => array('setGoods' => $goods, 'setExclude' => 1)),
+			'action' => 'createAmount',
+			'controller' => 'Weeks'
+		));
 	}
 	
 	/**
@@ -281,11 +287,11 @@ class Tx_Vegamatic_Controller_WeeksController extends Tx_Extbase_MVC_Controller_
 		// first find out if an overlay for the current goods already exists
 		$shoppingList = $week->getShoppingList();
 		if (!$shoppingList[$goods->getUid()]['overlay']) {
-			// create an empty one, then only update has to be called from view (quantity and unit for this new overlay will be filled in on the shopping list until the user modifies it)
+			// no, create an empty one, then only update has to be called from view (quantity and unit for this new overlay will be filled in on the shopping list until the user modifies it)
 			$overlayAmount = new Tx_Vegamatic_Domain_Model_Amounts();
 			$overlayAmount->setGoods($goods);
 			$week->addOverlayAmount($overlayAmount);
-			// persist and then display form with now existing overlay
+			// rederect to the same action for persisting the new amount - this will then display the form with the now existing overlay
 			$this->redirect('modifyAmount', 'Weeks', NULL, array('week' => $week, 'goods' => $goods));
 		}
 		$this->view->assign('days', Tx_Vegamatic_Utility_Datetime::getNextSevenDays($week->getWeekstamp()));
@@ -294,14 +300,14 @@ class Tx_Vegamatic_Controller_WeeksController extends Tx_Extbase_MVC_Controller_
 	}
 	
 	/**
-	 * add a new amount to this weeks additional amounts and/or create a completely new amount=>goods
+	 * add new amounts to this weeks additional amounts
 	 * 
 	 * @param Tx_Vegamatic_Domain_Model_Weeks $week
 	 * 
 	 * @return HTML string / view for this action
 	 */
 	public function addAmountAction(Tx_Vegamatic_Domain_Model_Weeks $week) {
-		$this->view->assign('unlistedGoods', array_merge(array(0 => 'Choose Item'), $this->goodsRepository->findUnlistedGoods($week->getShoppingList())));
+		$this->view->assign('goods', array_merge(array(0 => 'Choose Item'), $this->goodsRepository->findUnlistedGoods($week->getShoppingList())));
 		$this->view->assign('shops', array_merge(array(0 => 'Choose Shop'), $this->shopsRepository->findAll()->toArray()));		
 		$this->view->assign('days', Tx_Vegamatic_Utility_Datetime::getNextSevenDays($week->getWeekstamp()));
 		$this->view->assign('week', $week);
@@ -311,77 +317,29 @@ class Tx_Vegamatic_Controller_WeeksController extends Tx_Extbase_MVC_Controller_
 	/**
 	 * @param Tx_Vegamatic_Domain_Model_Weeks $week
 	 * @param string $amountTypeToAdd
-	 * @param array $amountProperties
 	 * 
-	 * 1: no setGoods, no newGoods => error
-	 * 2: setGoods, no newGoods or newGoods => setGoods takes precedence
-	 * 3: no setGoods, newGoods
-	 * 3.1: no setShop, no newShop => error
-	 * 3.2: setShop, no newShop or newShop => setShop takes precedence
-	 * 3.3: noSetShop, newShop => createShopAction
-	 * 
+	 * @dontverifyrequesthash
 	 * 
 	 * @return void
 	 */
-	public function createAmountAction(Tx_Vegamatic_Domain_Model_Weeks $week, $amountTypeToAdd, $amountProperties) {	
+	public function createAmountAction(Tx_Vegamatic_Domain_Model_Weeks $week, $amountTypeToAdd) {
 		
-		if (($amountTypeToAdd == 'addOverlayAmount' || $amountTypeToAdd == 'addAdditionalAmount') && is_array($amountProperties) && count($amountProperties) > 0) {
-			
-			// case 2 - setGoods, no newGoods or newGoods => setGoods takes precedence
-			if ($amountProperties['setGoods']) {
-				
-				// check if goods its already an object, otherwise fetch it from repository by the given uid
-				if (!is_object($amountProperties['setGoods']) && (int) $amountProperties['setGoods'] > 0) {
-					$amountProperties['setGoods'] = $this->goodsRepository->findByUid((int) $amountProperties['setGoods']);
-				}
-				
-				// check again if we now have a valid object
-				if (!is_object($amountProperties['setGoods'])) {
-					die('VEGAMATIC TODO: Throw error either no valid setGoods integer submitted or object not found for the given integer');
-				}
-				
-			// case 3 - no setGoods, newGoods
-			} elseif ($amountProperties['newGoods']) {
-				
-				// create new goods object
-				$newGoods = new Tx_Vegamatic_Domain_Model_Goods();
-				$newGoods->setName($amountProperties['newGoods']);
-				
-				// case 3.2 - setShop, no newShop or newShop => setShop takes precedence
-				if ($amountProperties['setShop']) {
-					
-					// get it as object from repository - at the same tests if the submitted shop is valid				
-					$amountProperties['setShop'] = $this->shopsRepository->findByUid((int) $amountProperties['setShop']);
-					if (is_object($amountProperties['setShop'])) { $newGoods->setShop($amountProperties['setShop']);
-					} else { die('VEGAMATIC TODO: Throw error no valid integer given for setShop'); }
-					
-				// case 3.3 - noSetShop, newShop => createShopAction
-				} elseif ($amountProperties['newShop']) {
-
-					$newShop = new Tx_Vegamatic_Domain_Model_Shops();
-					$newShop->setName($amountProperties['newShop']);
-					$newGoods->setShop($newShop);
-					
-				// case 3.1 - no setShop, no newShop => error
-				} else { die('VEGAMATIC TODO: Throw error for case 3.1 - no setShop, no newShop'); }
-				
-				unset($amountProperties['newGoods']);
-				unset($amountProperties['setShop']);
-				unset($amountProperties['newShop']);
-				
-				$amountProperties['setGoods'] = $newGoods;
-
-			// case 1 - no setGoods, no newGoods => error
-			} else { die('VEGAMATIC TODO: Throw error for case 1 - no setGoods, no newGoods'); }
+		$arguments = $this->request->getArguments();
 		
-			$amount = new Tx_Vegamatic_Domain_Model_Amounts();
-			foreach ($amountProperties as $setter => $value) {
-				$amount->$setter($value);
+		// if the incoming request has new amounts to create (in form of an array), hand them over to the amounts controller for object construction
+		if (is_array($arguments['newAmounts'])) {	
+			$arguments['callingAction'] = $arguments['action']; unset($arguments['action']);		
+			$arguments['callingController'] = $arguments['controller']; unset($arguments['controller']);			
+			$this->forward('new', 'Amounts', NULL, $arguments);
+		}
+		
+		// check if the correct amount type (additional/overlay) has been submitted and if so add the new amounts to the week
+		if (($amountTypeToAdd == 'addOverlayAmount' || $amountTypeToAdd == 'addAdditionalAmount') && is_object($arguments['newAmounts'])) {
+			foreach ($arguments['newAmounts'] as $newAmount) {
+				$week->$amountTypeToAdd($newAmount);
 			}
-			
-		} else { die('VEGAMATIC TODO: Throw error'); }
-		
-		$week->$amountTypeToAdd($amount);
+		} else { die('VEGAMATIC TODO: Throw error - wrong amount type submitted'); }
+
 		$this->redirect('show', 'Weeks', NULL, array('week' => $week));		
 	}
 

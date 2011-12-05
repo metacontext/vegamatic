@@ -1,0 +1,34 @@
+<f:layout name="Default" />
+<f:flashMessages />
+
+<f:section name="main">
+	
+	<h2>Edit your dish</h2>
+	
+	<f:link.action action="{referrerAction}" controller="{referrerController}" arguments="{week : referrerObject}">...or go back</f:link.action>
+
+	<f:form action="update" id="updateDish" name="update" object="{dish}">
+		
+		<f:render partial="Dishes/FieldsetDescription" arguments="{dishName : dish.name, dishType : dish.type}" />
+		
+		<f:form.submit id="submit" class="nice medium radius white button" value="Update Dish" />		
+		
+		<h4>Existing Ingredients</h4>
+		
+		<f:if condition="{dish.amounts}">		
+			<f:for each="{dish.amounts}" as="amount" iteration="counter">
+				<f:render partial="Amounts/UpdateAmounts" arguments="{amount : amount, counter : counter}" />				
+			</f:for>	
+		</f:if>
+		
+		<h4>New Ingredients</h4>
+		
+		<f:render partial="Amounts/NewAmounts" arguments="{_all}" />
+
+		<f:render partial="Common/ReferrerFields" arguments="{_all}" />
+		
+		<f:form.hidden value="{dish}" name="dish" />
+	
+	</f:form>
+	
+</f:section>

@@ -45,8 +45,8 @@
 										<f:translate key="tx_vegamatic_domain_model_amounts.unit.I.{item.unit}" />
 									</f:if>							
 									{item.name} -
-									<f:link.action action="excludeAmount" arguments="{week : week, goods : item.goods}">Exclude</f:link.action> / 
-									<f:link.action action="modifyAmount" arguments="{week : week, goods : item.goods}">Modify</f:link.action>
+									<f:link.action action="excludeAmount" arguments="{week : week, goods : item.goods}" section="shoppingList">Exclude</f:link.action> / 
+									<f:link.action action="modifyAmount" arguments="{week : week, goods : item.goods}" section="updateAmount">Modify</f:link.action>
 								</dd>
 							</f:then>
 							<f:else>
@@ -56,7 +56,7 @@
 										<f:if condition="{item.unit}"><f:translate key="tx_vegamatic_domain_model_amounts.unit.I.{item.unit}" /></f:if>						
 										{item.name}
 									</span> -
-									<f:link.action action="includeAmount" arguments="{week : week, amount : item.amount}">Include</f:link.action>					
+									<f:link.action action="includeAmount" arguments="{week : week, amount : item.amount}" section="shoppingList">Include</f:link.action>					
 								</dd>
 							</f:else>
 						</f:if>
@@ -66,37 +66,24 @@
 			</f:groupedFor>
 		</dl>
 		<f:if condition="{addAmount} == 1">
-			<h5>Add a new item</h5>
+			<h5 id="addAmount">Add new items</h5>
 			<f:form action="createAmount" id="createAmount" name="addAdditionalAmount">
-			
-				<label for="quantity">Quantity</label>
-				<f:form.textbox id="quantity" name="amountProperties[setQuantity]" value="" size="3" />				
+
+				<f:render partial="Amounts/NewAmounts" arguments="{_all}" />
 				
-				<label for="unit">Unit</label>
-				<f:form.select id="unit" name="amountProperties[setUnit]" options="{0: '', 10: 'g'}" />
-				
-				<label for="goods">Items</label>
-				<f:form.select id="goods" name="amountProperties[setGoods]" options="{unlistedGoods}" />
-				
-				<label for="newGoods">New Items</label>
-				<f:form.textbox id="newGoods" name="amountProperties[newGoods]" value="" size="20" />
-				
-				<label for="shop">Shop</label>
-				<f:form.select id="shop" name="amountProperties[setShop]" options="{shops}" optionLabelField="name" />
-				
-				<label for="newShop">New Shop</label>
-				<f:form.textbox id="newGoods" name="amountProperties[newShop]" value="" size="20" />
+				<div style="margin-top: 1em;">
+					<f:form.submit class="nice medium radius white button" value="Update List" />
+					<f:link.action action="show" arguments="{week : week}">...or Cancel</f:link.action>
+				</div>
 
 				<f:form.hidden name="week" value="{week}" />
-				<f:form.hidden name="amountTypeToAdd" value="addAdditionalAmount" />
-								
-				<f:form.submit class="nice medium radius white button" value="Add it" />
+				<f:form.hidden name="amountTypeToAdd" value="addAdditionalAmount" />								
+				
 			</f:form>
-			<f:link.action action="show" arguments="{week : week}">...or Cancel</f:link.action>
 		</f:if>
 		<p>
 			<f:if condition="{addAmount} != 1">
-				<f:link.action class="nice medium radius white button" action="addAmount" arguments="{week : week}">Add/Create item</f:link.action>	
+				<f:link.action class="nice medium radius white button" action="addAmount" arguments="{week : week}" section="addAmount">Add items</f:link.action>	
 				<a class="nice medium radius white button" href="#">TODO: Print</a>
 			</f:if>
 		</p>		

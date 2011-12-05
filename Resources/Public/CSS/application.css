@@ -42,3 +42,31 @@ table td {
 .modified {
 	color: red;
 }
+
+.amounts {
+	min-height: 3em;
+	margin: 1em 0;
+	padding: 0.5em 1em 1em 1em;
+}
+
+.amounts div {
+	clear: left;
+}
+
+.amounts label,
+.amounts input,
+.amounts select {
+	float: left;
+}
+
+.amounts label {
+	display: none;
+}
+
+.amounts select {
+	margin: 0 1em;
+}
+
+#newItem {
+	padding: 1em 0 0 0;
+}

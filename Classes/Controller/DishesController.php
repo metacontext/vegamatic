@@ -136,8 +136,9 @@ class Tx_Vegamatic_Controller_DishesController extends Tx_Extbase_MVC_Controller
 		$this->view->assign('goods', array_merge(array(0 => 'Choose Item'), $this->goodsRepository->findAll()->toArray()));	
 		$this->view->assign('shops', array_merge(array(0 => 'Choose Shop'), $this->shopsRepository->findAll()->toArray()));	
 		$this->view->assign('newDish', $newDish);
-		$this->view->assign('referrer', $this->request->getArgument('referrer'));
-		$this->view->assign('referrerObject', $this->request->getArgument('referrerObject'));
+		$this->view->assign('referrerAction', $this->request->getArgument('referrerAction'));
+		$this->view->assign('referrerController', $this->request->getArgument('referrerController'));		
+		if ($this->request->hasArgument('referrerObject')) $this->view->assign('referrerObject', $this->request->getArgument('referrerObject'));
 	}
 
 	/**
@@ -161,50 +162,91 @@ class Tx_Vegamatic_Controller_DishesController extends Tx_Extbase_MVC_Controller
 		}
 		
 		// if any amounts were given, they should be in form of an object storage by now
-		if (is_object($arguments['newAmounts'])) $newDish->setAmounts($arguments['newAmounts']);
+		if (is_object($arguments['newAmounts']) && count($arguments['newAmounts']) > 0) $newDish->setAmounts($arguments['newAmounts']);
 		
+		// add new dish
 		$this->dishesRepository->add($newDish);
 		$this->flashMessageContainer->add('Your new dish was created.');
 		
-		$controllerActionReferrer = t3lib_div::trimExplode(':', $arguments['referrer'], 1);
-		switch ($controllerActionReferrer[0]) {
-			
-			case 'Weeks':
-				$this->redirect($controllerActionReferrer[1], 'Weeks', NULL, array('week' => $arguments['referrerObject']));
-			break;
-			
-			case 'Dishes':
-				$this->redirect($controllerActionReferrer[1], 'Dishes');
-			break;
-				
-			default:
-				$this->redirect($controllerActionReferrer[1], 'Dishes');				
-			break;
-			
+		// return to origin
+		if ($arguments['referrerObject']) {
+			$object = strtolower(substr($arguments['referrerController'], 0, -1));
+			$this->redirect($arguments['referrerAction'], $arguments['referrerController'], NULL, array($object => $arguments['referrerObject']));
+		} else {
+			$this->redirect($arguments['referrerAction'], $arguments['referrerController']);
 		}
 	}
 
 	/**
 	 * action edit
 	 *
-	 * @param $dish
-	 * @return void
+	 * @param Tx_Vegamatic_Domain_Model_Dishes $dish
+	 * 
+	 * @return Tempalte/Partial
 	 */
 	public function editAction(Tx_Vegamatic_Domain_Model_Dishes $dish) {
 		$this->view->assign('dish', $dish);
+		// VEGAMATIC TODO: $this->goodsRepository->findGoodsNotInDish($dish)
+		$this->view->assign('goods', array_merge(array(0 => 'Choose Item'), $this->goodsRepository->findAll()->toArray()));
+		$this->view->assign('shops', array_merge(array(0 => 'Choose Shop'), $this->shopsRepository->findAll()->toArray()));
+		$this->view->assign('referrerAction', $this->request->getArgument('referrerAction'));
+		$this->view->assign('referrerController', $this->request->getArgument('referrerController'));		
+		if ($this->request->hasArgument('referrerObject')) $this->view->assign('referrerObject', $this->request->getArgument('referrerObject'));
 	}
 
 	/**
 	 * action update
 	 *
-	 * @param Tx_Vegamatic_Domain_Model_Dishes $dish
+	 * @param $dish
+	 * 
+	 * @dontverifyrequesthash
 	 * 
 	 * @return void
 	 */
 	public function updateAction(Tx_Vegamatic_Domain_Model_Dishes $dish) {
+		
+		$arguments = $this->request->getArguments();
+		
+		// new : if the incoming request has new amounts (as array), hand over to amounts controller for creating objects
+		if (is_array($arguments['newAmounts'])) {	
+			$arguments['callingAction'] = $arguments['action']; unset($arguments['action']);		
+			$arguments['callingController'] = $arguments['controller']; unset($arguments['controller']);			
+			$this->forward('new', 'Amounts', NULL, $arguments);
+		}
+		
+		// if any amount objects were created, attach them to this dish
+		if (is_object($arguments['newAmounts']) && count($arguments['newAmounts']) > 0) {
+			foreach ($arguments['newAmounts'] as $newAmount) {
+				$dish->addAmount($newAmount);
+			}
+		}
+		
+		// update: iterate through all existing amounts - if incoming $amount['setGoods'] is empty, remove the amount - otherwise update
+		if (count($arguments['updateAmounts'] > 0)) {
+			foreach ($dish->getAmounts() as $key => $amountToUpdate) {
+				$uid = $amountToUpdate->getUid();
+				// take into account that the object storage may also contain new object from above, therefore also test for $uid
+				if ($uid && !$arguments['updateAmounts'][$uid]['setGoods']) {
+					$dish->removeAmount($amountToUpdate);
+				} elseif ($uid && $arguments['updateAmounts'][$uid]['setGoods']) {
+					$amountToUpdate->setQuantity($arguments['updateAmounts'][$uid]['setQuantity']);
+					$amountToUpdate->setUnit($arguments['updateAmounts'][$uid]['setUnit']);
+					$this->amountsRepository->update($amountToUpdate);
+				}
+			}
+		}
+		
+		// update existing dish
 		$this->dishesRepository->update($dish);
 		$this->flashMessageContainer->add('Your Dish was updated.');
-		$this->redirect('show', 'Dishes', NULL, array('dish' => $dish));
+		
+		// return to origin
+		if ($arguments['referrerObject']) {
+			$object = strtolower(substr($arguments['referrerController'], 0, -1));
+			$this->redirect($arguments['referrerAction'], $arguments['referrerController'], NULL, array($object => $arguments['referrerObject']));
+		} else {
+			$this->redirect($arguments['referrerAction'], $arguments['referrerController']);
+		}
 	}
 }
 ?>

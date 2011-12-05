@@ -107,7 +107,10 @@ class Tx_Vegamatic_Controller_AmountsController extends Tx_Extbase_MVC_Controlle
 				
 			$newAmounts = new Tx_Extbase_Persistence_ObjectStorage();
 			
+			// VEGAMATIC TODO: Insert a check if the submitted amount is empty => removed
+			
 			foreach ($arguments['newAmounts'] as $amountProperties) {
+				
 				// case 2 - setGoods, no newGoods or newGoods => setGoods takes precedence
 				if ($amountProperties['setGoods']) {
 					
@@ -142,6 +145,7 @@ class Tx_Vegamatic_Controller_AmountsController extends Tx_Extbase_MVC_Controlle
 	
 						$newShop = new Tx_Vegamatic_Domain_Model_Shops();
 						// VEGAMATIC TODO: There should be a check on shops repository that this shop doesn't exist - name unique
+						// btw, what happens if the users enters the new shop twice for separate amounts?
 						$newShop->setName($amountProperties['newShop']);
 						$newGoods->setShop($newShop);
 						
@@ -150,8 +154,10 @@ class Tx_Vegamatic_Controller_AmountsController extends Tx_Extbase_MVC_Controlle
 					
 					$amountProperties['setGoods'] = $newGoods;
 	
-				// case 1 - no setGoods, no newGoods => error
-				} else { die('VEGAMATIC TODO: Throw error for case 1 - no setGoods, no newGoods'); }
+				// case 1 - no setGoods, no newGoods (=error), take out this amount
+				} else { 
+					continue;
+				}
 				
 				unset($amountProperties['newGoods']);
 				unset($amountProperties['setShop']);
