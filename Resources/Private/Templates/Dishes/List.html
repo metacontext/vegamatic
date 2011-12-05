@@ -1,0 +1,18 @@
+<f:layout name="Default" />
+<f:flashMessages />
+
+<f:section name="main">
+
+	<h2>List of Dishes</h2>
+
+	<f:link.action action="{referrerAction}" controller="{referrerController}">Go back</f:link.action>
+
+	<f:if condition="{dishes}">
+		<ul>
+		<f:for each="{dishes}" as="dish">
+			<li>{dish.name}</li>
+		</f:for>
+		</ul>
+	</f:if>
+
+</f:section>

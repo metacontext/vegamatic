@@ -32,7 +32,7 @@
  * @license http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public License, version 3 or later
  *
  */
-class Tx_Vegamatic_Domain_Repository_DishesRepository extends Tx_Extbase_Persistence_Repository {
+class Tx_Vegamatic_Domain_Repository_DishesRepository extends Tx_Vegamatic_Domain_Repository_CommonRepository {
 
 }
 ?>

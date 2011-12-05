@@ -108,8 +108,10 @@ class Tx_Vegamatic_Controller_DishesController extends Tx_Extbase_MVC_Controller
 	 * @return void
 	 */
 	public function listAction() {
-		$dishes = $this->dishesRepository->findAll();
+		$dishes = $this->dishesRepository->findAllWithOrderings();
 		$this->view->assign('dishes', $dishes);
+		$this->view->assign('referrerAction', $this->request->getArgument('referrerAction'));
+		$this->view->assign('referrerController', $this->request->getArgument('referrerController'));		
 	}
 
 	/**
@@ -133,11 +135,11 @@ class Tx_Vegamatic_Controller_DishesController extends Tx_Extbase_MVC_Controller
 	 * @return void
 	 */
 	public function newAction(Tx_Vegamatic_Domain_Model_Dishes $newDish = NULL) {
-		$this->view->assign('goods', array_merge(array(0 => 'Choose Item'), $this->goodsRepository->findAll()->toArray()));	
-		$this->view->assign('shops', array_merge(array(0 => 'Choose Shop'), $this->shopsRepository->findAll()->toArray()));	
+		$this->view->assign('goods', array_merge(array(0 => 'Choose Item'), $this->goodsRepository->findAllWithOrderings()->toArray()));	
+		$this->view->assign('shops', array_merge(array(0 => 'Choose Shop'), $this->shopsRepository->findAllWithOrderings()->toArray()));	
 		$this->view->assign('newDish', $newDish);
 		$this->view->assign('referrerAction', $this->request->getArgument('referrerAction'));
-		$this->view->assign('referrerController', $this->request->getArgument('referrerController'));		
+		$this->view->assign('referrerController', $this->request->getArgument('referrerController'));
 		if ($this->request->hasArgument('referrerObject')) $this->view->assign('referrerObject', $this->request->getArgument('referrerObject'));
 	}
 
@@ -187,8 +189,8 @@ class Tx_Vegamatic_Controller_DishesController extends Tx_Extbase_MVC_Controller
 	public function editAction(Tx_Vegamatic_Domain_Model_Dishes $dish) {
 		$this->view->assign('dish', $dish);
 		// VEGAMATIC TODO: $this->goodsRepository->findGoodsNotInDish($dish)
-		$this->view->assign('goods', array_merge(array(0 => 'Choose Item'), $this->goodsRepository->findAll()->toArray()));
-		$this->view->assign('shops', array_merge(array(0 => 'Choose Shop'), $this->shopsRepository->findAll()->toArray()));
+		$this->view->assign('goods', array_merge(array(0 => 'Choose Item'), $this->goodsRepository->findAllWithOrderings()->toArray()));
+		$this->view->assign('shops', array_merge(array(0 => 'Choose Shop'), $this->shopsRepository->findAllWithOrderings()->toArray()));
 		$this->view->assign('referrerAction', $this->request->getArgument('referrerAction'));
 		$this->view->assign('referrerController', $this->request->getArgument('referrerController'));		
 		if ($this->request->hasArgument('referrerObject')) $this->view->assign('referrerObject', $this->request->getArgument('referrerObject'));

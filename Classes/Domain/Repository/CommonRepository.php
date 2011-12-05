@@ -32,7 +32,20 @@
  * @license http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public License, version 3 or later
  *
  */
-class Tx_Vegamatic_Domain_Repository_ShopsRepository extends Tx_Vegamatic_Domain_Repository_CommonRepository {
+class Tx_Vegamatic_Domain_Repository_CommonRepository extends Tx_Extbase_Persistence_Repository {
 
+ 	public function findAllWithOrderings($orderings) {
+		$query = $this->createQuery();
+		switch ($orderings) {
+			case 'DESC':
+				$query->setOrderings(array('name' => Tx_Extbase_Persistence_QueryInterface::ORDER_DESCENDING));		
+			break;
+			default:
+				$query->setOrderings(array('name' => Tx_Extbase_Persistence_QueryInterface::ORDER_ASCENDING));	
+			break;
+		}	
+		return $query->execute();
+ 	}
+ 		
 }
 ?>

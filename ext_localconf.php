@@ -5,17 +5,19 @@ if (!defined('TYPO3_MODE')) {
 
 Tx_Extbase_Utility_Extension::configurePlugin(
 	$_EXTKEY,
-	'Weeks',
+	'Planner',
 	array(
 		'Weeks' => 'list, show, new, create, edit, update, delete, excludeAmount, includeAmount, modifyAmount, addAmount, createAmount, updateAmount, addDish, removeDish',
 		'Dishes' => 'list, show, new, create, edit, update, delete',
-		'Amounts' => 'new, update, delete'
+		'Goods' => 'list, new, create, edit, update, delete',
+		'Amounts' => 'new'		
 	),
 	// non-cacheable actions
 	array(
-		'Weeks' => 'show, create, update, delete',
+		'Weeks' => 'create, update, delete',
 		'Dishes' => 'create, update, delete',
-		'Amounts' => 'new, update, delete'	
+		'Goods' => 'create, update, delete',
+		'Amounts' => 'new'	
 	)
 );
 

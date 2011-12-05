@@ -5,8 +5,8 @@ if (!defined('TYPO3_MODE')) {
 
 Tx_Extbase_Utility_Extension::registerPlugin(
 	$_EXTKEY,
-	'Weeks',
-	'Weekly food planner'
+	'Planner',
+	'Veg-A-Matic'
 );
 
 //$pluginSignature = str_replace('_','',$_EXTKEY) . '_' . weeks;
