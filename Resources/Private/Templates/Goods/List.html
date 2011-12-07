@@ -1,18 +1,18 @@
 <f:layout name="Default" />
 
-<f:flashMessages />
-
 <f:section name="main">
-
 {namespace v=Tx_Vegamatic_ViewHelpers}
+<f:flashMessages />
 
 <div class="row">
 
-	<h2>List of Goods</h2>
+	<h2>List of Products</h2>
 
 	<f:link.action action="list" controller="Weeks">Go back</f:link.action>
 	
 	<v:alphabet objects="{goods}" property="name" as="abcgoods" />
+	
+	<f:debug>{editProduct}</f:debug>
 	
 	<ul id="threecols">
 	<f:for each="{abcgoods}" as="item" key="key">
@@ -28,14 +28,14 @@
 					<f:else>
 						<li>
 						{item}
-						- <f:link.action action="edit" controller="Dishes" arguments="{referrerAction : 'edit', referrerController : 'Goods', goods : key}">TODO: Edit</f:link.action>
+						- <f:link.action action="edit" controller="Goods" arguments="{product : key}">Edit</f:link.action>
 			 			- <a data-reveal-id="deleteModal{key}">Delete</a>
 						<div id="deleteModal{key}" class="reveal-modal">
 							<h1>Really?</h1>
 							<p>
 								Would you really like to delete "{item}"?
 								<div>
-								<f:link.action action="delete" controller="Goods" class="nice medium radius white button" arguments="{goods : key}">Delete!</f:link.action>
+								<f:link.action action="delete" controller="Goods" class="nice medium radius white button" arguments="{product : key}">Delete!</f:link.action>
 								<a class="nice medium radius white button close-reveal-modal">TODO: Cancel button</a>
 								</div>
 							</p>
@@ -46,10 +46,17 @@
 			</f:else>
 		</f:if>
 	</f:for>
-	</ul>	
+	</ul>
 	
-	<f:link.action action="new" controller="Goods" class="nice medium radius white button" arguments="{referrerAction : 'list', referrerController : 'Goods'}">TODO: Create new goods</f:link.action>	
-
+	<f:if condition="{addProduct} != 1">
+		<f:then>
+			<f:link.action action="new" controller="Goods" class="nice medium radius white button">Create new</f:link.action>
+		</f:then>
+		<f:else>
+			Show form
+		</f:else>
+	</f:if>
+	
 </div>
 
 </f:section>

@@ -1,0 +1,16 @@
+<f:layout name="Default" />
+
+<f:section name="main">
+<f:flashMessages />
+
+<div class="row">
+
+	<h2>List of Goods</h2>
+
+	<f:link.action action="list" controller="Weeks">Go back</f:link.action>
+
+	<f:render partial="Goods/GoodsDisplay" arguments="{_all}" />
+	
+</div>
+
+</f:section>

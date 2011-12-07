@@ -88,22 +88,56 @@ class Tx_Vegamatic_Controller_GoodsController extends Tx_Extbase_MVC_Controller_
 	/**
 	 * action list
 	 *
-	 * @return void
+	 * @return string HTML template/partial
 	 */
 	public function listAction() {
-		$this->view->assign('goods', $this->goodsRepository->findAllWithOrderings('name'));	
+		$this->view->assign('goods', $this->goodsRepository->findAllWithOrderings('name'));
+		if ($this->request->hasArgument('addProduct')) $this->view->assign('addProduct', 1);
+		if ($this->request->hasArgument('editProduct')) $this->view->assign('editProduct', $this->request->getArgument('editProduct'));
+	}
+	
+	/*
+	 * add new goods action
+	 * uses the same template as list to which a form is appended based on argument
+	 * 
+	 * @return void
+	 */
+	public function newAction() {
+		$this->forward('list', 'Goods', NULL, array('addProduct' => 1));
+	}
+	
+	/*
+	 * create goods action
+	 */
+	public function createAction() {
+	}
+	
+	/*
+	 * edit goods action
+	 * @param Tx_Vegamatic_Domain_Model_Goods $product
+	 */
+	public function editAction(Tx_Vegamatic_Domain_Model_Goods $product) {
+		$this->forward('list', 'Goods', NULL, array('editProduct' => $product));
+	}
+	
+	/*
+	 * update goods function
+	 */
+	public function updateAction() {
+		
 	}
 	
 	/**
 	 * action delete
 	 *
-	 * @param $goods
+	 * @param $product
+	 * 
 	 * @return void
 	 */
-	public function deleteAction(Tx_Vegamatic_Domain_Model_Goods $goods) {		
+	public function deleteAction(Tx_Vegamatic_Domain_Model_Goods $product) {		
 		// first find all amounts where this item is used and delete them
 		// @cascade remove will not help here, since it could only be set on the amounts side
-		$amountsWithThisItem = $this->amountsRepository->findByGoods($goods);
+		$amountsWithThisItem = $this->amountsRepository->findByGoods($product);
 		if (count($amountsWithThisItem) > 0) {	
 			foreach ($amountsWithThisItem as $amount) {
 				$this->amountsRepository->remove($amount);
@@ -111,8 +145,8 @@ class Tx_Vegamatic_Controller_GoodsController extends Tx_Extbase_MVC_Controller_
 		}
 		
 		// now remove the item; 	
-		$this->goodsRepository->remove($goods);
-		$this->flashMessageContainer->add('Your item was removed.');
+		$this->goodsRepository->remove($product);
+		$this->flashMessageContainer->add('Your product was removed.');
 		$this->redirect('list');
 	}	
 
