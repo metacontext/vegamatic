@@ -3,6 +3,8 @@
 
 <f:section name="main">
 
+{namespace v=Tx_Vegamatic_ViewHelpers}
+
 	<div class="row">
 	
 		<div class="eight columns">
@@ -15,10 +17,25 @@
 				</tr>
 				</thead>
 				<tbody>
-				<f:for each="{weeks}" as="week">
+				<f:for each="{weeks}" as="week" key="key">
 					<tr>
 						<td><f:link.action action="show" arguments="{week : week}">{week.weekstamp -> f:format.date()}</f:link.action></td>
-						<td><f:link.action action="delete" arguments="{week : week}">TODO: Delete with modal</f:link.action></td>
+						<td>
+							<v:implode objects="{0: week.maindish1.name, 1: week.maindish2.name, 2: week.maindish3.name, 3: week.maindish4.name, 4:week.maindish5.name, 5:week.maindish6.name, 6:week.maindish7.name}" glue=", " />
+						</td>
+						<td>
+							<a data-reveal-id="deleteModal{key}">Delete</a>
+							<div id="deleteModal{key}" class="reveal-modal">
+								<h1>Really?</h1>
+								<p>
+									Would you really like to delete the week "{week.weekstamp -> f:format.date()}"?
+									<div>
+									<f:link.action action="delete" controller="Weeks" class="nice medium radius white button" arguments="{week : week}">Delete!</f:link.action>
+									<a class="nice medium radius white button close-reveal-modal">TODO: Cancel button</a>
+									</div>
+								</p>
+							</div>
+						</td>
 					</tr>
 				</f:for>
 				</tbody>

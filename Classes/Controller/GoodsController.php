@@ -50,6 +50,23 @@ class Tx_Vegamatic_Controller_GoodsController extends Tx_Extbase_MVC_Controller_
 	public function injectGoodsRepository(Tx_Vegamatic_Domain_Repository_GoodsRepository $goodsRepository) {
 		$this->goodsRepository = $goodsRepository;
 	}
+	
+	/**
+	 * amountsRepository
+	 *
+	 * @var Tx_Vegamatic_Domain_Repository_AmountsRepository
+	 */
+	protected $amountsRepository;
+
+	/**
+	 * injectAmountsRepository
+	 *
+	 * @param Tx_Vegamatic_Domain_Repository_AmountsRepository $amountsRepository
+	 * @return void
+	 */
+	public function injectAmountsRepository(Tx_Vegamatic_Domain_Repository_AmountsRepository $amountsRepository) {
+		$this->amountsRepository = $amountsRepository;
+	}	
 
 	/**
 	 * shopsRepository
@@ -74,9 +91,29 @@ class Tx_Vegamatic_Controller_GoodsController extends Tx_Extbase_MVC_Controller_
 	 * @return void
 	 */
 	public function listAction() {
-		$this->view->assign('goods', $this->goodsRepository->findAllWithOrderings('name'));
-		$this->view->assign('referrerAction', $this->request->getArgument('referrerAction'));
-		$this->view->assign('referrerController', $this->request->getArgument('referrerController'));		
+		$this->view->assign('goods', $this->goodsRepository->findAllWithOrderings('name'));	
+	}
+	
+	/**
+	 * action delete
+	 *
+	 * @param $goods
+	 * @return void
+	 */
+	public function deleteAction(Tx_Vegamatic_Domain_Model_Goods $goods) {		
+		// first find all amounts where this item is used and delete them
+		// @cascade remove will not help here, since it could only be set on the amounts side
+		$amountsWithThisItem = $this->amountsRepository->findByGoods($goods);
+		if (count($amountsWithThisItem) > 0) {	
+			foreach ($amountsWithThisItem as $amount) {
+				$this->amountsRepository->remove($amount);
+			}
+		}
+		
+		// now remove the item; 	
+		$this->goodsRepository->remove($goods);
+		$this->flashMessageContainer->add('Your item was removed.');
+		$this->redirect('list');
 	}	
 
 }

@@ -1,0 +1,35 @@
+<v:alphabet objects="{dishes}" property="name" as="abcdishes" />
+
+<ul id="threecols">
+<f:for each="{abcdishes}" as="item" key="key">
+	<f:if condition="{0:item} == {0:'startOfLetter'}">
+		<f:then>
+			<li><h5>{key}</h5><ul>			
+		</f:then>
+		<f:else>
+			<f:if condition="{0:item} == {0:'endOfLetter'}">
+				<f:then>
+					</ul></li>
+				</f:then>
+				<f:else>
+					<li>
+					{item}
+					- <f:link.action action="edit" controller="Dishes" arguments="{referrerAction : 'list', referrerController : 'Dishes', dish : key}">Edit</f:link.action>
+		 			- <a data-reveal-id="deleteModal{key}">Delete</a>
+					<div id="deleteModal{key}" class="reveal-modal">
+						<h1>Really?</h1>
+						<p>
+							Would you really like to delete "{item}"?
+							<div>
+							<f:link.action action="delete" controller="Dishes" class="nice medium radius white button" arguments="{dish : key}">Delete!</f:link.action>
+							<a class="nice medium radius white button close-reveal-modal">TODO: Cancel button</a>
+							</div>
+						</p>
+					</div>
+		 			</li>					
+				</f:else>
+			</f:if>			
+		</f:else>
+	</f:if>
+</f:for>
+</ul>

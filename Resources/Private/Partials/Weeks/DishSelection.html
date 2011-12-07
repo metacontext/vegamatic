@@ -182,7 +182,29 @@
 	
 	<div class="four columns">
 	
-		<h4>Dish Selection</h4>
+		<h4>Available Dishes</h4>
+		
+		<v:alphabet objects="{dishes}" property="name" as="abcdishes" />
+		
+		<ul style="position: relative; overflow-y: scroll; height: 290px; margin-top: 1em;">
+		<f:for each="{abcdishes}" as="item" key="key">
+			<f:if condition="{0:item} == {0:'startOfLetter'}">
+				<f:then>
+					<li><h5>{key}</h5><ul>			
+				</f:then>
+				<f:else>
+					<f:if condition="{0:item} == {0:'endOfLetter'}">
+						<f:then>
+							</ul></li>
+						</f:then>
+						<f:else>
+							<li>{item}</li>					
+						</f:else>
+					</f:if>			
+				</f:else>
+			</f:if>
+		</f:for>
+		</ul>		
 	
 	</div>	
 </div>

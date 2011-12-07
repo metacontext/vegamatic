@@ -3,6 +3,8 @@
 
 <f:section name="main">
 
+<div class="row">
+
 	<h1>New Weeks</h1>
 	
 	<f:link.action action="{referrerAction}" controller="{referrerController}">Go back</f:link.action>
@@ -10,9 +12,11 @@
 	<f:form method="post" action="create"  name="newWeeks" object="{newWeeks}">
 		<fieldset>
 			<label for="weekstamp">Enter the startday of the new week</label>
-			<f:form.textbox id="weekstamp" property="weekstamp" value="" size="15" />
+			<f:form.textbox id="datepicker" property="weekstamp" value="" size="15" />
 		</fieldset>
 		<f:form.submit class="nice small radius white button" value="Add" />
 	</f:form>
+
+</div>
 
 </f:section>

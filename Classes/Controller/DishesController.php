@@ -247,5 +247,17 @@ class Tx_Vegamatic_Controller_DishesController extends Tx_Extbase_MVC_Controller
 			$this->redirect($arguments['referrerAction'], $arguments['referrerController']);
 		}
 	}
+	
+	/**
+	 * action delete
+	 *
+	 * @param $dish
+	 * @return void
+	 */
+	public function deleteAction(Tx_Vegamatic_Domain_Model_Dishes $dish) {
+		$this->dishesRepository->remove($dish);
+		$this->flashMessageContainer->add('Your Dish was removed.');
+		$this->redirect('list');
+	}	
 }
 ?>

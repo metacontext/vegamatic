@@ -1,24 +1,55 @@
-{namespace v: Tx_Vegamatic_ViewHelpers}
-
 <f:layout name="Default" />
+
 <f:flashMessages />
 
 <f:section name="main">
 
+{namespace v=Tx_Vegamatic_ViewHelpers}
+
+<div class="row">
+
 	<h2>List of Goods</h2>
 
 	<f:link.action action="list" controller="Weeks">Go back</f:link.action>
-
-	<f:if condition="{goods}">
-		<div style="position: relative; height: 40em; overflow: scroll; margin: 2em;">
-		<ul>
-		<f:for each="{goods}" as="item" iteration="counter">
-			<li>{item.name}</li>
-		</f:for>
-		</ul>
-		</div>
-	</f:if>
+	
+	<v:alphabet objects="{goods}" property="name" as="abcgoods" />
+	
+	<ul id="threecols">
+	<f:for each="{abcgoods}" as="item" key="key">
+		<f:if condition="{0:item} == {0:'startOfLetter'}">
+			<f:then>
+				<li><h5>{key}</h5><ul>			
+			</f:then>
+			<f:else>
+				<f:if condition="{0:item} == {0:'endOfLetter'}">
+					<f:then>
+						</ul></li>
+					</f:then>
+					<f:else>
+						<li>
+						{item}
+						- <f:link.action action="edit" controller="Dishes" arguments="{referrerAction : 'edit', referrerController : 'Goods', goods : key}">TODO: Edit</f:link.action>
+			 			- <a data-reveal-id="deleteModal{key}">Delete</a>
+						<div id="deleteModal{key}" class="reveal-modal">
+							<h1>Really?</h1>
+							<p>
+								Would you really like to delete "{item}"?
+								<div>
+								<f:link.action action="delete" controller="Goods" class="nice medium radius white button" arguments="{goods : key}">Delete!</f:link.action>
+								<a class="nice medium radius white button close-reveal-modal">TODO: Cancel button</a>
+								</div>
+							</p>
+						</div>			 			
+			 			</li>					
+					</f:else>
+				</f:if>			
+			</f:else>
+		</f:if>
+	</f:for>
+	</ul>	
 	
 	<f:link.action action="new" controller="Goods" class="nice medium radius white button" arguments="{referrerAction : 'list', referrerController : 'Goods'}">TODO: Create new goods</f:link.action>	
+
+</div>
 
 </f:section>

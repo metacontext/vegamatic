@@ -6,6 +6,8 @@
 
 {namespace v=Tx_Vegamatic_ViewHelpers}
 
+<div class="row">
+
 	<h2>List of Dishes</h2>
 
 	<f:link.action action="list" controller="Weeks">Go back</f:link.action>
@@ -26,8 +28,18 @@
 					<f:else>
 						<li>
 						{item}
-						- <f:link.action action="edit" controller="Dishes" arguments="{referrerAction : 'list', referrerController : 'Dishes', dish : dish}">Edit</f:link.action>
-			 			- <a data-reveal-id="10">Delete</a>
+						- <f:link.action action="edit" controller="Dishes" arguments="{referrerAction : 'list', referrerController : 'Dishes', dish : key}">Edit</f:link.action>
+			 			- <a data-reveal-id="deleteModal{key}">Delete</a>
+						<div id="deleteModal{key}" class="reveal-modal">
+							<h1>Really?</h1>
+							<p>
+								Would you really like to delete "{item}"?
+								<div>
+								<f:link.action action="delete" controller="Dishes" class="nice medium radius white button" arguments="{dish : key}">Delete!</f:link.action>
+								<a class="nice medium radius white button close-reveal-modal">TODO: Cancel button</a>
+								</div>
+							</p>
+						</div>
 			 			</li>					
 					</f:else>
 				</f:if>			
@@ -37,5 +49,7 @@
 	</ul>
 	
 	<f:link.action action="new" controller="Dishes" class="nice medium radius white button" arguments="{referrerAction : 'list', referrerController : 'Dishes'}">Create a new dish</f:link.action>
+
+</div>
 
 </f:section>

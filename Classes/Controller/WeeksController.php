@@ -125,8 +125,7 @@ class Tx_Vegamatic_Controller_WeeksController extends Tx_Extbase_MVC_Controller_
 	 * @return void
 	 */
 	public function listAction() {
-		$weeks = $this->weeksRepository->findAllWithOrderings('weekstamp');
-		$this->view->assign('weeks', $weeks);
+		$this->view->assign('weeks', $this->weeksRepository->findAllWithOrderings('weekstamp'));
 	}
 
 	/**
@@ -138,6 +137,7 @@ class Tx_Vegamatic_Controller_WeeksController extends Tx_Extbase_MVC_Controller_
 	public function showAction(Tx_Vegamatic_Domain_Model_Weeks $week) {
 		$this->view->assign('days', Tx_Vegamatic_Utility_Datetime::getNextSevenDays($week->getWeekstamp()));
 		$this->view->assign('week', $week);
+		$this->view->assign('dishes', $this->dishesRepository->findAllWithOrderings('name'));
 	}
 
 	/**
@@ -189,12 +189,12 @@ class Tx_Vegamatic_Controller_WeeksController extends Tx_Extbase_MVC_Controller_
 	/**
 	 * action delete
 	 *
-	 * @param $weeks
+	 * @param $week
 	 * @return void
 	 */
-	public function deleteAction(Tx_Vegamatic_Domain_Model_Weeks $weeks) {
-		$this->weeksRepository->remove($weeks);
-		$this->flashMessageContainer->add('Your Weeks was removed.');
+	public function deleteAction(Tx_Vegamatic_Domain_Model_Weeks $week) {
+		$this->weeksRepository->remove($week);
+		$this->flashMessageContainer->add('Your Week was removed.');
 		$this->redirect('list');
 	}
 

@@ -6,6 +6,7 @@ plugin.tx_vegamatic {
 	}
 	persistence {
 		storagePid = {$plugin.tx_vegamatic.persistence.storagePid}
+		updateReferenceIndex = 1		
 	}
 }
 

@@ -55,40 +55,23 @@ class Tx_Vegamatic_ViewHelpers_AlphabetViewHelper extends Tx_Fluid_Core_ViewHelp
 			
 			if ($key == 0) {
 				$output[strtoupper(substr($object->$getter(), 0, 1))] = 'startOfLetter';
-				$output[] = $object->$getter();
+				$output[$object->getUid()] = $object->$getter();
 			}
 			
 			if ($key > 0) {
 				
 				if (strtoupper(substr($object->$getter(), 0, 1)) == strtoupper(substr(end($output), 0, 1))) {
-					$output[] = $object->$getter();
+					$output[$object->getUid()] = $object->$getter();
 				} else {
-					$output[] = 'endOfLetter';
+					$output['key-'.$key] = 'endOfLetter';
 					$output[strtoupper(substr($object->$getter(), 0, 1))] = 'startOfLetter';
-					$output[] = $object->$getter();
+					$output[$object->getUid()] = $object->$getter();
 				}
 			}			
 		}
 		
 		$output[] = 'endOfLetter';
-		
-/*		
-		foreach ($objects as $key => $object) {
-			
-			if ($key == 0 && count($objects) > 1) {
-				$output[] = '<div class=\"four.columns\"><ul><li><h5>'.substr($object->$getter(), 0, 1).'</h5><ul>';
-			} elseif ($key == 0 && count($objects) == 1) {
-				$output[] = '<div class=\"four.columns\"><ul><li><h5>'.substr($object->$getter(), 0, 1).'</h5><ul><li>'.$object->$getter().'</li></ul></ul></div>';
-			}
-			
-			if ($key > 0) {
-				
-			}
-			
-			$output[] = $object->$getter();
-		}
-*/		
-	
+
 		return $this->templateVariableContainer->add($as, $output);
     }
 }

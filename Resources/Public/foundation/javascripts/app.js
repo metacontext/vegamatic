@@ -107,9 +107,9 @@ var j = 1;
 $(document).ready(function() {
 
 	/* Use this js doc for all application specific JS */
-  $(window).resize(function() {
-    console.log($(window).width());
-  });
+	$(window).resize(function() {
+		console.log($(window).width());
+	});
 
 	/* TABS --------------------------------- */
 	/* Remove if you don't need :) */
@@ -143,13 +143,12 @@ $(document).ready(function() {
 		});
 	});
 	
-	
 	/* PLACEHOLDER FOR FORMS ------------- */
 	/* Remove this and jquery.placeholder.min.js if you don't need :) */
 	
 	$('input, textarea').placeholder();
 	
-	/* ADD & REMOVE FORM ELEMENTS */
+	/* -- ADD & REMOVE FORM ELEMENTS -- */
 	/* charlie.griefer.com/blog/2009/09/17/jquery-dynamically-adding-form-elements/ - with some modifications */
 	
 	$('#updateDish > #newAmounts1').hide();
@@ -206,9 +205,21 @@ $(document).ready(function() {
     	}) 
     });
     
+    /* -- THREE COLUMN LISTS -- */
+    
 	$('#threecols').easyListSplitter({ 
 		colNumber: 3,
 		direction: 'vertical'
-	}); 
+	});
+	
+	/* -- DATEPICKER --*/
+	
+	$(function() {
+		$( "#datepicker" ).datepicker({
+			firstDay: 1,
+			dateFormat: 'yy-mm-dd',
+			showOptions: {direction: 'down' }
+		});
+	});
 	
 });
