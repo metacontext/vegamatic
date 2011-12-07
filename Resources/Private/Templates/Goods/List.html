@@ -1,0 +1,24 @@
+{namespace v: Tx_Vegamatic_ViewHelpers}
+
+<f:layout name="Default" />
+<f:flashMessages />
+
+<f:section name="main">
+
+	<h2>List of Goods</h2>
+
+	<f:link.action action="list" controller="Weeks">Go back</f:link.action>
+
+	<f:if condition="{goods}">
+		<div style="position: relative; height: 40em; overflow: scroll; margin: 2em;">
+		<ul>
+		<f:for each="{goods}" as="item" iteration="counter">
+			<li>{item.name}</li>
+		</f:for>
+		</ul>
+		</div>
+	</f:if>
+	
+	<f:link.action action="new" controller="Goods" class="nice medium radius white button" arguments="{referrerAction : 'list', referrerController : 'Goods'}">TODO: Create new goods</f:link.action>	
+
+</f:section>

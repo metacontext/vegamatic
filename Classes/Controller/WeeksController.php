@@ -125,7 +125,7 @@ class Tx_Vegamatic_Controller_WeeksController extends Tx_Extbase_MVC_Controller_
 	 * @return void
 	 */
 	public function listAction() {
-		$weeks = $this->weeksRepository->findAll();
+		$weeks = $this->weeksRepository->findAllWithOrderings('weekstamp');
 		$this->view->assign('weeks', $weeks);
 	}
 
@@ -159,7 +159,7 @@ class Tx_Vegamatic_Controller_WeeksController extends Tx_Extbase_MVC_Controller_
 	 */
 	public function createAction(Tx_Vegamatic_Domain_Model_Weeks $newWeeks) {
 		$this->weeksRepository->add($newWeeks);
-		$this->flashMessageContainer->add('Your new Weeks was created.');
+		$this->flashMessageContainer->add('Your new Week was created.');
 		$this->redirect('list');
 	}
 
@@ -308,7 +308,7 @@ class Tx_Vegamatic_Controller_WeeksController extends Tx_Extbase_MVC_Controller_
 	 */
 	public function addAmountAction(Tx_Vegamatic_Domain_Model_Weeks $week) {
 		$this->view->assign('goods', array_merge(array(0 => 'Choose Item'), $this->goodsRepository->findUnlistedGoods($week->getShoppingList())));
-		$this->view->assign('shops', array_merge(array(0 => 'Choose Shop'), $this->shopsRepository->findAllWithOrderings()->toArray()));		
+		$this->view->assign('shops', array_merge(array(0 => 'Choose Shop'), $this->shopsRepository->findAllWithOrderings('name')->toArray()));		
 		$this->view->assign('days', Tx_Vegamatic_Utility_Datetime::getNextSevenDays($week->getWeekstamp()));
 		$this->view->assign('week', $week);
 		$this->view->assign('addAmount', 1);

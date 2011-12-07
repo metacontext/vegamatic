@@ -1,40 +1,41 @@
 <f:layout name="Default" />
-<f:section name="main">
 <f:flashMessages />
 
-<div class="row">
+<f:section name="main">
 
-	<div class="eight columns">
-	<h2>Listing for Weeks</h2>
-		
-		<table>
-			<thead>
-			<tr>
-				<th colspan="3"><f:translate key="tx_vegamatic_domain_model_weeks.weekstamp" /></th>
-			</tr>
-			</thead>
-			<tbody>
-			<f:for each="{weeks}" as="week">
-				<tr>
-					<td><f:link.action action="show" arguments="{week : week}">{week.weekstamp -> f:format.date()}</f:link.action></td>
-					<td><f:link.action action="delete" arguments="{week : week}">TODO: Delete with modal</f:link.action></td>
-				</tr>
-			</f:for>
-			</tbody>
-		</table>
-		
-		<f:link.action action="new" class="nice medium radius white button">TODO: New Weeks</f:link.action>
-		
-	</div>
+	<div class="row">
 	
-	<div class="four columns">
-		<h4>Dishes</h4>
-		<f:link.action action="list" controller="Dishes" class="nice medium radius white button" arguments="{referrerAction : 'list', referrerController : 'Weeks'}">List of dishes</f:link.action>
-		<f:link.action action="new" controller="Dishes" class="nice medium radius white button" arguments="{referrerAction : 'list', referrerController : 'Weeks'}">Create a new dish</f:link.action>
-		<h4>Products</h4>
-		<f:link.action action="list" controller="Goods" class="nice medium radius white button" arguments="{referrerAction : 'list', referrerController : 'Weeks'}">TODO: List of products</f:link.action>
+		<div class="eight columns">
+		<h2>Listing for Weeks</h2>
+			
+			<table>
+				<thead>
+				<tr>
+					<th colspan="3"><f:translate key="tx_vegamatic_domain_model_weeks.weekstamp" /></th>
+				</tr>
+				</thead>
+				<tbody>
+				<f:for each="{weeks}" as="week">
+					<tr>
+						<td><f:link.action action="show" arguments="{week : week}">{week.weekstamp -> f:format.date()}</f:link.action></td>
+						<td><f:link.action action="delete" arguments="{week : week}">TODO: Delete with modal</f:link.action></td>
+					</tr>
+				</f:for>
+				</tbody>
+			</table>
+			
+			<f:link.action action="new" class="nice medium radius white button">New Weeks</f:link.action>
+			
+		</div>
+		
+		<div class="four columns">
+			<h4>Dishes</h4>
+			<f:link.action action="list" controller="Dishes" class="nice medium radius white button" arguments="{referrerAction : 'list', referrerController : 'Weeks'}">List of dishes</f:link.action>
+			<f:link.action action="new" controller="Dishes" class="nice medium radius white button" arguments="{referrerAction : 'list', referrerController : 'Weeks'}">Create a new dish</f:link.action>
+			<h4>Products</h4>
+			<f:link.action action="list" controller="Goods" class="nice medium radius white button" arguments="{referrerAction : 'list', referrerController : 'Weeks'}">List of products</f:link.action>
+		</div>
+	
 	</div>
-
-</div>
 
 </f:section>
