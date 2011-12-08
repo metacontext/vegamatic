@@ -7,9 +7,9 @@ Tx_Extbase_Utility_Extension::configurePlugin(
 	$_EXTKEY,
 	'Planner',
 	array(
-		'Weeks' => 'list, show, new, create, edit, update, delete, excludeAmount, includeAmount, modifyAmount, addAmount, createAmount, updateAmount, addDish, removeDish',
+		'Weeks' => 'list, show, new, create, edit, update, delete, randomize, excludeAmount, includeAmount, modifyAmount, addAmount, createAmount, updateAmount, addDish, removeDish',
 		'Dishes' => 'list, show, new, create, edit, update, delete',
-		'Goods' => 'list, new, create, edit, update, delete',
+		'Goods' => 'list, new, create, edit, update, delete, newShops, createShops',
 		'Amounts' => 'new'		
 	),
 	// non-cacheable actions

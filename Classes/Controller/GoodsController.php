@@ -92,8 +92,10 @@ class Tx_Vegamatic_Controller_GoodsController extends Tx_Extbase_MVC_Controller_
 	 */
 	public function listAction() {
 		$this->view->assign('goods', $this->goodsRepository->findAllWithOrderings('name'));
-		if ($this->request->hasArgument('addProduct')) $this->view->assign('addProduct', 1);
+		$this->view->assign('shops', $this->shopsRepository->findAllWithOrderings('name'));
+		if ($this->request->hasArgument('addProduct')) $this->view->assign('addProduct', 1);	
 		if ($this->request->hasArgument('editProduct')) $this->view->assign('editProduct', $this->request->getArgument('editProduct'));
+		if ($this->request->hasArgument('newShops')) $this->view->assign('newShops', 1);		
 	}
 	
 	/*
@@ -108,13 +110,23 @@ class Tx_Vegamatic_Controller_GoodsController extends Tx_Extbase_MVC_Controller_
 	
 	/*
 	 * create goods action
+	 * 
+	 * @param Tx_Vegamatic_Domain_Model_Goods $newGoods
+	 * 
+	 * @return void
 	 */
-	public function createAction() {
+	public function createAction(Tx_Vegamatic_Domain_Model_Goods $newGoods) {
+		$this->goodsRepository->add($newGoods);
+		$this->flashMessageContainer->add('Your new product was created.');
+		$this->redirect('list');		
 	}
 	
 	/*
 	 * edit goods action
+	 * 
 	 * @param Tx_Vegamatic_Domain_Model_Goods $product
+	 * 
+	 * @return void
 	 */
 	public function editAction(Tx_Vegamatic_Domain_Model_Goods $product) {
 		$this->forward('list', 'Goods', NULL, array('editProduct' => $product));
@@ -122,9 +134,16 @@ class Tx_Vegamatic_Controller_GoodsController extends Tx_Extbase_MVC_Controller_
 	
 	/*
 	 * update goods function
+	 * 
+	 * @param Tx_Vegamatic_Domain_Model_Goods $goods
+	 * 
+	 * @return void
+	 * 
 	 */
-	public function updateAction() {
-		
+	public function updateAction(Tx_Vegamatic_Domain_Model_Goods $goods) {
+		$this->goodsRepository->update($goods);
+		$this->flashMessageContainer->add('Your product was updated.');
+		$this->redirect('list');		
 	}
 	
 	/**
@@ -148,7 +167,29 @@ class Tx_Vegamatic_Controller_GoodsController extends Tx_Extbase_MVC_Controller_
 		$this->goodsRepository->remove($product);
 		$this->flashMessageContainer->add('Your product was removed.');
 		$this->redirect('list');
+	}
+	
+	/*
+	 * add new shops
+	 * 
+	 * @return void
+	 */
+	public function newShopsAction() {
+		$this->forward('list', 'Goods', NULL, array('newShops' => 1));
 	}	
+	
+	/*
+	 * creates a new shop
+	 * 
+	 * @param Tx_Vegamatic_Domain_Model_Shops $newShop
+	 * 
+	 * @return void
+	 */
+	public function createShopsAction(Tx_Vegamatic_Domain_Model_Shops $newShop) {
+		$this->shopsRepository->add($newShop);
+		$this->flashMessageContainer->add('Your new shop was created.');
+		$this->redirect('list');		
+	}
 
 }
 ?>

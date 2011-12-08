@@ -47,9 +47,9 @@ var j = 1;
 			if(i==1){
 				jQuery(this).addClass('listCol1').wrap('<div class="listContainer'+j+'"></div>');
 			} else if(jQuery(this).is('ul')){ // Check whether the list is ordered or unordered
-				jQuery(this).parents('.listContainer'+j).append('<ul class="listCol'+i+'"></ul>');
+				jQuery(this).parents('.listContainer'+j).append('<ul class="three columns listCol'+i+'"></ul>');
 			} else{
-				jQuery(this).parents('.listContainer'+j).append('<ol class="listCol'+i+'"></ol>');
+				jQuery(this).parents('.listContainer'+j).append('<ol class="three columns listCol'+i+'"></ol>');
 			}
 				jQuery('.listContainer'+j+' > ul,.listContainer'+j+' > ol').addClass(listClass);
 		}
@@ -97,7 +97,8 @@ var j = 1;
 			});
 		}
 		
-		jQuery('.listContainer'+j).find('ol:last,ul:last').addClass('last'); // Set class last on the last UL or OL	
+		jQuery('.listContainer'+j).find('ol:last,ul:last').addClass('last'); // Set class last on the last UL or OL
+		jQuery('.listContainer'+j).find('ol.listCol1,ul.listCol1').addClass('three columns'); // Set class last on the last UL or OL			
 		j = j+1;
 		
 	});
@@ -161,21 +162,21 @@ $(document).ready(function() {
         var newElem = $('#newAmounts' + num).clone().attr('id', 'newAmounts' + newNum).hide().fadeIn(1500);
         
         if (newNum > 1) {
-        
+       
 	        newElem.find('#quantity' + num)
 	        	.attr('id', 'quantity' + newNum)
-	        	.attr('name', 'tx_vegamatic_weeks[newAmounts][' + newNum + '][setQuantity]')
+	        	.attr('name', 'tx_vegamatic_planner[newAmounts][' + newNum + '][setQuantity]')
 	        	.attr('value', '');
-	        newElem.find('#unit' + num).attr('id', 'unit' + newNum).attr('name', 'tx_vegamatic_weeks[newAmounts][' + newNum + '][setUnit]');
-	        newElem.find('#setGoods' + num).attr('id', 'setGoods' + newNum).attr('name', 'tx_vegamatic_weeks[newAmounts][' + newNum + '][setGoods]');
+	        newElem.find('#unit' + num).attr('id', 'unit' + newNum).attr('name', 'tx_vegamatic_planner[newAmounts][' + newNum + '][setUnit]');
+	        newElem.find('#setGoods' + num).attr('id', 'setGoods' + newNum).attr('name', 'tx_vegamatic_planner[newAmounts][' + newNum + '][setGoods]');
 	        newElem.find('#newGoods' + num)
 	        	.attr('id', 'newGoods' + newNum)
-	        	.attr('name', 'tx_vegamatic_weeks[newAmounts][' + newNum + '][newGoods]')
+	        	.attr('name', 'tx_vegamatic_planner[newAmounts][' + newNum + '][newGoods]')
 	        	.attr('value', '');        
-	        newElem.find('#setShop' + num).attr('id', 'setShop' + newNum).attr('name', 'tx_vegamatic_weeks[newAmounts][' + newNum + '][setShop]');
+	        newElem.find('#setShop' + num).attr('id', 'setShop' + newNum).attr('name', 'tx_vegamatic_planner[newAmounts][' + newNum + '][setShop]');
 	        newElem.find('#newShop' + num)
 	        	.attr('id', 'newShop' + newNum)
-	        	.attr('name', 'tx_vegamatic_weeks[newAmounts][' + newNum + '][newShop]')
+	        	.attr('name', 'tx_vegamatic_planner[newAmounts][' + newNum + '][newShop]')
 	        	.attr('value', '');
 	      
 	        $('#newAmounts' + num).after(newElem);

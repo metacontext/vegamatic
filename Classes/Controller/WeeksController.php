@@ -132,6 +132,7 @@ class Tx_Vegamatic_Controller_WeeksController extends Tx_Extbase_MVC_Controller_
 	 * action show
 	 *
 	 * @param Tx_Vegamatic_Domain_Model_Weeks $week
+	 * 
 	 * @return string The HTML for the show action
 	 */
 	public function showAction(Tx_Vegamatic_Domain_Model_Weeks $week) {
@@ -155,6 +156,7 @@ class Tx_Vegamatic_Controller_WeeksController extends Tx_Extbase_MVC_Controller_
 	 * action create
 	 *
 	 * @param $newWeeks
+	 * 
 	 * @return void
 	 */
 	public function createAction(Tx_Vegamatic_Domain_Model_Weeks $newWeeks) {
@@ -210,8 +212,9 @@ class Tx_Vegamatic_Controller_WeeksController extends Tx_Extbase_MVC_Controller_
 		$this->view->assign('days', Tx_Vegamatic_Utility_Datetime::getNextSevenDays($week->getWeekstamp()));
 		$this->view->assign('maindishes', $this->dishesRepository->findByType(1));
 		$this->view->assign('sidedishes', $this->dishesRepository->findByType(2));
-		$this->view->assign('week', $week);		
+		$this->view->assign('week', $week);
 		$this->view->assign('slot', $slot);
+		$this->view->assign('dishes', $this->dishesRepository->findAllWithOrderings('name'));		
 	}
 	
 	/**
@@ -297,6 +300,7 @@ class Tx_Vegamatic_Controller_WeeksController extends Tx_Extbase_MVC_Controller_
 		$this->view->assign('days', Tx_Vegamatic_Utility_Datetime::getNextSevenDays($week->getWeekstamp()));
 		$this->view->assign('week', $week);
 		$this->view->assign('modifyAmount', $goods->getUid());
+		$this->view->assign('dishes', $this->dishesRepository->findAllWithOrderings('name'));		
 	}
 	
 	/**
@@ -312,6 +316,7 @@ class Tx_Vegamatic_Controller_WeeksController extends Tx_Extbase_MVC_Controller_
 		$this->view->assign('days', Tx_Vegamatic_Utility_Datetime::getNextSevenDays($week->getWeekstamp()));
 		$this->view->assign('week', $week);
 		$this->view->assign('addAmount', 1);
+		$this->view->assign('dishes', $this->dishesRepository->findAllWithOrderings('name'));		
 	}	
 	
 	/**
@@ -352,6 +357,60 @@ class Tx_Vegamatic_Controller_WeeksController extends Tx_Extbase_MVC_Controller_
 	 */	
 	public function updateAmountAction(Tx_Vegamatic_Domain_Model_Weeks $week, Tx_Vegamatic_Domain_Model_Amounts $amount) {
 		$this->amountsRepository->update($amount);
+		$this->redirect('show', 'Weeks', NULL, array('week' => $week));
+	}
+	
+	/**
+	 * fills up the week with random dishes
+	 * 
+	 * @param Tx_Vegamatic_Domain_Model_Weeks $week
+	 * 
+	 * @return void
+	 */
+	public function randomizeAction(Tx_Vegamatic_Domain_Model_Weeks $week) {
+		
+		// find out if there are any dishes already set
+		for ($i = 1; $i < 8; $i++) {
+			$maindishGetter = 'getMaindish'.$i;
+			$sidedishGetter = 'getSidedish'.$i;
+			if (is_object($week->$maindishGetter())) $maindishesToExclude[] = $week->$maindishGetter()->getUid();
+			if (is_object($week->$sidedishGetter())) $sidedishesToExclude[] = $week->$sidedishGetter()->getUid();
+		}
+		
+		// find all dishes that are not set
+		$maindishesAvailable = $this->dishesRepository->findAllBut($maindishesToExclude, 1);
+		$sidedishesAvailable = $this->dishesRepository->findAllBut($sidedishesToExclude, 2);
+		
+		// get their uids
+		foreach ($maindishesAvailable as $dish) {
+			$maindishes[] = $dish->getUid();
+		}
+		foreach ($sidedishesAvailable as $dish) {
+			$sidedishes[] = $dish->getUid();
+		}
+
+		// now set as many as possible randomly on the days
+		for ($i = 1; $i < 8; $i++) {
+			
+			$maindishGetter = 'getMaindish'.$i;
+			$sidedishGetter = 'getSidedish'.$i;			
+			$maindishSetter = 'setMaindish'.$i;
+			$sidedishSetter = 'setSidedish'.$i;
+					
+			if (!is_object($week->$maindishGetter()) && count($maindishes) > 0) {
+				$randomKey = array_rand($maindishes);
+				$week->$maindishSetter($this->dishesRepository->findByUid($maindishes[$randomKey]));
+				unset($maindishes[$randomKey]);
+			}
+
+			if (!is_object($week->$sidedishGetter()) && count($sidedishes) > 0) {
+				$randomKey = array_rand($sidedishes);
+				$week->$sidedishSetter($this->dishesRepository->findByUid($sidedishes[$randomKey]));
+				unset($sidedishes[$randomKey]);
+			}			
+		}
+		
+		// persist
 		$this->redirect('show', 'Weeks', NULL, array('week' => $week));
 	}
 }

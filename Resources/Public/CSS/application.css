@@ -70,12 +70,3 @@ table td {
 #newItem {
 	padding: 1em 0 0 0;
 }
-
-.listCol1, .listCol2, .listCol3 {
-	float: left;
-	width: 20em;
-}
-
-.listContainer1 {
-	overflow: auto;
-}

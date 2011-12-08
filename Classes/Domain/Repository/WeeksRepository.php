@@ -33,6 +33,6 @@
  *
  */
 class Tx_Vegamatic_Domain_Repository_WeeksRepository extends Tx_Vegamatic_Domain_Repository_CommonRepository {
-
+	
 }
 ?>

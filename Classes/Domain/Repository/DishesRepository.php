@@ -33,6 +33,24 @@
  *
  */
 class Tx_Vegamatic_Domain_Repository_DishesRepository extends Tx_Vegamatic_Domain_Repository_CommonRepository {
+	
+	/**
+	 * @param array $exclude
+	 * @param integer $type
+	 * 
+	 * @return Tx_Extbase_Persistence_QueryResultInterface|array
+	 */
+	public function findAllBut($exclude, $type = 1) {
 
+		$query = $this->createQuery();
+		$constraints = array();
+		
+		$constraints[] = $query->equals('type', $type);
+		if ($exclude) $constraints[] = $query->logicalNot($query->in('uid', $exclude));
+
+		$query->matching($query->logicalAnd($constraints));
+		
+		return $query->execute();
+	}
 }
 ?>

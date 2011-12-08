@@ -182,7 +182,7 @@
 	
 	<div class="four columns">
 	
-		<h4>Available Dishes</h4>
+		<h4>List of all Dishes</h4>
 		
 		<v:alphabet objects="{dishes}" property="name" as="abcdishes" />
 		
@@ -212,6 +212,6 @@
 <div class="row">
 	<p>
 		<f:link.action action="new" controller="Dishes" class="nice medium radius white button" arguments="{referrerAction : 'show', referrerController : 'Weeks', referrerObject : week.uid}">Create new dish</f:link.action>
-		<a class="nice medium radius white button" href="#">TODO:Randomize...</a>
+		<f:link.action action="randomize" controller="Weeks" class="nice medium radius white button" arguments="{week : week}">Randomize!</f:link.action>
 	</p>	
 </div>	

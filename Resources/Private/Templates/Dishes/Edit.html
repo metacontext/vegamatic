@@ -1,8 +1,7 @@
 <f:layout name="Default" />
-<f:flashMessages />
 
 <f:section name="main">
-
+<f:flashMessages />
 <div class="row">
 	
 	<h2>Edit your dish</h2>
@@ -13,11 +12,10 @@
 		
 		<f:render partial="Dishes/FieldsetDescription" arguments="{dishName : dish.name, dishType : dish.type}" />
 		
-		<f:form.submit id="submit" class="nice medium radius white button" value="Update Dish" />		
+		<f:form.submit id="submit" class="nice medium radius white button" value="Update Dish" />
 		
-		<h4>Existing Ingredients</h4>
-		
-		<f:if condition="{dish.amounts}">		
+		<f:if condition="{dish.amounts}">
+			<h4>Existing Ingredients</h4>		
 			<f:for each="{dish.amounts}" as="amount" iteration="counter">
 				<f:render partial="Amounts/UpdateAmounts" arguments="{amount : amount, counter : counter}" />				
 			</f:for>	

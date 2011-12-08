@@ -1,8 +1,7 @@
 <f:layout name="Default" />
-<f:flashMessages />
 
 <f:section name="main">
-
+<f:flashMessages />
 {namespace v=Tx_Vegamatic_ViewHelpers}
 
 	<div class="row">
@@ -42,15 +41,16 @@
 			</table>
 			
 			<f:link.action action="new" class="nice medium radius white button">New Weeks</f:link.action>
+			<f:link.action action="new" controller="Dishes" class="nice medium radius white button" arguments="{referrerAction : 'list', referrerController : 'Weeks'}">New dishes</f:link.action>			
 			
 		</div>
 		
 		<div class="four columns">
-			<h4>Dishes</h4>
-			<f:link.action action="list" controller="Dishes" class="nice medium radius white button" arguments="{referrerAction : 'list', referrerController : 'Weeks'}">List of dishes</f:link.action>
-			<f:link.action action="new" controller="Dishes" class="nice medium radius white button" arguments="{referrerAction : 'list', referrerController : 'Weeks'}">Create a new dish</f:link.action>
-			<h4>Products</h4>
-			<f:link.action action="list" controller="Goods" class="nice medium radius white button" arguments="{referrerAction : 'list', referrerController : 'Weeks'}">List of products</f:link.action>
+			<h3>Other Lists</h4>
+			<ul>
+			<li><f:link.action action="list" controller="Dishes" arguments="{referrerAction : 'list', referrerController : 'Weeks'}">Show all dishes</f:link.action></li>
+			<li><f:link.action action="list" controller="Goods" arguments="{referrerAction : 'list', referrerController : 'Weeks'}">Show all products</f:link.action></li>
+			</ul>
 		</div>
 	
 	</div>

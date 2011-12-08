@@ -1,9 +1,7 @@
 <f:layout name="Default" />
 
-<f:flashMessages />
-
 <f:section name="main">
-
+<f:flashMessages />
 {namespace v=Tx_Vegamatic_ViewHelpers}
 
 <div class="row">
@@ -47,9 +45,10 @@
 		</f:if>
 	</f:for>
 	</ul>
-	
-	<f:link.action action="new" controller="Dishes" class="nice medium radius white button" arguments="{referrerAction : 'list', referrerController : 'Dishes'}">Create a new dish</f:link.action>
-
+	<div class="three columns">
+	<h3>New</h3>
+	<f:link.action action="new" controller="Dishes" class="nice medium radius white button" arguments="{referrerAction : 'list', referrerController : 'Dishes'}">New dish</f:link.action>
+	</div>
 </div>
 
 </f:section>
