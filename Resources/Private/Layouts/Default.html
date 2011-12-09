@@ -13,11 +13,11 @@
 	<title>Welcome to the Veg-A-Matic</title>
   
 	<!-- Included CSS Files -->
-	<link rel="stylesheet" href="{f:uri.resource(path:'foundation/stylesheets/foundation.css')}">
+	<link rel="stylesheet" href="{f:uri.resource(path:'Foundation/stylesheets/foundation.css')}">
 	<link rel="stylesheet" href="{f:uri.resource(path:'CSS/application.css')}">
 
 	<!--[if lt IE 9]>
-		<link rel="stylesheet" href="{f:uri.resource(path:'foundation/stylesheets/ie.css')}">
+		<link rel="stylesheet" href="{f:uri.resource(path:'Foundation/stylesheets/ie.css')}">
 	<![endif]-->
 
 	
@@ -29,11 +29,14 @@
 </head>
 <body>
 	<div class="container">
+		<header id="branding" class="row">
+			<h1 class="eight columns centered">Veg-A-Matic</h1>
+		</header>
 		<f:render section="main" />
 	</div>
 	<!-- Included JS Files -->
-	<script src="{f:uri.resource(path:'foundation/javascripts/foundation.js')}"></script>
+	<script src="{f:uri.resource(path:'Foundation/javascripts/foundation.js')}"></script>
 	<script src="{f:uri.resource(path:'Scripts/jquery-ui-1.8.16.custom.min.js')}"></script>	
-	<script src="{f:uri.resource(path:'foundation/javascripts/app.js')}"></script>
+	<script src="{f:uri.resource(path:'Scripts/application.js')}"></script>
 </body>
 </html>

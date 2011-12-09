@@ -1,18 +1,115 @@
+/* ## 01. RESET ########################################################################### */
+/* note: element reset done in foundation */
+
+/* ## 02. VIEWPORT ######################################################################## */
+/* note: viewport specifics set in foundation */
+
+/* ## 03. GRID ############################################################################ */
+/* note: grid set in foundation */
+
+/* ## 04. LAYOUT ########################################################################## */
+
+body {
+	background: #AF9362;	
+}
+
+.container {
+	margin: 6em auto 3em auto;
+	padding: 6em 20px 2em 20px;
+	background: #FFF url(../Images/bg_top_wood.png) left top no-repeat;
+	max-width: 920px;
+	
+	-webkit-border-radius: 8px;
+	-moz-border-radius: 8px;
+	-o-border-radius: 8px;
+	border-radius: 8px;
+	
+	-webkit-box-shadow: 0.3em 0.3em 0.3em #777;
+	-moz-box-shadow: 0.3em 0.3em 0.3em #777;
+	-o-box-shadow: 0.3em 0.3em 0.3em #777;
+	box-shadow: 0.3em 0.3em 0.3em #777;	
+}
+
+@media only screen and (max-width: 767px) {
+	max-width: 0;
+}
+
+#branding {
+	margin-top: -130px;
+	background: url(../Icons/Layout/lime.png) right center no-repeat;
+}
+
+header h1 {
+	/*
+	position: absolute;
+	top: -65px;
+	left: 23%;
+	width: 580px;
+	height: 120px;
+	*/
+	position: relative;
+	height: 120px;
+	z-index: 100;
+	background: url(../Images/veg-a-matic.png) left top no-repeat;
+	text-indent: -999px;
+}
+
+
+/* ## 05. TYPOGRAPHY ###################################################################### */
+
+h1, h2, h3, h4, h5 {
+	color: #DE7047;
+}
+
+/* ## 07. SPECIAL CONTENT ################################################################# */
+
+/* HYPERLINKS */
+
+a, a:link, a:visited, a:active, a:hover, a:focus {
+	color: #528540;
+}
+
+a:hover, a:focus {
+	color: #4EAF2B;
+}
+
+.delete {
+	position: relative;
+	overflow: hidden;
+	width: 32px;
+	height: 32px;
+	display: inline-block;
+	text-indent: -500px;
+	background: url(../Icons/Gui/32/bullet_delete.png) left center no-repeat;
+}
+
+/* BUTTONS */
+
+.button.new {
+	background-image: url(../Icons/Gui/32/bullet_add.png);
+	background-repeat: no-repeat;
+	background-position: 90% center !important;
+	padding-right: 3.5em;
+	padding-left: 2em;
+	margin-right: 1em;
+}
+
+
+/* STUFF */
+
 input.f3-form-error {
 	background-color:#FF9F9F;
 	border: 1px #FF0000 solid;
 }
 
 table {
-	margin: 1em;
-	border: 1px solid #333;
+	margin: 1em 0;
 	border-collapse: collapse;
 	border-spacing: 10px;
 }
 
 table th {
 	font-weight: bold;
-	border: 1px solid #333;
 	padding: 1em;
 }
 
@@ -20,6 +117,14 @@ table td {
 	vertical-align: top;
 	border: 1px solid #333;
 	padding: 1em;
+}
+
+th {
+	background: #FFDE8D;
+}
+
+table tbody tr:nth-child(2n) {
+	background-color: #FFF6DF;
 }
 
 #shoppingList {
@@ -69,4 +174,23 @@ table td {
 
 #newItem {
 	padding: 1em 0 0 0;
+}
+
+/* ## 08. MOBILE ########################################################################## */
+/* note: mobile done in foundation */
+
+/* ## 09. PRINT ########################################################################### */
+
+/* ## 10. FINALLY ######################################################################### */
+
+/* class for hiding elements */
+.skip {
+    position: absolute;
+    overflow: hidden;
+    z-index: 0;
+    width: 1px;
+    height: 1px;
+    margin: -2px 0 0 -2px;
+    background: transparent;
+    text-indent: 2px;
 }

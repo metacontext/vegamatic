@@ -7,7 +7,7 @@
 	<div class="row">
 	
 		<div class="eight columns">
-		<h2>Listing for Weeks</h2>
+		<h2>Your planned weeks</h2>
 			
 			<table>
 				<thead>
@@ -18,12 +18,14 @@
 				<tbody>
 				<f:for each="{weeks}" as="week" key="key">
 					<tr>
-						<td><f:link.action action="show" arguments="{week : week}">{week.weekstamp -> f:format.date()}</f:link.action></td>
+						<td>
+							<f:link.action action="show" arguments="{week : week}" class="calendar">{week.weekstamp -> f:format.date()}</f:link.action>
+						</td>
 						<td>
 							<v:implode objects="{0: week.maindish1.name, 1: week.maindish2.name, 2: week.maindish3.name, 3: week.maindish4.name, 4:week.maindish5.name, 5:week.maindish6.name, 6:week.maindish7.name}" glue=", " />
 						</td>
 						<td>
-							<a data-reveal-id="deleteModal{key}">Delete</a>
+							<a data-reveal-id="deleteModal{key}" class="delete">Delete</a>
 							<div id="deleteModal{key}" class="reveal-modal">
 								<h1>Really?</h1>
 								<p>
@@ -40,16 +42,16 @@
 				</tbody>
 			</table>
 			
-			<f:link.action action="new" class="nice medium radius white button">New Weeks</f:link.action>
-			<f:link.action action="new" controller="Dishes" class="nice medium radius white button" arguments="{referrerAction : 'list', referrerController : 'Weeks'}">New dishes</f:link.action>			
+			<f:link.action action="new" class="nice large radius white button new">New weeks</f:link.action>
+			<f:link.action action="new" controller="Dishes" class="nice large radius white button new" arguments="{referrerAction : 'list', referrerController : 'Weeks'}">New dishes</f:link.action>			
 			
 		</div>
 		
 		<div class="four columns">
-			<h3>Other Lists</h4>
+			<h3>Your lists</h3>
 			<ul>
-			<li><f:link.action action="list" controller="Dishes" arguments="{referrerAction : 'list', referrerController : 'Weeks'}">Show all dishes</f:link.action></li>
-			<li><f:link.action action="list" controller="Goods" arguments="{referrerAction : 'list', referrerController : 'Weeks'}">Show all products</f:link.action></li>
+				<li><f:link.action action="list" controller="Dishes" arguments="{referrerAction : 'list', referrerController : 'Weeks'}">List of all dishes</f:link.action></li>
+				<li><f:link.action action="list" controller="Goods" arguments="{referrerAction : 'list', referrerController : 'Weeks'}">List of all products</f:link.action></li>
 			</ul>
 		</div>
 	
