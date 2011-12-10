@@ -35,3 +35,6 @@
 		</f:if>
 	</div>
 </f:form.errors>
+
+			<h3 class="six columns centered" style="color: #FFF; margin-top: -0.3em;">Your daily dose of vegan dishes</h3>
+			<f:image id="logo" src="EXT:vegamatic/Resources/Public/Images/logo.png" alt="Vegan for fun" />

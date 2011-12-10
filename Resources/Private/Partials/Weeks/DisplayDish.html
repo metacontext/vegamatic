@@ -1,11 +1,11 @@
 {dishName}
 <f:if condition="{dish}">
 	<f:then>
-		- <f:link.action action="addDish" arguments="{week : week, slot : slot}">Change</f:link.action>
-		 - <f:link.action action="removeDish" arguments="{week : week, slot : slot}">Remove</f:link.action>
-		 - <f:link.action action="edit" controller="Dishes" arguments="{referrerAction : 'show', referrerController : 'Weeks', referrerObject : week.uid, dish : dish}">Edit</f:link.action>
+		<f:link.action action="addDish" arguments="{week : week, slot : slot}" class="action change icon size16">Change</f:link.action>
+		<f:link.action action="removeDish" arguments="{week : week, slot : slot}" class="action remove icon size16">Remove</f:link.action>
+		<f:link.action action="edit" controller="Dishes" arguments="{referrerAction : 'show', referrerController : 'Weeks', referrerObject : week.uid, dish : dish}" class="action edit icon size16">Edit</f:link.action>
 	</f:then>
 	<f:else>
-		<f:link.action action="addDish" arguments="{week : week, slot : slot}">Add</f:link.action>
+		<f:link.action action="addDish" arguments="{week : week, slot : slot}" class="action add icon size16">Add</f:link.action>
 	</f:else>
 </f:if>

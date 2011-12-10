@@ -4,11 +4,11 @@
 {namespace v=Tx_Vegamatic_ViewHelpers}
 <f:flashMessages />
 
-<div class="row">
+<div class="row" id="products">
 
-	<h2>List of Products</h2>
+	<h2>Here's the list of your Products</h2>
 
-	<f:link.action action="list" controller="Weeks">Go back</f:link.action>
+	<p><f:link.action action="list" controller="Weeks" class="action back">Go back</f:link.action></p>
 	
 	<v:alphabet objects="{goods}" property="name" as="abcgoods" />
 	
@@ -38,8 +38,10 @@
 							</f:then>
 							<f:else>
 								{item}
-								- <f:link.action action="edit" controller="Goods" arguments="{product : key}">Edit</f:link.action>
-					 			- <a data-reveal-id="deleteModal{key}">Delete</a>
+								<span style="white-space: nowrap">
+									<f:link.action action="edit" controller="Goods" arguments="{product : key}" class="action edit icon size16">Edit</f:link.action>
+					 				<a data-reveal-id="deleteModal{key}" class="action delete icon size16">Delete</a>
+					 			</span>
 								<div id="deleteModal{key}" class="reveal-modal">
 									<h1>Really?</h1>
 									<p>
@@ -62,9 +64,10 @@
 	
 	<div class="three columns">
 		<h3>More products</h3>
+		<p>Simply add more nice products to your list</p>
 		<f:if condition="{addProduct} != 1">
 			<f:then>
-				<f:link.action action="new" controller="Goods" class="nice small radius white button">Add a new product</f:link.action>
+				<f:link.action action="new" controller="Goods" class="nice large radius white button new">Add</f:link.action>
 			</f:then>
 			<f:else>
 				<h5>Add a new product</h5>
@@ -79,7 +82,8 @@
 			</f:else>
 		</f:if>
 		<f:if condition="{shops}">
-			<h3>Shops</h3>
+			<h3 style="margin-top: 1em;">Shops</h3>
+			<p>These are your shops so far:</p>
 			<ul>
 			<f:for each="{shops}" as="shop">
 				<li>{shop.name}</li>
@@ -97,7 +101,7 @@
 			<f:link.action action="list" controller="Goods">...or Cancel</f:link.action>			
 		</f:then>
 		<f:else>
-			<f:link.action action="newShops" controller="Goods" class="nice small radius white button">Add new shop</f:link.action>
+			<f:link.action action="newShops" controller="Goods" class="nice large radius white button new">Add</f:link.action>
 		</f:else>
 		</f:if>		
 	</div>

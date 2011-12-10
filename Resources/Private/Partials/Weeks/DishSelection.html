@@ -1,9 +1,10 @@
 {namespace v=Tx_Vegamatic_ViewHelpers}
 
-<div class="row">
+<div class="row" id="week">
+
 	<div class="eight columns">
 	
-	<h4>Dishes of the Week</h4>
+		<h4>Dishes of the Week</h4>
 	
 		<table>
 			<thead>
@@ -186,7 +187,7 @@
 		
 		<v:alphabet objects="{dishes}" property="name" as="abcdishes" />
 		
-		<ul style="position: relative; overflow-y: scroll; height: 290px; margin-top: 1em;">
+		<ul id="dishlist">
 		<f:for each="{abcdishes}" as="item" key="key">
 			<f:if condition="{0:item} == {0:'startOfLetter'}">
 				<f:then>
@@ -209,9 +210,9 @@
 	</div>	
 </div>
 
-<div class="row">
+<div class="row" id="actions">
 	<p>
-		<f:link.action action="new" controller="Dishes" class="nice medium radius white button" arguments="{referrerAction : 'show', referrerController : 'Weeks', referrerObject : week.uid}">Create new dish</f:link.action>
-		<f:link.action action="randomize" controller="Weeks" class="nice medium radius white button" arguments="{week : week}">Randomize!</f:link.action>
+		<f:link.action action="new" controller="Dishes" class="nice large radius white button new" arguments="{referrerAction : 'show', referrerController : 'Weeks', referrerObject : week.uid}">Create new dish</f:link.action>
+		<f:link.action action="randomize" controller="Weeks" class="nice large radius white button fav" arguments="{week : week}">Randomize!</f:link.action>
 	</p>	
 </div>	

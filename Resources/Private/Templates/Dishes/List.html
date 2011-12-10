@@ -4,11 +4,11 @@
 <f:flashMessages />
 {namespace v=Tx_Vegamatic_ViewHelpers}
 
-<div class="row">
+<div class="row" id="dishes">
 
-	<h2>List of Dishes</h2>
+	<h2>Here's your list of dishes</h2>
 
-	<f:link.action action="list" controller="Weeks">Go back</f:link.action>
+	<p><f:link.action action="list" controller="Weeks" class="action back">Go back</f:link.action></p>
 
 	<v:alphabet objects="{dishes}" property="name" as="abcdishes" />
 	
@@ -26,8 +26,10 @@
 					<f:else>
 						<li>
 						{item}
-						- <f:link.action action="edit" controller="Dishes" arguments="{referrerAction : 'list', referrerController : 'Dishes', dish : key}">Edit</f:link.action>
-			 			- <a data-reveal-id="deleteModal{key}">Delete</a>
+						<span style="white-space: nowrap">
+							<f:link.action action="edit" controller="Dishes" arguments="{referrerAction : 'list', referrerController : 'Dishes', dish : key}" class="action edit icon size16">Edit</f:link.action>
+			 				<a data-reveal-id="deleteModal{key}" class="action delete icon size16">Delete</a>
+			 			</span>
 						<div id="deleteModal{key}" class="reveal-modal">
 							<h1>Really?</h1>
 							<p>
@@ -46,8 +48,9 @@
 	</f:for>
 	</ul>
 	<div class="three columns">
-	<h3>New</h3>
-	<f:link.action action="new" controller="Dishes" class="nice medium radius white button" arguments="{referrerAction : 'list', referrerController : 'Dishes'}">New dish</f:link.action>
+	<h3>New dish</h3>
+	<p>Extend your list with another delicious new dish.</p>
+	<p><f:link.action action="new" controller="Dishes" class="nice large radius white button new" arguments="{referrerAction : 'list', referrerController : 'Dishes'}">Add</f:link.action></p>
 	</div>
 </div>
 

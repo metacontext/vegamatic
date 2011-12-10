@@ -1,4 +1,4 @@
-<div class="row">
+<div class="row" id="shoppinglist">
 	<div class="eight columns">	
 		<h4>Shopping List</h4>
 		<dl id="shoppingList">
@@ -44,9 +44,11 @@
 									<f:if condition="{item.unit}">
 										<f:translate key="tx_vegamatic_domain_model_amounts.unit.I.{item.unit}" />
 									</f:if>							
-									{item.name} -
-									<f:link.action action="excludeAmount" arguments="{week : week, goods : item.goods}" section="shoppingList">Exclude</f:link.action> / 
-									<f:link.action action="modifyAmount" arguments="{week : week, goods : item.goods}" section="updateAmount">Modify</f:link.action>
+									{item.name}
+									<span style="white-space: nowrap">
+										<f:link.action action="excludeAmount" arguments="{week : week, goods : item.goods}" section="shoppingList" class="action remove icon size16">Exclude</f:link.action> 
+										<f:link.action action="modifyAmount" arguments="{week : week, goods : item.goods}" section="updateAmount" class="action edit icon size16">Modify</f:link.action>
+									</span>
 								</dd>
 							</f:then>
 							<f:else>
@@ -55,8 +57,8 @@
 										<f:if condition="{item.quantity}">{item.quantity}</f:if>
 										<f:if condition="{item.unit}"><f:translate key="tx_vegamatic_domain_model_amounts.unit.I.{item.unit}" /></f:if>						
 										{item.name}
-									</span> -
-									<f:link.action action="includeAmount" arguments="{week : week, amount : item.amount}" section="shoppingList">Include</f:link.action>					
+									</span>
+									<f:link.action action="includeAmount" arguments="{week : week, amount : item.amount}" section="shoppingList" class="action undo icon size16">Include</f:link.action>					
 								</dd>
 							</f:else>
 						</f:if>
@@ -83,8 +85,8 @@
 		</f:if>
 		<p>
 			<f:if condition="{addAmount} != 1">
-				<f:link.action class="nice medium radius white button" action="addAmount" arguments="{week : week}" section="addAmount">Add items</f:link.action>
-				<a href="#" onclick="window.print(); return false;" class="nice medium radius white button">Print</a>
+				<f:link.action class="nice large radius white button new" action="addAmount" arguments="{week : week}" section="addAmount">Add items</f:link.action>
+				<a href="#" onclick="window.print(); return false;" class="nice large radius white button print">Print</a>
 			</f:if>
 		</p>		
 	</div>

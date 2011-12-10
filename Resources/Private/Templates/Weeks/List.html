@@ -4,12 +4,12 @@
 <f:flashMessages />
 {namespace v=Tx_Vegamatic_ViewHelpers}
 
-	<div class="row">
+	<div class="row" id="weeks_list">
 	
-		<div class="eight columns">
-		<h2>Your planned weeks</h2>
+		<div class="nine columns">
+		<h2>Vegan Week Overview</h2>
 			
-			<table>
+			<table id="weeks">
 				<thead>
 				<tr>
 					<th colspan="3"><f:translate key="tx_vegamatic_domain_model_weeks.weekstamp" /></th>
@@ -19,13 +19,13 @@
 				<f:for each="{weeks}" as="week" key="key">
 					<tr>
 						<td>
-							<f:link.action action="show" arguments="{week : week}" class="calendar">{week.weekstamp -> f:format.date()}</f:link.action>
+							<f:link.action action="show" arguments="{week : week}" class="action edit">{week.weekstamp -> f:format.date()}</f:link.action>
 						</td>
 						<td>
 							<v:implode objects="{0: week.maindish1.name, 1: week.maindish2.name, 2: week.maindish3.name, 3: week.maindish4.name, 4:week.maindish5.name, 5:week.maindish6.name, 6:week.maindish7.name}" glue=", " />
 						</td>
 						<td>
-							<a data-reveal-id="deleteModal{key}" class="delete">Delete</a>
+							<a data-reveal-id="deleteModal{key}" class="action delete" title="Delete this entry">Delete</a>
 							<div id="deleteModal{key}" class="reveal-modal">
 								<h1>Really?</h1>
 								<p>
@@ -47,12 +47,13 @@
 			
 		</div>
 		
-		<div class="four columns">
-			<h3>Your lists</h3>
-			<ul>
-				<li><f:link.action action="list" controller="Dishes" arguments="{referrerAction : 'list', referrerController : 'Weeks'}">List of all dishes</f:link.action></li>
-				<li><f:link.action action="list" controller="Goods" arguments="{referrerAction : 'list', referrerController : 'Weeks'}">List of all products</f:link.action></li>
-			</ul>
+		<div class="three columns">
+			<h3>Your dishes</h3>
+			<p>Get an overview over all your dishes so far.</p>
+			<p><f:link.action action="list" controller="Dishes" arguments="{referrerAction : 'list', referrerController : 'Weeks'}">List of all dishes</f:link.action></p>
+			<h3>Your products</h3>
+			<p>Check out which goods you have added to the database.</p>
+			<p><f:link.action action="list" controller="Goods" arguments="{referrerAction : 'list', referrerController : 'Weeks'}">List of all products</f:link.action></p>
 		</div>
 	
 	</div>

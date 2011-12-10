@@ -10,13 +10,17 @@
 /* ## 04. LAYOUT ########################################################################## */
 
 body {
-	background: #AF9362;	
+	background-color: #AF9362;
+	background-image: url(../Images/brownpaper_pattern.gif);	
 }
 
 .container {
-	margin: 6em auto 3em auto;
-	padding: 6em 20px 2em 20px;
-	background: #FFF url(../Images/bg_top_wood.png) left top no-repeat;
+	margin: 8.5em auto 3em auto;
+	padding: 6em 20px 6em 20px;
+	background-color: #FFF;
+	background-image: url(../Images/bg_top_card.png), url(../Images/bg_bottom_card.png);
+	background-position: left top, left bottom;
+	background-repeat: no-repeat;
 	max-width: 920px;
 	
 	-webkit-border-radius: 8px;
@@ -27,33 +31,33 @@ body {
 	-webkit-box-shadow: 0.3em 0.3em 0.3em #777;
 	-moz-box-shadow: 0.3em 0.3em 0.3em #777;
 	-o-box-shadow: 0.3em 0.3em 0.3em #777;
-	box-shadow: 0.3em 0.3em 0.3em #777;	
+	box-shadow: 0.15em 0.15em 0.15em #777;	
+}
+
+.row {
 }
 
 @media only screen and (max-width: 767px) {
 	max-width: 0;
 }
 
-#branding {
-	margin-top: -130px;
-	background: url(../Icons/Layout/lime.png) right center no-repeat;
+#header {
+	margin-top: -180px;
+	margin-bottom: -20px;
 }
 
-header h1 {
-	/*
-	position: absolute;
-	top: -65px;
-	left: 23%;
-	width: 580px;
-	height: 120px;
-	*/
-	position: relative;
-	height: 120px;
-	z-index: 100;
-	background: url(../Images/veg-a-matic.png) left top no-repeat;
-	text-indent: -999px;
+#header h1 {
+	margin-bottom: 0;
 }
 
+#header h1 img {
+	width: 100%;
+}
+
+#weeks_list {
+	background: url(../Icons/Layout/lime.png) 95% 95% no-repeat;
+	min-height: 35em;
+}
 
 /* ## 05. TYPOGRAPHY ###################################################################### */
 
@@ -73,19 +77,82 @@ a:hover, a:focus {
 	color: #4EAF2B;
 }
 
-.delete {
+.action {
 	position: relative;
-	overflow: hidden;
-	width: 32px;
-	height: 32px;
 	display: inline-block;
+	height: 32px;	
+	cursor: pointer;
+	padding: 1em 0 0 3em;
+}
+
+.icon {
+	width: 32px;
 	text-indent: -500px;
+	overflow: hidden;
+	padding: 0;
+	margin: 0 0.2em;
+}
+
+.icon.size16 {
+	width: 16px;
+	height: 16px;
+}
+
+.delete {
 	background: url(../Icons/Gui/32/bullet_delete.png) left center no-repeat;
+}
+
+.edit {
+	background: url(../Icons/Gui/32/edit.png) left center no-repeat;	
+}
+
+.add {
+	background: url(../Icons/Gui/32/bullet_add.png) left center no-repeat;	
+}
+
+.back {
+	background: url(../Icons/Gui/32/arrow_left.png) left center no-repeat;	
+}
+
+.change {
+	background: url(../Icons/Gui/32/arrow_refresh.png) left center no-repeat;	
+}
+
+.remove {
+	background: url(../Icons/Gui/32/bullet_deny.png) left center no-repeat;	
+}
+
+.undo {
+	background: url(../Icons/Gui/32/arrow_undo.png) left center no-repeat;
+}
+
+.delete.size16 {
+	background: url(../Icons/Gui/16/bullet_delete.png) left center no-repeat;
+}
+
+.edit.size16 {
+	background: url(../Icons/Gui/16/edit.png) left center no-repeat;		
+}
+
+.add.size16 {
+	background: url(../Icons/Gui/16/bullet_add.png) left center no-repeat;	
+}
+
+.change.size16 {
+	background: url(../Icons/Gui/16/arrow_refresh.png) left center no-repeat;	
+}
+
+.remove.size16 {
+	background: url(../Icons/Gui/16/bullet_deny.png) left center no-repeat;	
+}
+
+.undo.size16 {
+	background: url(../Icons/Gui/16/arrow_refresh.png) left center no-repeat;
 }
 
 /* BUTTONS */
 
-.button.new {
+.button.new, .button.fav, .button.print {
 	background-image: url(../Icons/Gui/32/bullet_add.png);
 	background-repeat: no-repeat;
 	background-position: 90% center !important;
@@ -94,38 +161,56 @@ a:hover, a:focus {
 	margin-right: 1em;
 }
 
-
-/* STUFF */
-
-input.f3-form-error {
-	background-color:#FF9F9F;
-	border: 1px #FF0000 solid;
+.button.fav {
+	background-image: url(../Icons/Gui/32/favourites.png);
 }
+
+.button.print {
+	background-image: url(../Icons/Gui/32/printer_accept.png);
+}
+
+
+/* TABLES */
 
 table {
+	display: table;
 	margin: 1em 0;
-	border-collapse: collapse;
-	border-spacing: 10px;
-}
-
-table th {
-	font-weight: bold;
-	padding: 1em;
-}
-
-table td {
-	vertical-align: top;
-	border: 1px solid #333;
-	padding: 1em;
+	width: 100%;
 }
 
 th {
-	background: #FFDE8D;
+	font-weight: bold;
+	padding: 1em;	
+	color: #528540 !important;
+	background: #FFDE8D url(../Images/wood_pattern.png);
+}
+
+thead, tbody {
+	width: 100%;
 }
 
 table tbody tr:nth-child(2n) {
 	background-color: #FFF6DF;
 }
+
+#weeks tbody tr td:first-child {
+	min-width: 20%;
+}
+
+#week tbody tr td:first-child {
+	width: 14%;
+}
+
+#week tbody tr td:nth-child(2) {
+	width: 43%;
+}
+
+#week tbody tr td:nth-child(3) {
+	width: 43%;
+}
+
+
+/* SHOPPING LIST */
 
 #shoppingList {
 	margin: 1em 0;
@@ -145,8 +230,10 @@ table tbody tr:nth-child(2n) {
 }
 
 .modified {
-	color: red;
+	color: #DE7047;
 }
+
+/* FORMS */
 
 .amounts {
 	min-height: 3em;
@@ -174,6 +261,15 @@ table tbody tr:nth-child(2n) {
 
 #newItem {
 	padding: 1em 0 0 0;
+}
+
+#dishlist {
+	border: 1px solid #DDDDDD;
+	padding: 1em;
+	position: relative;
+	overflow-y: scroll; 
+	height: 278px; 
+	margin-top: 1em;	
 }
 
 /* ## 08. MOBILE ########################################################################## */
