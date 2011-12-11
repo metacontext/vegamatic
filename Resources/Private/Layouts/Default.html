@@ -31,7 +31,10 @@
 <body>
 	<div class="container">
 		<header id="header" class="row">
-			<h1 class="eight columns centered"><f:link.action action="list" controller="Weeks"><f:image src="EXT:vegamatic/Resources/Public/Images/veg-a-matic.png" alt="Veg-A-Matic" /></f:link.action></h1>
+			<h1 class="ten columns centered"><f:link.action action="list" controller="Weeks" title="Your daily dose of vegan dishes">
+				<f:comment><f:image src="EXT:vegamatic/Resources/Public/Images/veg-a-matic-1.png" alt="Veg-A-Matic" alt="Veg-A-Matic"/></f:comment>
+				<img src="typo3conf/ext/vegamatic/Resources/Public/Images/veg-a-matic-1.png" alt="Veg-A-Matic" />
+			</f:link.action></h1>
 		</header>
 		<f:render section="main" />
 	</div>

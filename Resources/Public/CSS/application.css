@@ -40,7 +40,6 @@ body {
 
 #header {
 	margin-top: -180px;
-	margin-bottom: -20px;
 }
 
 #header h1 {
@@ -48,11 +47,12 @@ body {
 }
 
 #header h1 img {
-	width: 100%;
+	max-width: 100%;
 }
 
+
 #weeks_list, #weeks_new {
-	background: url(../Icons/Layout/lime.png) 95% 95% no-repeat;
+	/* background: url(../Icons/Layout/lime.png) 95% 95% no-repeat; */
 	min-height: 35em;
 }
 
