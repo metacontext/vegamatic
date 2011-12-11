@@ -23,7 +23,7 @@
 			<label index="tx_vegamatic_domain_model_goods.name">Name of the product</label>
 			<label index="tx_vegamatic_domain_model_goods.shop">The shop where to buy the product</label>
 			<label index="tx_vegamatic_domain_model_weeks">The weeks of a year</label>
-			<label index="tx_vegamatic_domain_model_weeks.weekstamp">Timestamp for the week to plan starting monday</label>
+			<label index="tx_vegamatic_domain_model_weeks.weekstamp">Add, plan or edit your vegan weeks starting from the given day</label>
 			<label index="tx_vegamatic_domain_model_weeks.maindish">The seven main dishes for the week</label>
 			<label index="tx_vegamatic_domain_model_weeks.sidedish">The seven side dishes for the week</label>
 			<label index="tx_vegamatic_domain_model_weeks.amounts">Further goods or amounts to buy for the week (or override of amounts for dishes)</label>

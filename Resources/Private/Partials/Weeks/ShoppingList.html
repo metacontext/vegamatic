@@ -12,7 +12,7 @@
 							<label for="quantity">Quantity</label>
 							<f:form.textbox id="quantity" property="quantity" value="{item.quantity}" size="3" />
 							<label for="unit">Unit</label>
-							<f:form.select id="unit" property="unit" options="{0: '', 10: 'g'}" />
+							<f:form.select id="unit" property="unit" options="{0: '', 10: 'g', 20: 'kg', 30: 'ml', 40: 'l', 50: 'TL', 60: 'EL'}" />
 							<f:form.hidden name="week" value="{week}" />
 							<p>{item.name}</p>
 							<f:form.submit id="submit" class="nice medium radius white button" value="Update" />

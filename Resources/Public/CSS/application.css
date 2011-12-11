@@ -190,6 +190,21 @@ a:hover, a:focus {
 	background-image: url(../Icons/Gui/32/arrow_refresh.png);
 }
 
+.reveal-modal {
+	position: fixed !important;
+}
+
+.reveal-modal .close-reveal-modal {
+	color: #333;
+	position: relative;
+	font-size: 13px;
+	right: 0;
+	left: 1em;
+	top: 0;
+	line-height: 1;
+	padding: 9px 34px 11px;
+}
+
 /* TABLES */
 
 table {
@@ -402,6 +417,60 @@ input {
 	content: "✿ ";
 	color: #528540;
 	margin-right: 0.5em;
+}
+
+/* Goods > createGods */
+
+#createGoods {
+	margin-bottom: -2em;
+}
+
+#createGoods label {
+	margin-bottom: 0.5em;
+}
+
+#createGoods select {
+	margin-bottom: 2em;
+}
+
+#createGoods + .cancel {
+	position: relative;
+	top: -3px;
+	left: 80px;
+	margin-bottom: -3em;
+}
+
+/* Goods > createShops */
+
+#createShops input {
+	display: block;
+	margin-bottom: 2em;
+}
+
+#createShops + .cancel {
+	position: relative;
+	top: -50px;
+	left: 80px;
+}
+
+/* Goods > updateGoods */
+
+#updateGoods {
+	margin-bottom: -1em;
+}
+
+#updateGoods label {
+	margin-bottom: 0.5em;
+}
+
+#updateGoods select {
+	margin-bottom: 1.5em;
+}
+
+#updateGoods + .cancel {
+	position: relative;
+	top: -15px;
+	left: 100px;	
 }
 
 /* ## 08. MOBILE ########################################################################## */

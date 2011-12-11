@@ -24,22 +24,22 @@
 						</ul></li>
 					</f:then>
 					<f:else>
-						<li>
+						<li id="item{key}">
 						<f:if condition="{editProduct.uid} == {key}">
 							<f:then>
-								<f:form action="update" id="update" name="goods" object="{editProduct}">
+								<f:form action="update" id="updateGoods" name="goods" object="{editProduct}">
 									<label for="name">Name of product</label>
 									<f:form.textbox id="name" property="name" size="10" value="{editProduct.name}" />
 									<label for="shop">Shop to buy</label>
 									<f:form.select id="shop" property="shop" options="{shops}" optionLabelField="name" />
 									<f:form.submit class="nice small radius white button" value="Update" />
 								</f:form>
-								<f:link.action action="list" controller="Goods">...or Cancel</f:link.action>						
+								<f:link.action action="list" controller="Goods" class="cancel" section="item{key}">...or Cancel</f:link.action>						
 							</f:then>
 							<f:else>
 								{item}
 								<span style="white-space: nowrap">
-									<f:link.action action="edit" controller="Goods" arguments="{product : key}" class="action edit icon size16">Edit</f:link.action>
+									<f:link.action action="edit" controller="Goods" arguments="{product : key}" class="action edit icon size16" section="item{key}">Edit</f:link.action>
 					 				<a data-reveal-id="deleteModal{key}" class="action delete icon size16">Delete</a>
 					 			</span>
 								<div id="deleteModal{key}" class="reveal-modal">
@@ -48,7 +48,7 @@
 										Would you really like to delete "{item}"?
 										<div>
 										<f:link.action action="delete" controller="Goods" class="nice medium radius white button" arguments="{product : key}">Delete!</f:link.action>
-										<a class="nice medium radius white button close-reveal-modal">TODO: Cancel button</a>
+										<a class="nice medium radius white button close-reveal-modal">Cancel button</a>
 										</div>
 									</p>
 								</div>
@@ -63,27 +63,30 @@
 	</ul>
 	
 	<div class="three columns">
+		<div id="goods">
 		<h3>More products</h3>
-		<p>Simply add more nice products to your list</p>
+		<p>Need more or other products? Just click and add them to the list.</p>
 		<f:if condition="{addProduct} != 1">
 			<f:then>
-				<f:link.action action="new" controller="Goods" class="nice large radius white button new">Add</f:link.action>
+				<f:link.action action="new" controller="Goods" class="nice large radius white button new" section="goods">Add</f:link.action>
 			</f:then>
 			<f:else>
 				<h5>Add a new product</h5>
-				<f:form action="create" id="create" name="newGoods" object="{newGoods}">
+				<f:form action="create" id="createGoods" name="newGoods" object="{newGoods}">
 					<label for="name">Name of product</label>
-					<f:form.textbox id="name" property="name" size="10" value="" />
+					<f:form.textbox id="name" property="name" size="15" value="" />
 					<label for="shop">Shop to buy</label>
 					<f:form.select id="shop" property="shop" options="{shops}" optionLabelField="name" />
 					<f:form.submit class="nice small radius white button" value="Add" />
 				</f:form>
-				<f:link.action action="list" controller="Goods">...or Cancel</f:link.action>
+				<f:link.action action="list" controller="Goods" class="cancel" section="products" section="goods">...or Cancel</f:link.action>
 			</f:else>
 		</f:if>
-		<f:if condition="{shops}">
+		</div>
+		<div id="shops">
+		<f:if condition="{shops}">			
 			<h3 style="margin-top: 1em;">Shops</h3>
-			<p>These are your shops so far:</p>
+			<p>Here are your shops so far.</p>
 			<ul id="shoplist">
 			<f:for each="{shops}" as="shop">
 				<li>{shop.name}</li>
@@ -94,16 +97,17 @@
 		<f:then>
 			<h5>Add a new shop</h5>
 			<f:form action="createShops" id="createShops" name="newShop" object="{newShop}">
-				<label for="name">Name of shop</label>
-				<f:form.textbox id="name" property="name" size="10" value="" />
+				<label for="name">Shop's name</label>
+				<f:form.textbox id="name" property="name" size="15" value="" />
 				<f:form.submit class="nice small radius white button" value="Add" />
 			</f:form>
-			<f:link.action action="list" controller="Goods">...or Cancel</f:link.action>			
+			<f:link.action action="list" controller="Goods" class="cancel" section="shops">...or Cancel</f:link.action>			
 		</f:then>
 		<f:else>
-			<f:link.action action="newShops" controller="Goods" class="nice large radius white button new">Add</f:link.action>
+			<f:link.action action="newShops" controller="Goods" class="nice large radius white button new" section="shops">Add</f:link.action>
 		</f:else>
-		</f:if>		
+		</f:if>
+		</div>	
 	</div>
 	
 </div>

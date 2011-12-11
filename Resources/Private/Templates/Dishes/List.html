@@ -27,7 +27,7 @@
 						<li>
 						{item}
 						<span style="white-space: nowrap">
-							<f:link.action action="edit" controller="Dishes" arguments="{referrerAction : 'list', referrerController : 'Dishes', dish : key}" class="action edit icon size16">Edit</f:link.action>
+							<f:link.action action="edit" controller="Dishes" arguments="{referrerAction : 'list', referrerController : 'Dishes', dish : key}" class="action edit icon size16" section="dishEdit">Edit</f:link.action>
 			 				<a data-reveal-id="deleteModal{key}" class="action delete icon size16">Delete</a>
 			 			</span>
 						<div id="deleteModal{key}" class="reveal-modal">
@@ -36,7 +36,7 @@
 								Would you really like to delete "{item}"?
 								<div>
 								<f:link.action action="delete" controller="Dishes" class="nice medium radius white button" arguments="{dish : key}">Delete!</f:link.action>
-								<a class="nice medium radius white button close-reveal-modal">TODO: Cancel button</a>
+								<a class="nice medium radius white button close-reveal-modal">Cancel</a>
 								</div>
 							</p>
 						</div>
@@ -49,8 +49,8 @@
 	</ul>
 	<div class="three columns">
 	<h3>New dish</h3>
-	<p>Extend your list with another delicious new dish.</p>
-	<p><f:link.action action="new" controller="Dishes" class="nice large radius white button new" arguments="{referrerAction : 'list', referrerController : 'Dishes'}">Add</f:link.action></p>
+	<p>Extend your list with another delicious dish.</p>
+	<p><f:link.action action="new" controller="Dishes" class="nice large radius white button new" arguments="{referrerAction : 'list', referrerController : 'Dishes'}" section="dishNew">Add</f:link.action></p>
 	</div>
 </div>
 
