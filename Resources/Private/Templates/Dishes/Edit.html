@@ -6,13 +6,15 @@
 	
 	<h2>Edit your dish</h2>
 	
-	<f:link.action action="{referrerAction}" controller="{referrerController}" arguments="{week : referrerObject}">...or go back</f:link.action>
+	<p><f:link.action action="{referrerAction}" controller="{referrerController}" arguments="{week : referrerObject}" class="action back">...or go back</f:link.action></p>
+
+	<h4>Details of your dish</h4>
 
 	<f:form action="update" id="updateDish" name="update" object="{dish}">
 		
 		<f:render partial="Dishes/FieldsetDescription" arguments="{dishName : dish.name, dishType : dish.type}" />
 		
-		<f:form.submit id="submit" class="nice medium radius white button" value="Update Dish" />
+		<f:form.submit id="submit" class="nice large radius white button update" value="Update" />
 		
 		<f:if condition="{dish.amounts}">
 			<h4>Existing Ingredients</h4>		

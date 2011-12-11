@@ -163,31 +163,33 @@ $(document).ready(function() {
         
         if (newNum > 1) {
        
-	        newElem.find('#quantity' + num)
-	        	.attr('id', 'quantity' + newNum)
-	        	.attr('name', 'tx_vegamatic_planner[newAmounts][' + newNum + '][setQuantity]')
-	        	.attr('value', '');
+	        newElem.find('#quantity' + num).attr('id', 'quantity' + newNum).attr('name', 'tx_vegamatic_planner[newAmounts][' + newNum + '][setQuantity]').attr('value', '').attr('placeholder', 'Count');
 	        newElem.find('#unit' + num).attr('id', 'unit' + newNum).attr('name', 'tx_vegamatic_planner[newAmounts][' + newNum + '][setUnit]');
 	        newElem.find('#setGoods' + num).attr('id', 'setGoods' + newNum).attr('name', 'tx_vegamatic_planner[newAmounts][' + newNum + '][setGoods]');
-	        newElem.find('#newGoods' + num)
-	        	.attr('id', 'newGoods' + newNum)
-	        	.attr('name', 'tx_vegamatic_planner[newAmounts][' + newNum + '][newGoods]')
-	        	.attr('value', '');        
+	        newElem.find('#newGoods' + num).attr('id', 'newGoods' + newNum).attr('name', 'tx_vegamatic_planner[newAmounts][' + newNum + '][newGoods]').attr('value', '').attr('placeholder', 'New item');	        
 	        newElem.find('#setShop' + num).attr('id', 'setShop' + newNum).attr('name', 'tx_vegamatic_planner[newAmounts][' + newNum + '][setShop]');
-	        newElem.find('#newShop' + num)
-	        	.attr('id', 'newShop' + newNum)
-	        	.attr('name', 'tx_vegamatic_planner[newAmounts][' + newNum + '][newShop]')
-	        	.attr('value', '');
-	      
+	        newElem.find('#newShop' + num).attr('id', 'newShop' + newNum).attr('name', 'tx_vegamatic_planner[newAmounts][' + newNum + '][newShop]').attr('value', '').attr('placeholder', 'New shop');
+
+	        newElem.find('#quantityunit' + num).attr('id', 'quantityunit' + newNum);	        
+	        newElem.find('#itemSelection' + num).attr('id', 'itemSelection' + newNum).attr('style', 'display:block');
+	        newElem.find('#newItem' + num).attr('id', 'newItem' + newNum);
+	        newElem.find('#createItem' + num).attr('id', 'createItem' + newNum).attr('href', '#createItem' + newNum)
+	            .click(function() { 
+	        		$('#newItem' + newNum).fadeIn(1500);
+	        		$('#itemSelection' + newNum).fadeOut(700);
+	            });
+	        
 	        $('#newAmounts' + num).after(newElem);
 	        
 	        $('#btnDel').removeAttr('disabled');
+	        
+	        $('#newItem' + newNum).hide();
         
         } else {
         	$('#newAmounts1').fadeIn(1500);
         }
 
-    });
+    });    
 
     $('#btnDel').click(function() {
     	
@@ -204,7 +206,7 @@ $(document).ready(function() {
     		$('#updateAmounts' + index).fadeOut(700);
     		$('#deleteAmounts' + index).attr('value', '');
     	}) 
-    });
+    });  
     
     /* -- THREE COLUMN LISTS -- */
     
@@ -223,4 +225,6 @@ $(document).ready(function() {
 		});
 	});
 	
+	$.extend($.datepicker,{_checkOffset:function(inst,offset,isFixed){return offset}});
+
 });

@@ -54,7 +54,7 @@ body {
 	width: 100%;
 }
 
-#weeks_list {
+#weeks_list, #weeks_new {
 	background: url(../Icons/Layout/lime.png) 95% 95% no-repeat;
 	min-height: 35em;
 }
@@ -64,6 +64,12 @@ body {
 h1, h2, h3, h4, h5 {
 	color: #DE7047;
 }
+
+/*
+form label, input, select {
+	font-size: 14px;
+}
+*/
 
 /* ## 07. SPECIAL CONTENT ################################################################# */
 
@@ -83,6 +89,7 @@ a:hover, a:focus {
 	height: 32px;	
 	cursor: pointer;
 	padding: 1em 0 0 3em;
+	margin-right: 1em;
 }
 
 .icon {
@@ -93,9 +100,14 @@ a:hover, a:focus {
 	margin: 0 0.2em;
 }
 
+.size16 {
+	padding-left: 1.5em;
+}
+
 .icon.size16 {
 	width: 16px;
 	height: 16px;
+	padding: 0;
 }
 
 .delete {
@@ -126,6 +138,10 @@ a:hover, a:focus {
 	background: url(../Icons/Gui/32/arrow_undo.png) left center no-repeat;
 }
 
+.info {
+	background: url(../Icons/Gui/32/bullet_info.png) left center no-repeat;
+}
+
 .delete.size16 {
 	background: url(../Icons/Gui/16/bullet_delete.png) left center no-repeat;
 }
@@ -150,9 +166,13 @@ a:hover, a:focus {
 	background: url(../Icons/Gui/16/arrow_refresh.png) left center no-repeat;
 }
 
+.info.size16 {
+	background: url(../Icons/Gui/16/bullet_info.png) left center no-repeat;
+}
+
 /* BUTTONS */
 
-.button.new, .button.fav, .button.print {
+.button.new, .button.fav, .button.print, .button.update {
 	background-image: url(../Icons/Gui/32/bullet_add.png);
 	background-repeat: no-repeat;
 	background-position: 90% center !important;
@@ -169,6 +189,9 @@ a:hover, a:focus {
 	background-image: url(../Icons/Gui/32/printer_accept.png);
 }
 
+.button.update {
+	background-image: url(../Icons/Gui/32/arrow_refresh.png);
+}
 
 /* TABLES */
 
@@ -209,7 +232,6 @@ table tbody tr:nth-child(2n) {
 	width: 43%;
 }
 
-
 /* SHOPPING LIST */
 
 #shoppingList {
@@ -235,33 +257,98 @@ table tbody tr:nth-child(2n) {
 
 /* FORMS */
 
-.amounts {
-	min-height: 3em;
+/* basics */
+
+form fieldset {
 	margin: 1em 0;
-	padding: 0.5em 1em 1em 1em;
+	border: none;
+	padding: 0;
 }
 
-.amounts div {
-	clear: left;
+form label {
+	display: block;
+	margin: 1em 0 0 0;
+	color: #528540;
+	font-weight: bold;
 }
 
-.amounts label,
+form fieldset legend+label {
+	margin: 0;
+}
+
+label + select {
+	margin-top: -2px;
+}
+
+input,
+select {
+	border: none;
+	border-bottom: 1px solid #AFAFAF;
+	padding: 3px 0 3px 3px;
+}
+
+input {
+	padding-top: 5px;
+}
+
+/* datepicker */
+
+.ui-datepicker {
+	margin: -172px 0 0 200px;
+}
+
+.ui-datepicker-header {
+	position: relative;
+	top: 10px;
+	text-align: center;
+}
+
+.ui-datepicker-prev {
+	float: left;
+	padding-left: 1.5em;
+	background: url(../Icons/Gui/16/arrow_prev.png) left center no-repeat;
+	cursor: pointer;
+}
+
+.ui-datepicker-next {
+	float: right;
+	padding-right: 1.5em;
+	background: url(../Icons/Gui/16/arrow_next.png) right center no-repeat;
+	cursor: pointer;
+}
+
+.ui-datepicker-title {
+	font-weight: bold;
+}
+
+/* amounts */
+
+.amounts {
+	margin: 0;
+}
+
 .amounts input,
 .amounts select {
 	float: left;
+	margin-right: 1.5em;
+	border: none;
+	border-bottom: 1px solid #AFAFAF;
+	padding: 3px 0 3px 3px;
 }
 
 .amounts label {
 	display: none;
 }
 
-.amounts select {
-	margin: 0 1em;
+.amountdata {
+	float: left;
 }
 
-#newItem {
-	padding: 1em 0 0 0;
+#createDish h4, #updateDish h4 {
+	margin: 1em 0 0.5em 0;
 }
+
+/* SPECIALS */
 
 #dishlist {
 	border: 1px solid #DDDDDD;

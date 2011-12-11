@@ -2,19 +2,34 @@
 
 <f:section name="main">
 <f:flashMessages />
-<div class="row">
+<div class="row" id="weeks_new">
 
-	<h1>New Weeks</h1>
+	<div class="nine columns">
+
+		<h1>Create a new vegan week</h1>
+		
+		<p><f:link.action action="{referrerAction}" controller="{referrerController}" class="action back">Go back</f:link.action></p>
+		
+		<h4>Enter the day from which your new week should start.</h4>
 	
-	<f:link.action action="{referrerAction}" controller="{referrerController}">Go back</f:link.action>
-
-	<f:form method="post" action="create"  name="newWeeks" object="{newWeeks}">
-		<fieldset>
-			<label for="weekstamp">Enter the startday of the new week</label>
-			<f:form.textbox id="datepicker" property="weekstamp" value="" size="15" />
-		</fieldset>
-		<f:form.submit class="nice small radius white button" value="Add" />
-	</f:form>
+		<f:form method="post" action="create"  name="newWeeks" object="{newWeeks}">
+			<fieldset>
+				<label for="weekstamp">Startday (YYYY-MM-DD)</label>
+				<f:form.textbox id="datepicker" property="weekstamp" value="" size="15" />
+			</fieldset>
+			<f:form.submit class="nice large radius white button new" value="Add" />
+		</f:form>
+	
+	</div>
+	
+	<div class="three columns">
+		<h3>Your dishes</h3>
+		<p>Get an overview over all your dishes so far.</p>
+		<p><f:link.action action="list" controller="Dishes" arguments="{referrerAction : 'list', referrerController : 'Weeks'}">List of all dishes</f:link.action></p>
+		<h3>Your products</h3>
+		<p>Check out which goods you have added to the database.</p>
+		<p><f:link.action action="list" controller="Goods" arguments="{referrerAction : 'list', referrerController : 'Weeks'}">List of all products</f:link.action></p>
+	</div>
 
 </div>
 

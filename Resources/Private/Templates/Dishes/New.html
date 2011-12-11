@@ -1,21 +1,26 @@
 <f:layout name="Default" />
 	
 <f:section name="main">
-	<f:flashMessages />
+<f:flashMessages />
+
 <div class="row">
 	
 	<h2>Create a new dish</h2>
 	
-	<f:link.action action="{referrerAction}" controller="{referrerController}" arguments="{week : referrerObject}">...or go back</f:link.action>
+	<p><f:link.action action="{referrerAction}" controller="{referrerController}" arguments="{week : referrerObject}" class="action back">...or go back</f:link.action></p>
+	
+	<h4>Enter a name and type of your new dish</h4>
 	
 	<f:form action="create" id="createDish" name="newDish" object="{newDish}">
 	
 		<f:render partial="Dishes/FieldsetDescription" arguments="{dishName : dish.name, dishType : dish.type}" />
 		
-		<f:form.submit id="submit" class="nice medium radius white button" value="Create" />
+		<f:form.submit id="submit" class="nice large radius white button new" value="Create" />		
+		
+		<h4>Add some ingredients</h4>
 		
 		<f:render partial="Amounts/NewAmounts" arguments="{_all}" />
-		
+
 		<f:render partial="Common/ReferrerFields" arguments="{_all}" />
 	
 	</f:form>

@@ -206,6 +206,9 @@ class Tx_Vegamatic_Controller_DishesController extends Tx_Extbase_MVC_Controller
 		
 		$arguments = $this->request->getArguments();
 		
+		debug($arguments);
+		
+		
 		// new : if the incoming request has new amounts (as array), hand over to amounts controller for creating objects
 		if (is_array($arguments['newAmounts'])) {	
 			$arguments['callingAction'] = $arguments['action']; unset($arguments['action']);		
@@ -234,6 +237,9 @@ class Tx_Vegamatic_Controller_DishesController extends Tx_Extbase_MVC_Controller
 				}
 			}
 		}
+		
+		if ($arguments['update']['name']) $dish->setName($arguments['update']['name']); 
+		if ($arguments['update']['type']) $dish->setType($arguments['update']['type']);
 		
 		// update existing dish
 		$this->dishesRepository->update($dish);

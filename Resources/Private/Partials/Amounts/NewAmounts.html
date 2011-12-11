@@ -1,14 +1,17 @@
 <fieldset id="newAmounts1" class="amounts clone">
-	<legend>Add item</legend>
-	<div id="itemSelection">
+	<legend class="skip">Add item</legend>
+	<div id="quantityunit1" class="amountdata">
 		<label for="quantity1">Quantity</label>
 		<f:form.textbox id="quantity1" name="newAmounts[1][setQuantity]" value="" size="3" />
 		<label for="unit1">Unit</label>
-		<f:form.select id="unit1" name="newAmounts[1][setUnit]" options="{0: '', 10: 'g'}" />
+		<f:form.select id="unit1" name="newAmounts[1][setUnit]" options="{0: 'Unit', 10: 'g'}" />
+	</div>
+	<div id="itemSelection1" class="amountdata">
 		<label for="setGoods1">Items</label>
 		<f:form.select id="setGoods1" name="newAmounts[1][setGoods]" options="{goods}" optionLabelField="name" />
+		<a href="#createItem1" class="unhide" id="createItem1">Item not in list?</a>
 	</div>
-	<div id="newItem">
+	<div id="newItem1" class="amountdata">
 		<label for="newGoods1">New Items</label>
 		<f:form.textbox id="newGoods1" name="newAmounts[1][newGoods]" value="" size="20" />
 		<label for="setShop1">Shops</label>
@@ -19,8 +22,12 @@
 </fieldset>
 
 <f:comment>
-<input type="button" id="btnAdd" class="nice small radius white button" value="Add items" />
-<input type="button" id="btnDel" class="nice small radius white button" value="Remove items" disabled="disabled" />
+<p>
+	<input type="button" id="btnAdd" class="nice small radius white button" value="Add items" />
+	<input type="button" id="btnDel" class="nice small radius white button" value="Remove items" disabled="disabled" />
+</p>
 </f:comment>
-
-<a href="#" id="btnAdd">Add items</a> - <a href="#" id="btnDel">Remove items</a>
+<p>
+	<a href="#btnAdd" id="btnAdd" class="action add size16">Add items</a>
+	<a href="#btnDel" id="btnDel" class="action remove size16">Remove items</a>
+</p>
