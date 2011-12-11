@@ -155,6 +155,15 @@ $(document).ready(function() {
 	$('#updateDish > #newAmounts1').hide();
 	$('#createDish > #newAmounts1').hide();
 	
+	$('#newItem1').hide();
+	$('#createItem1').click(function() { 
+		$('#newItem1').fadeIn(1500);
+		$('#itemSelection1').fadeOut(700);
+		$('#quantity1').attr('placeholder', 'Count');
+		$('#newGoods1').attr('placeholder', 'New item');
+		$('#newShop1').attr('placeholder', 'New shop')
+    });
+	
     $('#btnAdd').click(function() {
     	
         var num = $('.clone').length;

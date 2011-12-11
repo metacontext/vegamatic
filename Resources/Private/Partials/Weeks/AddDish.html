@@ -1,5 +1,5 @@
 <f:form action="update" id="update" name="week" object="{week}">
-	<label for="{dish}">Choose dish:</label>
+	<label for="{dish}" class="skip">Choose dish:</label>
 	<f:if condition="{sidedishes}">
 		<f:then>
 			<f:form.select id="{dish}" property="{sidedish}" options="{sidedishes}" optionLabelField="name" />
@@ -10,4 +10,4 @@
 	</f:if>
 	<f:form.submit class="nice small radius white button" value="Update" />
 </f:form>
-<f:link.action action="show" arguments="{week : week}" section="weekDisplay">...or Cancel</f:link.action>
+<f:link.action action="show" arguments="{week : week}" section="weekDisplay" class="cancel">...or Cancel</f:link.action>

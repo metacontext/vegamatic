@@ -241,6 +241,7 @@ table tbody tr:nth-child(2n) {
 }
 
 #shoppingList dd {
+	clear: left;
 	line-height: 1.8em;
 }
 
@@ -274,7 +275,8 @@ form fieldset legend+label {
 }
 
 label + select {
-	margin-top: -2px;
+	/* margin-top: -2px; */
+	margin-top: 0;
 }
 
 input,
@@ -286,6 +288,45 @@ select {
 
 input {
 	padding-top: 5px;
+}
+
+/* week > addDish */
+
+#week td form {
+	margin: 0 0 -1em 0;
+}
+
+#week table .cancel {
+	position: relative;
+	top: -15px;
+	left: 100px;
+	margin-bottom: -1em;
+}
+
+/* week > updateAmount */
+
+#updateAmount {
+	margin: 1em 0 3em 0;
+}
+
+#updateAmount label {
+	display: none;
+}
+
+#updateAmount input, #updateAmount select {
+	float: left;
+	margin-right: 1.5em;
+}
+
+#updateAmount .cancel {
+	position: relative;
+	top: 7px;
+}
+
+/* week > addAmount */
+
+#addAmount {
+	margin: 1em 0 1em 0;
 }
 
 /* datepicker */
@@ -318,23 +359,20 @@ input {
 	font-weight: bold;
 }
 
-/* amounts */
+/* Dishes Edit/Update > amounts */
 
 .amounts {
 	margin: 0;
+}
+
+.amounts label {
+	display: none;
 }
 
 .amounts input,
 .amounts select {
 	float: left;
 	margin-right: 1.5em;
-	border: none;
-	border-bottom: 1px solid #AFAFAF;
-	padding: 3px 0 3px 3px;
-}
-
-.amounts label {
-	display: none;
 }
 
 .amountdata {
@@ -345,8 +383,6 @@ input {
 	margin: 1em 0 0.5em 0;
 }
 
-/* SPECIALS */
-
 #dishlist {
 	border: 1px solid #DDDDDD;
 	padding: 1em;
@@ -354,6 +390,18 @@ input {
 	overflow-y: scroll; 
 	height: 278px; 
 	margin-top: 1em;	
+}
+
+/* Goods > list */
+
+#shoplist li {
+	padding-left: 1em;
+}
+
+#shoplist li:before {
+	content: "✿ ";
+	color: #528540;
+	margin-right: 0.5em;
 }
 
 /* ## 08. MOBILE ########################################################################## */

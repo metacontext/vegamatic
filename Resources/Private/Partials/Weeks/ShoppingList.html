@@ -7,16 +7,18 @@
 			<f:for each="{groupedShoppingList}" as="item">
 				<f:if condition="{modifyAmount} == {item.goods}">
 					<f:then>
-						<f:form action="updateAmount" id="updateAmount" name="amount" object="{item.amount}">					
+						<dd id="updateAmount">
+						<f:form action="updateAmount" name="amount" object="{item.amount}">					
 							<label for="quantity">Quantity</label>
 							<f:form.textbox id="quantity" property="quantity" value="{item.quantity}" size="3" />
 							<label for="unit">Unit</label>
 							<f:form.select id="unit" property="unit" options="{0: '', 10: 'g'}" />
 							<f:form.hidden name="week" value="{week}" />
-							<label for="submit">{item.name}</label>
+							<p>{item.name}</p>
 							<f:form.submit id="submit" class="nice medium radius white button" value="Update" />
 						</f:form>
-						<f:link.action action="show" arguments="{week : week}">...or Cancel</f:link.action>
+						<f:link.action action="show" arguments="{week : week}" class="cancel">...or Cancel</f:link.action>
+						</dd>
 					</f:then>		
 					<f:else>
 						<f:if condition="{item.exclude} != 1">
@@ -68,14 +70,14 @@
 			</f:groupedFor>
 		</dl>
 		<f:if condition="{addAmount} == 1">
-			<h5 id="addAmount">Add new items</h5>
+			<h4 id="addAmount">Add new items</h4>
 			<f:form action="createAmount" id="createAmount" name="addAdditionalAmount">
 
 				<f:render partial="Amounts/NewAmounts" arguments="{_all}" />
 				
 				<div style="margin-top: 1em;">
-					<f:form.submit class="nice medium radius white button" value="Update List" />
-					<f:link.action action="show" arguments="{week : week}">...or Cancel</f:link.action>
+					<f:form.submit class="nice large radius white button update" value="Update List" />
+					<f:link.action action="show" arguments="{week : week}" class="cancel" section="shoppingList">...or Cancel</f:link.action>
 				</div>
 
 				<f:form.hidden name="week" value="{week}" />
