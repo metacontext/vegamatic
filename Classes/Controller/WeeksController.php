@@ -210,8 +210,8 @@ class Tx_Vegamatic_Controller_WeeksController extends Tx_Extbase_MVC_Controller_
 	 */
 	public function addDishAction(Tx_Vegamatic_Domain_Model_Weeks $week, $slot) {
 		$this->view->assign('days', Tx_Vegamatic_Utility_Datetime::getNextSevenDays($week->getWeekstamp()));
-		$this->view->assign('maindishes', $this->dishesRepository->findByType(1));
-		$this->view->assign('sidedishes', $this->dishesRepository->findByType(2));
+		$this->view->assign('maindishes', $this->dishesRepository->findDishByTypeWithOrderings(1));
+		$this->view->assign('sidedishes', $this->dishesRepository->findDishByTypeWithOrderings(2));
 		$this->view->assign('week', $week);
 		$this->view->assign('slot', $slot);
 		$this->view->assign('dishes', $this->dishesRepository->findAllWithOrderings('name'));		

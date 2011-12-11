@@ -52,5 +52,28 @@ class Tx_Vegamatic_Domain_Repository_DishesRepository extends Tx_Vegamatic_Domai
 		
 		return $query->execute();
 	}
+	
+	/*
+	 * @param int $type
+	 * @param string $orderings
+	 * 
+	 * return object
+	 */
+	public function findDishByTypeWithOrderings($type, $orderings='ASC') {
+		
+		$query = $this->createQuery();
+		$query->matching($query->equals('type', $type));
+		
+		switch ($orderings) {
+			case 'DESC':
+				$query->setOrderings(array('name' => Tx_Extbase_Persistence_QueryInterface::ORDER_DESCENDING));		
+			break;
+			default:
+				$query->setOrderings(array('name' => Tx_Extbase_Persistence_QueryInterface::ORDER_ASCENDING));	
+			break;
+		}
+		
+		return $query->execute();		
+	}
 }
 ?>

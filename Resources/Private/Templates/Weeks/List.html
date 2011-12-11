@@ -19,7 +19,7 @@
 				<f:for each="{weeks}" as="week" key="key">
 					<tr>
 						<td>
-							<f:link.action action="show" arguments="{week : week}" class="action edit">{week.weekstamp -> f:format.date()}</f:link.action>
+							<f:link.action action="show" arguments="{week : week}" class="action edit" section="weekDisplay">{week.weekstamp -> f:format.date()}</f:link.action>
 						</td>
 						<td>
 							<v:implode objects="{0: week.maindish1.name, 1: week.maindish2.name, 2: week.maindish3.name, 3: week.maindish4.name, 4:week.maindish5.name, 5:week.maindish6.name, 6:week.maindish7.name}" glue=", " />
@@ -42,18 +42,18 @@
 				</tbody>
 			</table>
 			
-			<f:link.action action="new" class="nice large radius white button new">New weeks</f:link.action>
-			<f:link.action action="new" controller="Dishes" class="nice large radius white button new" arguments="{referrerAction : 'list', referrerController : 'Weeks'}">New dishes</f:link.action>			
+			<f:link.action action="new" class="nice large radius white button new" section="new_weeks">New weeks</f:link.action>
+			<f:link.action action="new" controller="Dishes" class="nice large radius white button new" arguments="{referrerAction : 'list', referrerController : 'Weeks'}" section="createDish">New dishes</f:link.action>			
 			
 		</div>
 		
 		<div class="three columns">
 			<h3>Your dishes</h3>
 			<p>Get an overview over all your dishes so far.</p>
-			<p><f:link.action action="list" controller="Dishes" arguments="{referrerAction : 'list', referrerController : 'Weeks'}">List of all dishes</f:link.action></p>
+			<p><f:link.action action="list" controller="Dishes" arguments="{referrerAction : 'list', referrerController : 'Weeks'}" section="dishes">List of all dishes</f:link.action></p>
 			<h3>Your products</h3>
 			<p>Check out which goods you have added to the database.</p>
-			<p><f:link.action action="list" controller="Goods" arguments="{referrerAction : 'list', referrerController : 'Weeks'}">List of all products</f:link.action></p>
+			<p><f:link.action action="list" controller="Goods" arguments="{referrerAction : 'list', referrerController : 'Weeks'}" section="products">List of all products</f:link.action></p>
 		</div>
 	
 	</div>

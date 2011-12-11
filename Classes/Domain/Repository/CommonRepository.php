@@ -41,7 +41,9 @@ class Tx_Vegamatic_Domain_Repository_CommonRepository extends Tx_Extbase_Persist
 	 * return object
 	 */
  	public function findAllWithOrderings($property, $orderings='ASC') {
+ 		
 		$query = $this->createQuery();
+		
 		switch ($orderings) {
 			case 'DESC':
 				$query->setOrderings(array($property => Tx_Extbase_Persistence_QueryInterface::ORDER_DESCENDING));		
@@ -49,7 +51,8 @@ class Tx_Vegamatic_Domain_Repository_CommonRepository extends Tx_Extbase_Persist
 			default:
 				$query->setOrderings(array($property => Tx_Extbase_Persistence_QueryInterface::ORDER_ASCENDING));	
 			break;
-		}	
+		}
+		
 		return $query->execute();
  	}
  		

@@ -34,9 +34,6 @@ body {
 	box-shadow: 0.15em 0.15em 0.15em #777;	
 }
 
-.row {
-}
-
 @media only screen and (max-width: 767px) {
 	max-width: 0;
 }
@@ -363,6 +360,9 @@ input {
 /* note: mobile done in foundation */
 
 /* ## 09. PRINT ########################################################################### */
+
+@media print {
+}
 
 /* ## 10. FINALLY ######################################################################### */
 

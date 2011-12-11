@@ -15,6 +15,7 @@
 	<!-- Included CSS Files -->
 	<link rel="stylesheet" href="{f:uri.resource(path:'Foundation/stylesheets/foundation.css')}">
 	<link rel="stylesheet" href="{f:uri.resource(path:'CSS/application.css')}">
+	<link rel="stylesheet" href="{f:uri.resource(path:'CSS/print.css')}" media="print">
 
 	<!--[if lt IE 9]>
 		<link rel="stylesheet" href="{f:uri.resource(path:'Foundation/stylesheets/ie.css')}">
@@ -30,7 +31,7 @@
 <body>
 	<div class="container">
 		<header id="header" class="row">
-			<h1 class="eight columns centered"><f:image src="EXT:vegamatic/Resources/Public/Images/veg-a-matic.png" alt="Veg-A-Matic" /></h1>
+			<h1 class="eight columns centered"><f:link.action action="list" controller="Weeks"><f:image src="EXT:vegamatic/Resources/Public/Images/veg-a-matic.png" alt="Veg-A-Matic" /></f:link.action></h1>
 		</header>
 		<f:render section="main" />
 	</div>

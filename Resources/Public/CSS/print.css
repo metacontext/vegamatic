@@ -1,0 +1,11 @@
+#container {
+	-moz-border-radius: 0 0 0 0 !important;
+	-moz-box-shadow: 0 0 0 0 !important;
+	
+	border-radius: 0 0 0 0 !important;
+	box-shadow: 0 0 0 0 !important;	
+}
+
+.action, .button, #week .four {
+	display: none;
+}
