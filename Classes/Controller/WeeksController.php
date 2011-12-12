@@ -311,7 +311,7 @@ class Tx_Vegamatic_Controller_WeeksController extends Tx_Extbase_MVC_Controller_
 	 * @return HTML string / view for this action
 	 */
 	public function addAmountAction(Tx_Vegamatic_Domain_Model_Weeks $week) {
-		$this->view->assign('goods', array_merge(array(0 => 'Choose Item'), $this->goodsRepository->findUnlistedGoods($week->getShoppingList())));
+		$this->view->assign('goods', array_merge(array(0 => 'Choose Item'), $this->goodsRepository->findUnlistedGoods($week->getShoppingList())->toArray()));
 		$this->view->assign('shops', array_merge(array(0 => 'Choose Shop'), $this->shopsRepository->findAllWithOrderings('name')->toArray()));		
 		$this->view->assign('days', Tx_Vegamatic_Utility_Datetime::getNextSevenDays($week->getWeekstamp()));
 		$this->view->assign('week', $week);

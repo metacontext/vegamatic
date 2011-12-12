@@ -11,6 +11,6 @@
 	</f:if>
 	<label for="updateUnit{counter.index}">Unit</label>
 	<f:form.select id="updateUnit{counter.index}" name="updateAmounts[{amount.uid}][setUnit]" options="{0: '', 10: 'g', 20: 'kg', 30: 'ml', 40: 'l', 50: 'TL', 60: 'EL'}" />
-	<f:form.hidden value="{amount.goods.uid}" id="deleteAmounts{counter.index}" name="updateAmounts[{amount.uid}][setGoods]" />
+	<f:form.hidden value="{amount.goods.uid}" id="updateAmounts{counter.index}" name="updateAmounts[{amount.uid}][setGoods]" />
 	<span>{amount.goods.name}</span><span><a href="#updateAmounts{counter.index}" id="delete{counter.index}" class="deleteMe action remove icon size16">Delete</a></span>
 </fieldset>

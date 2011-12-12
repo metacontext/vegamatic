@@ -49,17 +49,9 @@ class Tx_Vegamatic_Domain_Repository_GoodsRepository extends Tx_Vegamatic_Domain
 					
 		$query = $this->createQuery();
 		$query->matching($query->logicalNot($query->in('uid', $goods)));
-		$query->setOrderings(array('name' => Tx_Extbase_Persistence_QueryInterface::ORDER_ASCENDING));		
-		$query->getQuerySettings()->setReturnRawQueryResult(TRUE);
-		$result = $query->execute();
-		
-		if (count($result) > 0) {
-			foreach ($result as $unlistedItem) {
-				$unlistedGoods[$unlistedItem['uid']] = $unlistedItem['name'];
-			}
-		}
-		
-		return $unlistedGoods;	
+		$query->setOrderings(array('name' => Tx_Extbase_Persistence_QueryInterface::ORDER_ASCENDING));
+
+		return $query->execute();	
 	}
 	
 }

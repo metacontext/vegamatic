@@ -14,7 +14,7 @@ Tx_Extbase_Utility_Extension::configurePlugin(
 	),
 	// non-cacheable actions
 	array(
-		'Weeks' => 'create, update, delete',
+		'Weeks' => 'create, update, delete, updateAmount',
 		'Dishes' => 'create, update, delete',
 		'Goods' => 'create, update, delete',
 		'Amounts' => 'new'	
