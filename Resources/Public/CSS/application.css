@@ -233,7 +233,7 @@ table tbody tr:nth-child(2n) {
 }
 
 #week tbody tr td:first-child {
-	width: 14%;
+	width: 16%;
 }
 
 #week tbody tr td:nth-child(2) {
