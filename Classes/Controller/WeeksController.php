@@ -125,7 +125,7 @@ class Tx_Vegamatic_Controller_WeeksController extends Tx_Extbase_MVC_Controller_
 	 * @return void
 	 */
 	public function listAction() {
-		$this->view->assign('weeks', $this->weeksRepository->findAllWithOrderings('weekstamp'));
+		$this->view->assign('weeks', $this->weeksRepository->findAllWithOrderings('weekstamp', 'DESC'));
 	}
 
 	/**
