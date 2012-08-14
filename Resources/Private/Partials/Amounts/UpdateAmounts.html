@@ -3,10 +3,10 @@
 	<label for="updateQuantity{counter.index}">Quantity</label>
 	<f:if condition="{amount.quantity}">
 		<f:then>
-			<f:form.textbox id="updateQuantity{counter.index}" name="updateAmounts[{amount.uid}][setQuantity]" value="{amount.quantity}" size="3" />
+			<f:form.textfield id="updateQuantity{counter.index}" name="updateAmounts[{amount.uid}][setQuantity]" value="{amount.quantity}" size="3" />
 		</f:then>
 		<f:else>
-			<f:form.textbox id="updateQuantity{counter.index}" name="updateAmounts[{amount.uid}][setQuantity]" value="" size="3" />
+			<f:form.textfield id="updateQuantity{counter.index}" name="updateAmounts[{amount.uid}][setQuantity]" value="" size="3" />
 		</f:else>
 	</f:if>
 	<label for="updateUnit{counter.index}">Unit</label>

@@ -29,7 +29,7 @@
 							<f:then>
 								<f:form action="update" id="updateGoods" name="goods" object="{editProduct}">
 									<label for="name">Name of product</label>
-									<f:form.textbox id="name" property="name" size="10" value="{editProduct.name}" />
+									<f:form.textfield id="name" property="name" size="10" value="{editProduct.name}" />
 									<label for="shop">Shop to buy</label>
 									<f:form.select id="shop" property="shop" options="{shops}" optionLabelField="name" />
 									<f:form.submit class="nice small radius white button" value="Update" />
@@ -54,9 +54,9 @@
 								</div>
 							</f:else>
 						</f:if>
-			 			</li>					
+			 			</li>
 					</f:else>
-				</f:if>			
+				</f:if>
 			</f:else>
 		</f:if>
 	</f:for>
@@ -74,7 +74,7 @@
 				<h5>Add a new product</h5>
 				<f:form action="create" id="createGoods" name="newGoods" object="{newGoods}">
 					<label for="name">Name of product</label>
-					<f:form.textbox id="name" property="name" size="15" value="" />
+					<f:form.textfield id="name" property="name" size="15" value="" />
 					<label for="shop">Shop to buy</label>
 					<f:form.select id="shop" property="shop" options="{shops}" optionLabelField="name" />
 					<f:form.submit class="nice small radius white button" value="Add" />
@@ -84,7 +84,7 @@
 		</f:if>
 		</div>
 		<div id="shops">
-		<f:if condition="{shops}">			
+		<f:if condition="{shops}">
 			<h3 style="margin-top: 1em;">Shops</h3>
 			<p>Here are your shops so far.</p>
 			<ul id="shoplist">
@@ -98,7 +98,7 @@
 			<h5>Add a new shop</h5>
 			<f:form action="createShops" id="createShops" name="newShop" object="{newShop}">
 				<label for="name">Shop's name</label>
-				<f:form.textbox id="name" property="name" size="15" value="" />
+				<f:form.textfield id="name" property="name" size="15" value="" />
 				<f:form.submit class="nice small radius white button" value="Add" />
 			</f:form>
 			<f:link.action action="list" controller="Goods" class="cancel" section="shops">...or Cancel</f:link.action>			

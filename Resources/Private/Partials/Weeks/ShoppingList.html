@@ -8,9 +8,9 @@
 				<f:if condition="{modifyAmount} == {item.goods}">
 					<f:then>
 						<dd id="updateAmount">
-						<f:form action="updateAmount" name="amount" object="{item.amount}">					
+						<f:form action="updateAmount" name="amount" object="{item.amount}">
 							<label for="quantity">Quantity</label>
-							<f:form.textbox id="quantity" property="quantity" value="{item.quantity}" size="3" />
+							<f:form.textfield id="quantity" property="quantity" value="{item.quantity}" size="3" />
 							<label for="unit">Unit</label>
 							<f:form.select id="unit" property="unit" options="{0: '', 10: 'g', 20: 'kg', 30: 'ml', 40: 'l', 50: 'TL', 60: 'EL'}" />
 							<f:form.hidden name="week" value="{week}" />

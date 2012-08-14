@@ -2,7 +2,7 @@
 	<legend class="skip">Add item</legend>
 	<div id="quantityunit1" class="amountdata">
 		<label for="quantity1">Quantity</label>
-		<f:form.textbox id="quantity1" name="newAmounts[1][setQuantity]" value="" size="3" />
+		<f:form.textfield id="quantity1" name="newAmounts[1][setQuantity]" value="" size="3" />
 		<label for="unit1">Unit</label>
 		<f:form.select id="unit1" name="newAmounts[1][setUnit]" options="{0: '', 10: 'g', 20: 'kg', 30: 'ml', 40: 'l', 50: 'TL', 60: 'EL'}" />
 	</div>
@@ -13,11 +13,11 @@
 	</div>
 	<div id="newItem1" class="amountdata">
 		<label for="newGoods1">New Items</label>
-		<f:form.textbox id="newGoods1" name="newAmounts[1][newGoods]" value="" size="20" />
+		<f:form.textfield id="newGoods1" name="newAmounts[1][newGoods]" value="" size="20" />
 		<label for="setShop1">Shops</label>
 		<f:form.select id="setShop1" name="newAmounts[1][setShop]" options="{shops}" optionLabelField="name" />
 		<label for="newShop1">New Shop</label>
-		<f:form.textbox id="newShop1" name="newAmounts[1][newShop]" value="" size="20" />
+		<f:form.textfield id="newShop1" name="newAmounts[1][newShop]" value="" size="20" />
 	</div>
 </fieldset>
 
